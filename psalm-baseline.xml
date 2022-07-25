@@ -10,6 +10,11 @@
       <code>empty</code>
     </ImpureMethodCall>
   </file>
+  <file src="test/Unit/Inside/Domain/DayOne/PhotoTest.php">
+    <MixedArgument occurrences="1">
+      <code>$faker-&gt;fileExtension()</code>
+    </MixedArgument>
+  </file>
   <file src="test/Unit/Inside/Domain/Obsidian/AttachmentTest.php">
     <MixedArgument occurrences="1">
       <code>$faker-&gt;fileExtension()</code>
