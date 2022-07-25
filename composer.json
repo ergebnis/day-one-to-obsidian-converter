@@ -15,7 +15,8 @@
     "source": "https://github.com/ergebnis/day-one-to-obsidian-converter"
   },
   "require": {
-    "php": "^8.1"
+    "php": "^8.1",
+    "symfony/yaml": "^6.1.2"
   },
   "require-dev": {
     "ergebnis/composer-normalize": "^2.28.3",
