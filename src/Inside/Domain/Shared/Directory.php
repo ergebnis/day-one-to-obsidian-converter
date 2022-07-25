@@ -11,24 +11,24 @@ declare(strict_types=1);
  * @see https://github.com/ergebnis/day-one-to-obsidian-converter
  */
 
-namespace Ergebnis\DayOneToObsidianConverter;
+namespace Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared;
 
-final class Example
+/**
+ * @psalm-immutable
+ */
+final class Directory
 {
-    private string $name;
-
-    private function __construct(string $name)
+    private function __construct(private readonly string $value)
     {
-        $this->name = $name;
     }
 
-    public static function fromName(string $name): self
+    public static function fromString(string $name): self
     {
         return new self($name);
     }
 
-    public function name(): string
+    public function toString(): string
     {
-        return $this->name;
+        return $this->value;
     }
 }
