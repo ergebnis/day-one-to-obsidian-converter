@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="4.24.0@06dd975cb55d36af80f242561738f16c5f58264f">
+  <file src="src/Inside/Domain/Shared/FileName.php">
+    <ImpureMethodCall occurrences="1">
+      <code>empty</code>
+    </ImpureMethodCall>
+  </file>
   <file src="test/Unit/Inside/Domain/Shared/ExtensionTest.php">
     <MixedArgument occurrences="4">
       <code>$faker-&gt;fileExtension()</code>
@@ -10,6 +15,23 @@
     <MixedAssignment occurrences="2">
       <code>$value</code>
       <code>$value</code>
+    </MixedAssignment>
+  </file>
+  <file src="test/Unit/Inside/Domain/Shared/FileNameTest.php">
+    <InvalidArgument occurrences="1">
+      <code>testFromStringReturnsFileName</code>
+    </InvalidArgument>
+    <InvalidReturnType occurrences="1">
+      <code>\Generator&lt;string, array{0: string, 1: Inside\Domain\Shared\BaseName, 2: Inside\Domain\Shared\BaseName}&gt;</code>
+    </InvalidReturnType>
+    <MixedArgument occurrences="4">
+      <code>$faker-&gt;fileExtension()</code>
+      <code>$faker-&gt;fileExtension()</code>
+      <code>$simpleExtension</code>
+      <code>$simpleExtension</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="1">
+      <code>$simpleExtension</code>
     </MixedAssignment>
   </file>
 </files>
