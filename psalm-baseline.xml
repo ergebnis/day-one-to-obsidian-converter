@@ -34,4 +34,9 @@
       <code>$simpleExtension</code>
     </MixedAssignment>
   </file>
+  <file src="test/Unit/Inside/Domain/Shared/FilePathTest.php">
+    <MixedArgument occurrences="1">
+      <code>$faker-&gt;fileExtension()</code>
+    </MixedArgument>
+  </file>
 </files>
