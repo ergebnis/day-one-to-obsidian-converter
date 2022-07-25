@@ -1,0 +1,372 @@
+{
+  "$schema": "https://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "definitions": {
+    "entry": {
+      "additionalProperties": true,
+      "description": "An entry",
+      "properties": {
+        "creationDate": {
+          "description": "The date and time of when the entry was created",
+          "format": "date-time",
+          "type": "string"
+        },
+        "creationDevice": {
+          "description": "The name of the device on which the entry was created",
+          "type": "string"
+        },
+        "duration": {
+          "description": "The duration of the entry creation",
+          "type": "integer"
+        },
+        "editingTime": {
+          "description": "The editing time of the entry creation",
+          "type": "number"
+        },
+        "location": {
+          "$ref": "#/definitions/location",
+          "description": "The location of the entry creation"
+        },
+        "modifiedDate": {
+          "description": "The date and time of when the entry was created",
+          "format": "date-time",
+          "type": "string"
+        },
+        "photos": {
+          "description": "The photos of the entry",
+          "items": {
+            "$ref": "#/definitions/photo"
+          },
+          "type": "array"
+        },
+        "richText": {
+          "description": "The rich text of the entry",
+          "type": "string"
+        },
+        "starred": {
+          "description": "Whether the entry is starred or not",
+          "type": "boolean"
+        },
+        "tags": {
+          "description": "An array of tags",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "text": {
+          "description": "The Markdown text of the entry",
+          "type": "string"
+        },
+        "timeZone": {
+          "description": "The time zone of the entry creation",
+          "type": "string"
+        },
+        "uuid": {
+          "description": "The UUID of the entry",
+          "type": "string"
+        },
+        "weather": {
+          "$ref": "#/definitions/weather",
+          "description": "The weather at the time of entry creation"
+        }
+      },
+      "required": [
+        "creationDate",
+        "creationDevice",
+        "duration",
+        "modifiedDate",
+        "starred",
+        "timeZone",
+        "uuid"
+      ],
+      "type": "object"
+    },
+    "location": {
+      "additionalProperties": false,
+      "properties": {
+        "administrativeArea": {
+          "description": "The administrative area of the location",
+          "type": "string"
+        },
+        "country": {
+          "description": "The country of the location",
+          "type": "string"
+        },
+        "foursquareID": {
+          "description": "The FourSquare ID of the place",
+          "type": "string"
+        },
+        "latitude": {
+          "description": "The latitude of the location",
+          "type": "number"
+        },
+        "localityName": {
+          "description": "The name of the locality of the location",
+          "type": "string"
+        },
+        "longitude": {
+          "description": "The latitude of the location",
+          "type": "number"
+        },
+        "placeName": {
+          "description": "The name of the place",
+          "type": "string"
+        },
+        "region": {
+          "description": "The region of the location",
+          "properties": {
+            "center": {
+              "additionalProperties": false,
+              "description": "The center of the region",
+              "properties": {
+                "latitude": {
+                  "description": "The latitude of the center",
+                  "type": "number"
+                },
+                "longitude": {
+                  "description": "The longitude of the center",
+                  "type": "number"
+                },
+                "radius": {
+                  "description": "The radius",
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "latitude",
+                "longitude"
+              ],
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "timeZoneName": {
+          "description": "The name of the timezone of the place",
+          "type": "string"
+        },
+        "userLabel": {
+          "description": "A user label for the place",
+          "type": "string"
+        }
+      },
+      "required": [
+        "latitude",
+        "longitude",
+        "placeName",
+        "region"
+      ],
+      "type": "object"
+    },
+    "photo": {
+      "additionalProperties": false,
+      "description": "A photo",
+      "properties": {
+        "appleCloudIdentifier": {
+          "description": "The iCloud identifier of the photo",
+          "type": "string"
+        },
+        "cameraMake": {
+          "description": "The make of the camera with which the photo was created",
+          "type": "string"
+        },
+        "cameraModel": {
+          "description": "The model of the camera with which the photo was created",
+          "type": "string"
+        },
+        "creationDevice": {
+          "description": "The name of the device on which the photo was created",
+          "type": "string"
+        },
+        "date": {
+          "description": "The date and time of when the photo was created",
+          "format": "date-time",
+          "type": "string"
+        },
+        "duration": {
+          "description": "The duration of the photo creation",
+          "type": "integer"
+        },
+        "exposureBiasValue": {
+          "description": "The exposure bias value of the photo",
+          "type": "number"
+        },
+        "favorite": {
+          "description": "Whether the photo is a favorite or not",
+          "type": "boolean"
+        },
+        "fileSize": {
+          "description": "The file size of the photo",
+          "type": "integer"
+        },
+        "filename": {
+          "description": "The file name of the photo",
+          "type": "string"
+        },
+        "fnumber": {
+          "description": "The fnumber of the photo",
+          "type": "string"
+        },
+        "focalLength": {
+          "description": "The focal length of the photo",
+          "type": "string"
+        },
+        "height": {
+          "description": "The height of the photo",
+          "type": "integer"
+        },
+        "identifier": {
+          "description": "The identifier of the photo",
+          "type": "string"
+        },
+        "isSketch": {
+          "description": "Whether the photo is a sketch or not",
+          "type": "boolean"
+        },
+        "lensMake": {
+          "description": "The make of the lens with which the photo was created",
+          "type": "string"
+        },
+        "lensModel": {
+          "description": "The model of the lens with which the photo was created",
+          "type": "string"
+        },
+        "location": {
+          "$ref": "#/definitions/location",
+          "description": "The location of where the photo was created"
+        },
+        "md5": {
+          "description": "The MD5 hash of the photo",
+          "type": "string"
+        },
+        "orderInEntry": {
+          "description": "The order of the photo in the entry",
+          "type": "integer"
+        },
+        "type": {
+          "description": "The type of the photo",
+          "type": "string"
+        },
+        "width": {
+          "description": "The width of the photo",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "creationDevice",
+        "duration",
+        "fnumber",
+        "focalLength",
+        "height",
+        "identifier",
+        "isSketch",
+        "md5",
+        "orderInEntry",
+        "type",
+        "width"
+      ],
+      "type": "object"
+    },
+    "weather": {
+      "additionalProperties": true,
+      "properties": {
+        "conditionsDescription": {
+          "description": "The description of the weather conditions",
+          "type": "string"
+        },
+        "moonPhase": {
+          "description": "The moon phase",
+          "type": "number"
+        },
+        "moonPhaseCode": {
+          "description": "The code of the moon phase",
+          "type": "string"
+        },
+        "pressureMB": {
+          "description": "The pressure in millibars",
+          "type": "number"
+        },
+        "relativeHumidity": {
+          "description": "The relative humidity",
+          "type": "integer"
+        },
+        "sunriseDate": {
+          "description": "The date and time of the sunrise",
+          "format": "date-time",
+          "type": "string"
+        },
+        "sunsetDate": {
+          "description": "The date and time of the sunset",
+          "format": "date-time",
+          "type": "string"
+        },
+        "temperatureCelsius": {
+          "description": "The temperature in Celsius",
+          "type": "number"
+        },
+        "visibilityKM": {
+          "description": "The visibility in kilometers",
+          "type": "number"
+        },
+        "weatherCode": {
+          "description": "The code of the weather",
+          "type": "string"
+        },
+        "weatherServiceName": {
+          "description": "The name of the weather service",
+          "type": "string"
+        },
+        "windBearing": {
+          "description": "The wind bearing",
+          "type": "integer"
+        },
+        "windChillCelsius": {
+          "description": "The wind chill in Celsius",
+          "type": "number"
+        },
+        "windSpeedKPH": {
+          "description": "The wind speed in kilometers per hour",
+          "type": "number"
+        }
+      },
+      "required": [
+        "conditionsDescription",
+        "relativeHumidity",
+        "temperatureCelsius",
+        "weatherCode",
+        "weatherServiceName"
+      ],
+      "type": "object"
+    }
+  },
+  "properties": {
+    "entries": {
+      "description": "An array of entries",
+      "items": {
+        "$ref": "#/definitions/entry"
+      },
+      "type": "array"
+    },
+    "metadata": {
+      "additionalProperties": false,
+      "description": "Metadata of the journal",
+      "properties": {
+        "version": {
+          "description": "Version of the JSON file",
+          "type": "string"
+        }
+      },
+      "required": [
+        "version"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "entries",
+    "metadata"
+  ],
+  "title": "DayOne JSON file",
+  "type": "object"
+}
