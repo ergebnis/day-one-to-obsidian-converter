@@ -16,6 +16,11 @@
     </MixedArgument>
     <TooManyArguments occurrences="2"/>
   </file>
+  <file src="test/Unit/Inside/Domain/DayOne/JournalTest.php">
+    <MixedArgument occurrences="1">
+      <code>$faker-&gt;fileExtension()</code>
+    </MixedArgument>
+  </file>
   <file src="test/Unit/Inside/Domain/DayOne/PhotoTest.php">
     <MixedArgument occurrences="1">
       <code>$faker-&gt;fileExtension()</code>
