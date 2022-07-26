@@ -2,7 +2,7 @@
   "name": "ergebnis/day-one-to-obsidian-converter",
   "description": "Provides a console command for converting DayOne journals to Obsidian notes.",
   "license": "MIT",
-  "type": "library",
+  "type": "project",
   "authors": [
     {
       "name": "Andreas Möller",
