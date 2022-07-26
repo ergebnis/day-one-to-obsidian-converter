@@ -15,6 +15,14 @@
       <code>empty</code>
     </ImpureMethodCall>
   </file>
+  <file src="src/Outside/Adapter/Secondary/DayOne/JournalReader.php">
+    <InvalidReturnType occurrences="1">
+      <code>Inside\Domain\DayOne\Journal</code>
+    </InvalidReturnType>
+    <UnusedFunctionCall occurrences="1">
+      <code>\json_decode</code>
+    </UnusedFunctionCall>
+  </file>
   <file src="test/Unit/Inside/Domain/DayOne/EntryTest.php">
     <MixedArgument occurrences="1">
       <code>$faker-&gt;fileExtension()</code>
