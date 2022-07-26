@@ -1,6 +1,6 @@
 {
   "name": "ergebnis/day-one-to-obsidian-converter",
-  "description": "Provides a GitHub repository template for a PHP library, using GitHub Actions.",
+  "description": "Provides a console command for converting DayOne journals to Obsidian notes.",
   "license": "MIT",
   "type": "library",
   "authors": [

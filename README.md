@@ -11,7 +11,7 @@
 [![Latest Stable Version](https://poser.pugx.org/ergebnis/day-one-to-obsidian-converter/v/stable)](https://packagist.org/packages/ergebnis/day-one-to-obsidian-converter)
 [![Total Downloads](https://poser.pugx.org/ergebnis/day-one-to-obsidian-converter/downloads)](https://packagist.org/packages/ergebnis/day-one-to-obsidian-converter)
 
-Provides a console command for converting JSON files exported from [DayOne](https://dayoneapp.com) to Markdown files for [Obsidian](https://obsidian.md).
+Provides a console command for converting [DayOne](https://dayoneapp.com) journals to [Obsidian](https://obsidian.md) notes.
 
 ## Installation
 

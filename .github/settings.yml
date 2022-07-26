@@ -70,7 +70,7 @@ repository:
   archived: false
   default_branch: "main"
   delete_branch_on_merge: true
-  description: ":notebook: Provides a console command for converting JSON files exported from DayOne to Markdown files for Obsidian."
+  description: ":notebook: Provides a console command for converting DayOne journals to Obsidian notes."
   enable_automated_security_fixes: true
   enable_vulnerability_alerts: true
   has_downloads: true
