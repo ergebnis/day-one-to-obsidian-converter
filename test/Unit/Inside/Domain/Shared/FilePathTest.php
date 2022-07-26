@@ -58,4 +58,33 @@ final class FilePathTest extends Framework\TestCase
 
         self::assertSame($expected, $filePath->toString());
     }
+
+    public function testFromStringReturnsFilePath(): void
+    {
+        $faker = self::faker();
+
+        $directory = Inside\Domain\Shared\Directory::fromString($faker->slug());
+        $fileName = Inside\Domain\Shared\FileName::fromString(\sprintf(
+            '%s.%s',
+            $faker->slug(),
+            $faker->fileExtension(),
+        ));
+
+        $filePath = Inside\Domain\Shared\FilePath::fromString(\sprintf(
+            '%s/%s',
+            $directory->toString(),
+            $fileName->toString(),
+        ));
+
+        self::assertEquals($directory, $filePath->directory());
+        self::assertEquals($fileName, $filePath->fileName());
+
+        $expected = \sprintf(
+            '%s/%s',
+            $directory->toString(),
+            $fileName->toString(),
+        );
+
+        self::assertSame($expected, $filePath->toString());
+    }
 }

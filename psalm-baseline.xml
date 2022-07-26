@@ -79,7 +79,8 @@
     </MixedAssignment>
   </file>
   <file src="test/Unit/Inside/Domain/Shared/FilePathTest.php">
-    <MixedArgument occurrences="1">
+    <MixedArgument occurrences="2">
+      <code>$faker-&gt;fileExtension()</code>
       <code>$faker-&gt;fileExtension()</code>
     </MixedArgument>
   </file>

@@ -34,6 +34,14 @@ final class FilePath
         );
     }
 
+    public static function fromString(string $value): self
+    {
+        return new self(
+            Directory::fromString(\dirname($value)),
+            FileName::fromString(\basename($value)),
+        );
+    }
+
     public function directory(): Directory
     {
         return $this->directory;
