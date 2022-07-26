@@ -43,6 +43,10 @@ This package is licensed using the MIT License.
 
 Please have a look at [`LICENSE.md`](LICENSE.md).
 
+## Credits
+
+This converter is inspired by [`quantumgardener/dayone-to-obsidian`](https://github.com/quantumgardener/dayone-to-obsidian).
+
 ## Curious what I am up to?
 
 Follow me on [Twitter](https://twitter.com/localheinz)!
