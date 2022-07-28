@@ -53,8 +53,6 @@ final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
             throw Inside\Port\Secondary\DayOne\FileDoesNotContainJsonValidAccordingToSchema::at($filePath);
         }
 
-        $entries = $data['entries'];
-
         return Inside\Domain\DayOne\Journal::create(
             $filePath,
             ...\array_map(static function (array $entry) use ($filePath): Inside\Domain\DayOne\Entry {
@@ -100,7 +98,7 @@ final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
                     $tags,
                     $photos,
                 );
-            }, $entries),
+            }, $data['entries']),
         );
     }
 }

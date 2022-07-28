@@ -17,7 +17,7 @@
   </file>
   <file src="src/Outside/Adapter/Secondary/DayOne/JournalReader.php">
     <MixedArgument occurrences="9">
-      <code>$entries</code>
+      <code>$data['entries']</code>
       <code>$entry['creationDate']</code>
       <code>$entry['photos']</code>
       <code>$entry['tags']</code>
@@ -34,9 +34,8 @@
     <MixedArrayAccess occurrences="1">
       <code>$data['entries']</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="3">
+    <MixedAssignment occurrences="2">
       <code>$data</code>
-      <code>$entries</code>
       <code>$text</code>
     </MixedAssignment>
   </file>
