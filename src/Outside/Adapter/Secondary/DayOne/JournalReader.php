@@ -14,9 +14,18 @@ declare(strict_types=1);
 namespace Ergebnis\DayOneToObsidianConverter\Outside\Adapter\Secondary\DayOne;
 
 use Ergebnis\DayOneToObsidianConverter\Inside;
+use Ergebnis\Json\SchemaValidator;
 
+/**
+ * @see https://dayoneapp.com/guides/settings/importing-data-to-day-one/
+ * @see https://bloom-documentation.s3.amazonaws.com/JSON+Export+example.zip
+ */
 final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
 {
+    public function __construct(private readonly SchemaValidator\SchemaValidator $schemaValidator)
+    {
+    }
+
     public function read(Inside\Domain\Shared\FilePath $filePath): Inside\Domain\DayOne\Journal
     {
         if (!\is_file($filePath->toString())) {
@@ -24,14 +33,74 @@ final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
         }
 
         try {
-            \json_decode(
+            $data = \json_decode(
                 \file_get_contents($filePath->toString()),
                 true,
                 512,
                 \JSON_THROW_ON_ERROR,
             );
-        } catch (\JsonException $exception) {
+        } catch (\JsonException) {
             throw Inside\Port\Secondary\DayOne\FileDoesNotContainJson::at($filePath);
         }
+
+        $validationResult = $this->schemaValidator->validate(
+            SchemaValidator\Json::fromFile($filePath->toString()),
+            SchemaValidator\Json::fromFile(__DIR__ . '/../../../../../resource/day-one/schema.json'),
+            SchemaValidator\JsonPointer::empty(),
+        );
+
+        if (!$validationResult->isValid()) {
+            throw Inside\Port\Secondary\DayOne\FileDoesNotContainJsonValidAccordingToSchema::at($filePath);
+        }
+
+        $entries = $data['entries'];
+
+        return Inside\Domain\DayOne\Journal::create(
+            $filePath,
+            ...\array_map(static function (array $entry) use ($filePath): Inside\Domain\DayOne\Entry {
+                $text = '';
+
+                if (\array_key_exists('text', $entry)) {
+                    $text = $entry['text'];
+                }
+
+                $tags = [];
+
+                if (\array_key_exists('tags', $entry)) {
+                    $tags = \array_map(static function (string $value): Inside\Domain\Shared\Tag {
+                        return Inside\Domain\Shared\Tag::fromString($value);
+                    }, $entry['tags']);
+                }
+
+                $photos = [];
+
+                if (\array_key_exists('photos', $entry)) {
+                    $photos = \array_map(static function (array $photo) use ($filePath): Inside\Domain\DayOne\Photo {
+                        return Inside\Domain\DayOne\Photo::create(
+                            Inside\Domain\DayOne\PhotoIdentifier::fromString($photo['identifier']),
+                            Inside\Domain\Shared\FilePath::create(
+                                Inside\Domain\Shared\Directory::fromString(\sprintf(
+                                    '%s/photos',
+                                    $filePath->directory()->toString(),
+                                )),
+                                Inside\Domain\Shared\FileName::fromString(\sprintf(
+                                    '%s.%s',
+                                    $photo['md5'],
+                                    $photo['type'],
+                                )),
+                            ),
+                        );
+                    }, $entry['photos']);
+                }
+
+                return Inside\Domain\DayOne\Entry::create(
+                    Inside\Domain\DayOne\EntryIdentifier::fromString($entry['uuid']),
+                    Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable($entry['creationDate'])),
+                    Inside\Domain\Shared\Text::fromString($text),
+                    $tags,
+                    $photos,
+                );
+            }, $entries),
+        );
     }
 }
