@@ -76,7 +76,8 @@
     <InvalidReturnType occurrences="1">
       <code>\Generator&lt;string, array{0: string, 1: Inside\Domain\Shared\BaseName, 2: Inside\Domain\Shared\BaseName}&gt;</code>
     </InvalidReturnType>
-    <MixedArgument occurrences="4">
+    <MixedArgument occurrences="5">
+      <code>$faker-&gt;fileExtension()</code>
       <code>$faker-&gt;fileExtension()</code>
       <code>$faker-&gt;fileExtension()</code>
       <code>$simpleExtension</code>

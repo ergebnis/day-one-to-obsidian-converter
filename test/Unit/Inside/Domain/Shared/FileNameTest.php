@@ -29,6 +29,30 @@ final class FileNameTest extends Framework\TestCase
 {
     use Test\Util\Helper;
 
+    public function testCreateReturnsFileName(): void
+    {
+        $faker = self::faker();
+
+        $baseName = Inside\Domain\Shared\BaseName::fromString($faker->slug());
+        $extension = Inside\Domain\Shared\Extension::fromString($faker->fileExtension());
+
+        $fileName = Inside\Domain\Shared\FileName::create(
+            $baseName,
+            $extension,
+        );
+
+        self::assertEquals($baseName, $fileName->baseName());
+        self::assertEquals($extension, $fileName->extension());
+
+        $expected = \sprintf(
+            '%s.%s',
+            $baseName->toString(),
+            $extension->toString(),
+        );
+
+        self::assertSame($expected, $fileName->toString());
+    }
+
     /**
      * @dataProvider provideValueBaseNameAndExtension
      */

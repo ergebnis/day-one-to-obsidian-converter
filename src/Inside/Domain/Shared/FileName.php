@@ -24,6 +24,16 @@ final class FileName
     ) {
     }
 
+    public static function create(
+        BaseName $baseName,
+        Extension $extension,
+    ): self {
+        return new self(
+            $baseName,
+            $extension,
+        );
+    }
+
     public static function fromString(string $value): self
     {
         \preg_match(
