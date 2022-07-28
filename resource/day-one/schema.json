@@ -3,7 +3,7 @@
   "additionalProperties": false,
   "definitions": {
     "entry": {
-      "additionalProperties": true,
+      "additionalProperties": false,
       "description": "An entry",
       "properties": {
         "creationDate": {
@@ -269,7 +269,7 @@
       "type": "object"
     },
     "weather": {
-      "additionalProperties": true,
+      "additionalProperties": false,
       "properties": {
         "conditionsDescription": {
           "description": "The description of the weather conditions",
