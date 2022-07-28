@@ -27,14 +27,14 @@ final class Journal
 
     private function __construct(
         private readonly FilePath $filePath,
-        Entry ...$entries
+        Entry ...$entries,
     ) {
         $this->entries = $entries;
     }
 
     public static function create(
         FilePath $filePath,
-        Entry ...$entries
+        Entry ...$entries,
     ): self {
         return new self(
             $filePath,
