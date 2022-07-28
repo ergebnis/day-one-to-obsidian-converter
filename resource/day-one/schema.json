@@ -15,6 +15,22 @@
           "description": "The name of the device on which the entry was created",
           "type": "string"
         },
+        "creationDeviceModel": {
+          "description": "The model of the device on which the entry was created",
+          "type": "string"
+        },
+        "creationDeviceType": {
+          "description": "The type of the device on which the entry was created",
+          "type": "string"
+        },
+        "creationOSName": {
+          "description": "The name of the operating system on which the entry was created",
+          "type": "string"
+        },
+        "creationOSVersion": {
+          "description": "The version of the operating system on which the entry was created",
+          "type": "string"
+        },
         "duration": {
           "description": "The duration of the entry creation",
           "type": "integer"
@@ -22,6 +38,14 @@
         "editingTime": {
           "description": "The editing time of the entry creation",
           "type": "number"
+        },
+        "isAllDay": {
+          "description": "Whether the entry is for a whole day or not",
+          "type": "boolean"
+        },
+        "isPinned": {
+          "description": "Whether the entry is pinned or not",
+          "type": "boolean"
         },
         "location": {
           "$ref": "#/definitions/location",
@@ -32,6 +56,10 @@
           "format": "date-time",
           "type": "string"
         },
+        "music": {
+          "$ref": "#/definitions/music",
+          "description": "The music that was playing when the entry was created"
+        },
         "photos": {
           "description": "The photos of the entry",
           "items": {
@@ -40,7 +68,10 @@
           "type": "array"
         },
         "richText": {
-          "description": "The rich text of the entry",
+          "description": "The rich text of the entry as JSON",
+          "type": "string"
+        },
+        "sourceString": {
           "type": "string"
         },
         "starred": {
@@ -54,6 +85,10 @@
           },
           "type": "array"
         },
+        "template": {
+          "$ref": "#/definitions/template",
+          "description": "The template that was used to create the entry"
+        },
         "text": {
           "description": "The Markdown text of the entry",
           "type": "string"
@@ -61,6 +96,10 @@
         "timeZone": {
           "description": "The time zone of the entry creation",
           "type": "string"
+        },
+        "userActivity": {
+          "$ref": "#/definitions/userActivity",
+          "description": "The user activity at the time of entry creation"
         },
         "uuid": {
           "description": "The UUID of the entry",
@@ -156,6 +195,35 @@
         "longitude",
         "placeName",
         "region"
+      ],
+      "type": "object"
+    },
+    "music": {
+      "additionalProperties": false,
+      "description": "Music",
+      "properties": {
+        "album": {
+          "description": "The name of the album",
+          "type": "string"
+        },
+        "albumYear": {
+          "description": "The year of the album",
+          "type": "integer"
+        },
+        "artist": {
+          "description": "The name of the artist",
+          "type": "string"
+        },
+        "track": {
+          "description": "The name of the track",
+          "type": "string"
+        }
+      },
+      "required": [
+        "album",
+        "albumYear",
+        "artist",
+        "track"
       ],
       "type": "object"
     },
@@ -266,6 +334,51 @@
         "type",
         "width"
       ],
+      "type": "object"
+    },
+    "template": {
+      "additionalProperties": false,
+      "description": "A template",
+      "properties": {
+        "richTextJSON": {
+          "description": "The rich text of the template as JSON",
+          "type": "string"
+        },
+        "title": {
+          "description": "The title of the template",
+          "type": "string"
+        },
+        "userModifiedDate": {
+          "description": "The date and time when the template was modified",
+          "format": "date-time",
+          "type": "string"
+        },
+        "uuid": {
+          "description": "The UUID of the template",
+          "type": "string"
+        }
+      },
+      "required": [
+        "richTextJSON",
+        "title",
+        "userModifiedDate",
+        "uuid"
+      ],
+      "type": "object"
+    },
+    "userActivity": {
+      "additionalProperties": false,
+      "description": "A user activity",
+      "properties": {
+        "activityName": {
+          "description": "The name of the activity",
+          "type": "string"
+        },
+        "stepCount": {
+          "description": "The number of steps",
+          "type": "integer"
+        }
+      },
       "type": "object"
     },
     "weather": {
