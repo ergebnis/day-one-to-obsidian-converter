@@ -54,16 +54,14 @@ final class NoteWriterTest extends Framework\TestCase
             self::temporaryDirectory(),
         ));
 
-        $filePath = Inside\Domain\Shared\FilePath::create(
-            $directory,
-            Inside\Domain\Shared\FileName::create(
-                Inside\Domain\Shared\BaseName::fromString($faker->slug()),
-                Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
-            ),
-        );
-
         $note = Inside\Domain\Obsidian\Note::create(
-            $filePath,
+            Inside\Domain\Shared\FilePath::create(
+                $directory,
+                Inside\Domain\Shared\FileName::create(
+                    Inside\Domain\Shared\BaseName::fromString($faker->slug()),
+                    Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
+                ),
+            ),
             Inside\Domain\Shared\Text::fromString('Hello, world!'),
             [],
             [],
@@ -73,7 +71,7 @@ final class NoteWriterTest extends Framework\TestCase
 
         $noteWriter->write($note);
 
-        self::assertFileExists($filePath->toString());
-        self::assertSame($note->toString(), \file_get_contents($filePath->toString()));
+        self::assertFileExists($note->filePath()->toString());
+        self::assertSame($note->toString(), \file_get_contents($note->filePath()->toString()));
     }
 }
