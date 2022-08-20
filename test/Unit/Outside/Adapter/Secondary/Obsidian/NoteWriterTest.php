@@ -45,17 +45,17 @@ final class NoteWriterTest extends Framework\TestCase
         self::fileSystem()->remove(self::temporaryDirectory());
     }
 
-    public function testWriteCreatesVaultDirectoryWhenItDoesNotExist(): void
+    public function testWriteCreatesDirectoryWhenItDoesNotExist(): void
     {
         $faker = self::faker();
 
-        $vaultDirectory = Inside\Domain\Shared\Directory::fromString(\sprintf(
+        $directory = Inside\Domain\Shared\Directory::fromString(\sprintf(
             '%s/obsidian',
             self::temporaryDirectory(),
         ));
 
         $filePath = Inside\Domain\Shared\FilePath::create(
-            $vaultDirectory,
+            $directory,
             Inside\Domain\Shared\FileName::create(
                 Inside\Domain\Shared\BaseName::fromString($faker->slug()),
                 Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
