@@ -25,6 +25,7 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileContent
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath
  */
@@ -44,8 +45,14 @@ final class AttachmentTest extends Framework\TestCase
             ),
         );
 
-        $attachment = Inside\Domain\Obsidian\Attachment::create($filePath);
+        $fileContent = Inside\Domain\Shared\FileContent::fromString($faker->realText());
+
+        $attachment = Inside\Domain\Obsidian\Attachment::create(
+            $filePath,
+            $fileContent,
+        );
 
         self::assertSame($filePath, $attachment->filePath());
+        self::assertSame($fileContent, $attachment->fileContent());
     }
 }
