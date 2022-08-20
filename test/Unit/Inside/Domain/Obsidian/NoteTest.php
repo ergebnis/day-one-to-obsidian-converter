@@ -41,11 +41,10 @@ final class NoteTest extends Framework\TestCase
 
         $filePath = Inside\Domain\Shared\FilePath::create(
             Inside\Domain\Shared\Directory::fromString($faker->slug()),
-            Inside\Domain\Shared\FileName::fromString(\sprintf(
-                '%s.%s',
-                $faker->slug(),
-                $faker->fileExtension(),
-            )),
+            Inside\Domain\Shared\FileName::create(
+                Inside\Domain\Shared\BaseName::fromString($faker->slug()),
+                Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
+            ),
         );
         $text = Inside\Domain\Shared\Text::fromString($faker->realText());
         $tags = \array_map(static function () use ($faker): Inside\Domain\Shared\Tag {
@@ -54,11 +53,10 @@ final class NoteTest extends Framework\TestCase
         $attachments = \array_map(static function () use ($faker): Inside\Domain\Obsidian\Attachment {
             return Inside\Domain\Obsidian\Attachment::create(Inside\Domain\Shared\FilePath::create(
                 Inside\Domain\Shared\Directory::fromString($faker->slug()),
-                Inside\Domain\Shared\FileName::fromString(\sprintf(
-                    '%s.%s',
-                    $faker->slug(),
-                    $faker->fileExtension(),
-                )),
+                Inside\Domain\Shared\FileName::create(
+                    Inside\Domain\Shared\BaseName::fromString($faker->slug()),
+                    Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
+                ),
             ));
         }, \range(0, 2));
 
@@ -84,22 +82,20 @@ final class NoteTest extends Framework\TestCase
         $note = Inside\Domain\Obsidian\Note::create(
             Inside\Domain\Shared\FilePath::create(
                 Inside\Domain\Shared\Directory::fromString($faker->slug()),
-                Inside\Domain\Shared\FileName::fromString(\sprintf(
-                    '%s.%s',
-                    $faker->slug(),
-                    $faker->fileExtension(),
-                )),
+                Inside\Domain\Shared\FileName::create(
+                    Inside\Domain\Shared\BaseName::fromString($faker->slug()),
+                    Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
+                ),
             ),
             $text,
             [],
             \array_map(static function () use ($faker): Inside\Domain\Obsidian\Attachment {
                 return Inside\Domain\Obsidian\Attachment::create(Inside\Domain\Shared\FilePath::create(
                     Inside\Domain\Shared\Directory::fromString($faker->slug()),
-                    Inside\Domain\Shared\FileName::fromString(\sprintf(
-                        '%s.%s',
-                        $faker->slug(),
-                        $faker->fileExtension(),
-                    )),
+                    Inside\Domain\Shared\FileName::create(
+                        Inside\Domain\Shared\BaseName::fromString($faker->slug()),
+                        Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
+                    ),
                 ));
             }, \range(0, 2)),
         );
@@ -119,22 +115,20 @@ final class NoteTest extends Framework\TestCase
         $note = Inside\Domain\Obsidian\Note::create(
             Inside\Domain\Shared\FilePath::create(
                 Inside\Domain\Shared\Directory::fromString($faker->slug()),
-                Inside\Domain\Shared\FileName::fromString(\sprintf(
-                    '%s.%s',
-                    $faker->slug(),
-                    $faker->fileExtension(),
-                )),
+                Inside\Domain\Shared\FileName::create(
+                    Inside\Domain\Shared\BaseName::fromString($faker->slug()),
+                    Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
+                ),
             ),
             $text,
             $tags,
             \array_map(static function () use ($faker): Inside\Domain\Obsidian\Attachment {
                 return Inside\Domain\Obsidian\Attachment::create(Inside\Domain\Shared\FilePath::create(
                     Inside\Domain\Shared\Directory::fromString($faker->slug()),
-                    Inside\Domain\Shared\FileName::fromString(\sprintf(
-                        '%s.%s',
-                        $faker->slug(),
-                        $faker->fileExtension(),
-                    )),
+                    Inside\Domain\Shared\FileName::create(
+                        Inside\Domain\Shared\BaseName::fromString($faker->slug()),
+                        Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
+                    ),
                 ));
             }, \range(0, 2)),
         );

@@ -36,11 +36,10 @@ final class FilePathTest extends Framework\TestCase
         $faker = self::faker();
 
         $directory = Inside\Domain\Shared\Directory::fromString($faker->slug());
-        $fileName = Inside\Domain\Shared\FileName::fromString(\sprintf(
-            '%s.%s',
-            $faker->slug(),
-            $faker->fileExtension(),
-        ));
+        $fileName = Inside\Domain\Shared\FileName::create(
+            Inside\Domain\Shared\BaseName::fromString($faker->slug()),
+            Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
+        );
 
         $filePath = Inside\Domain\Shared\FilePath::create(
             $directory,
@@ -64,11 +63,10 @@ final class FilePathTest extends Framework\TestCase
         $faker = self::faker();
 
         $directory = Inside\Domain\Shared\Directory::fromString($faker->slug());
-        $fileName = Inside\Domain\Shared\FileName::fromString(\sprintf(
-            '%s.%s',
-            $faker->slug(),
-            $faker->fileExtension(),
-        ));
+        $fileName = Inside\Domain\Shared\FileName::create(
+            Inside\Domain\Shared\BaseName::fromString($faker->slug()),
+            Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
+        );
 
         $filePath = Inside\Domain\Shared\FilePath::fromString(\sprintf(
             '%s/%s',

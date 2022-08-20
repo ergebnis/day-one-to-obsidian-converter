@@ -38,11 +38,10 @@ final class AttachmentTest extends Framework\TestCase
 
         $filePath = Inside\Domain\Shared\FilePath::create(
             Inside\Domain\Shared\Directory::fromString($faker->slug()),
-            Inside\Domain\Shared\FileName::fromString(\sprintf(
-                '%s.%s',
-                $faker->slug(),
-                $faker->fileExtension(),
-            )),
+            Inside\Domain\Shared\FileName::create(
+                Inside\Domain\Shared\BaseName::fromString($faker->slug()),
+                Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
+            ),
         );
 
         $attachment = Inside\Domain\Obsidian\Attachment::create($filePath);

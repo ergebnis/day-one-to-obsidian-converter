@@ -81,11 +81,10 @@ final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
                                     '%s/photos',
                                     $filePath->directory()->toString(),
                                 )),
-                                Inside\Domain\Shared\FileName::fromString(\sprintf(
-                                    '%s.%s',
-                                    $photo['md5'],
-                                    $photo['type'],
-                                )),
+                                Inside\Domain\Shared\FileName::create(
+                                    Inside\Domain\Shared\BaseName::fromString($photo['md5']),
+                                    Inside\Domain\Shared\Extension::fromString($photo['type']),
+                                ),
                             ),
                         );
                     }, $entry['photos']);

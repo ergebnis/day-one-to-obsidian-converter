@@ -53,11 +53,10 @@ final class EntryTest extends Framework\TestCase
                 Inside\Domain\DayOne\PhotoIdentifier::fromString($faker->sha1()),
                 Inside\Domain\Shared\FilePath::create(
                     Inside\Domain\Shared\Directory::fromString($faker->slug()),
-                    Inside\Domain\Shared\FileName::fromString(\sprintf(
-                        '%s.%s',
-                        $faker->slug(),
-                        $faker->fileExtension(),
-                    )),
+                    Inside\Domain\Shared\FileName::create(
+                        Inside\Domain\Shared\BaseName::fromString($faker->slug()),
+                        Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
+                    ),
                 ),
             );
         }, \range(0, 2));
