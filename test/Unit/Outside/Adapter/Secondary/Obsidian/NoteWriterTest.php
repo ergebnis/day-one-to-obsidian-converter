@@ -45,7 +45,7 @@ final class NoteWriterTest extends Framework\TestCase
         self::fileSystem()->remove(self::temporaryDirectory());
     }
 
-    public function testWriteCreatesDirectoryWhenItDoesNotExist(): void
+    public function testWriteWritesNoteWhenDirectoryDoesNotExist(): void
     {
         $faker = self::faker();
 
@@ -53,6 +53,38 @@ final class NoteWriterTest extends Framework\TestCase
             '%s/obsidian',
             self::temporaryDirectory(),
         ));
+
+        $note = Inside\Domain\Obsidian\Note::create(
+            Inside\Domain\Shared\FilePath::create(
+                $directory,
+                Inside\Domain\Shared\FileName::create(
+                    Inside\Domain\Shared\BaseName::fromString($faker->slug()),
+                    Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
+                ),
+            ),
+            Inside\Domain\Shared\Text::fromString('Hello, world!'),
+            [],
+            [],
+        );
+
+        $noteWriter = new Outside\Adapter\Secondary\Obsidian\NoteWriter();
+
+        $noteWriter->write($note);
+
+        self::assertFileExists($note->filePath()->toString());
+        self::assertSame($note->toString(), \file_get_contents($note->filePath()->toString()));
+    }
+
+    public function testWriteWritesNoteWhenDirectoryExists(): void
+    {
+        $faker = self::faker();
+
+        $directory = Inside\Domain\Shared\Directory::fromString(\sprintf(
+            '%s/obsidian',
+            self::temporaryDirectory(),
+        ));
+
+        self::fileSystem()->mkdir($directory->toString());
 
         $note = Inside\Domain\Obsidian\Note::create(
             Inside\Domain\Shared\FilePath::create(
