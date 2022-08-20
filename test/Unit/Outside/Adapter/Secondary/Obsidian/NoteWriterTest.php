@@ -74,5 +74,6 @@ final class NoteWriterTest extends Framework\TestCase
         $noteWriter->write($note);
 
         self::assertFileExists($filePath->toString());
+        self::assertSame($note->toString(), \file_get_contents($filePath->toString()));
     }
 }
