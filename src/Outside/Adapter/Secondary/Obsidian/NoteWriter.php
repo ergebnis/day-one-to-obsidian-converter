@@ -20,7 +20,7 @@ final class NoteWriter implements Inside\Port\Secondary\Obsidian\NoteWriter
 {
     private readonly Filesystem\Filesystem $filesystem;
 
-    public function __construct()
+    public function __construct(private readonly Inside\Port\Secondary\Obsidian\AttachmentWriter $attachmentWriter)
     {
         $this->filesystem = new Filesystem\Filesystem();
     }
@@ -31,5 +31,9 @@ final class NoteWriter implements Inside\Port\Secondary\Obsidian\NoteWriter
             $note->filePath()->toString(),
             $note->toString(),
         );
+
+        foreach ($note->attachments() as $attachment) {
+            $this->attachmentWriter->write($attachment);
+        }
     }
 }

@@ -66,6 +66,9 @@ final class Note
         return $this->tags;
     }
 
+    /**
+     * @return array<int, Attachment>
+     */
     public function attachments(): array
     {
         return $this->attachments;
