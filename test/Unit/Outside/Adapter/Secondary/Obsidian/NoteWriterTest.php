@@ -24,6 +24,7 @@ use PHPUnit\Framework;
  * @covers \Ergebnis\DayOneToObsidianConverter\Outside\Adapter\Secondary\Obsidian\NoteWriter
  *
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Obsidian\Attachment
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Obsidian\FrontMatter
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Obsidian\Note
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
@@ -79,8 +80,11 @@ final class NoteWriterTest extends Framework\TestCase
                     Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
                 ),
             ),
+            Inside\Domain\Obsidian\FrontMatter::fromArray(\array_combine(
+                $faker->words(),
+                $faker->sentences(),
+            )),
             Inside\Domain\Shared\Text::fromString('Hello, world!'),
-            [],
             $attachments,
         );
 
@@ -137,8 +141,11 @@ final class NoteWriterTest extends Framework\TestCase
                     Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
                 ),
             ),
+            Inside\Domain\Obsidian\FrontMatter::fromArray(\array_combine(
+                $faker->words(),
+                $faker->sentences(),
+            )),
             Inside\Domain\Shared\Text::fromString('Hello, world!'),
-            [],
             $attachments,
         );
 

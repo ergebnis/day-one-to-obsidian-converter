@@ -16,6 +16,7 @@ namespace Ergebnis\DayOneToObsidianConverter\Test\Unit\Inside\Domain\Obsidian;
 use Ergebnis\DayOneToObsidianConverter\Inside;
 use Ergebnis\DayOneToObsidianConverter\Test;
 use PHPUnit\Framework;
+use Symfony\Component\Yaml;
 
 /**
  * @internal
@@ -23,6 +24,7 @@ use PHPUnit\Framework;
  * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Obsidian\Note
  *
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Obsidian\Attachment
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Obsidian\FrontMatter
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
@@ -47,10 +49,11 @@ final class NoteTest extends Framework\TestCase
                 Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
             ),
         );
+        $frontMatter = Inside\Domain\Obsidian\FrontMatter::fromArray(\array_combine(
+            $faker->words(),
+            $faker->sentences(),
+        ));
         $text = Inside\Domain\Shared\Text::fromString($faker->realText());
-        $tags = \array_map(static function () use ($faker): Inside\Domain\Shared\Tag {
-            return Inside\Domain\Shared\Tag::fromString($faker->word());
-        }, \range(0, 2));
         $attachments = \array_map(static function () use ($faker): Inside\Domain\Obsidian\Attachment {
             return Inside\Domain\Obsidian\Attachment::create(
                 Inside\Domain\Shared\FilePath::create(
@@ -66,18 +69,18 @@ final class NoteTest extends Framework\TestCase
 
         $note = Inside\Domain\Obsidian\Note::create(
             $filePath,
+            $frontMatter,
             $text,
-            $tags,
             $attachments,
         );
 
         self::assertSame($filePath, $note->filePath());
+        self::assertSame($frontMatter, $note->frontMatter());
         self::assertSame($text, $note->text());
-        self::assertSame($tags, $note->tags());
         self::assertSame($attachments, $note->attachments());
     }
 
-    public function testToStringReturnsStringRepresentationWhenNoteDoesNotHaveTags(): void
+    public function testToStringReturnsStringRepresentationWhenNoteDoesNotHaveFrontMatter(): void
     {
         $faker = self::faker();
 
@@ -91,8 +94,8 @@ final class NoteTest extends Framework\TestCase
                     Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
                 ),
             ),
+            Inside\Domain\Obsidian\FrontMatter::fromArray([]),
             $text,
-            [],
             \array_map(static function () use ($faker): Inside\Domain\Obsidian\Attachment {
                 return Inside\Domain\Obsidian\Attachment::create(
                     Inside\Domain\Shared\FilePath::create(
@@ -110,14 +113,15 @@ final class NoteTest extends Framework\TestCase
         self::assertSame($text->toString(), $note->toString());
     }
 
-    public function testToStringReturnsStringRepresentationWhenNoteHasTags(): void
+    public function testToStringReturnsStringRepresentationWhenNoteHasFrontMatter(): void
     {
         $faker = self::faker();
 
         $text = Inside\Domain\Shared\Text::fromString($faker->realText());
-        $tags = \array_map(static function () use ($faker): Inside\Domain\Shared\Tag {
-            return Inside\Domain\Shared\Tag::fromString($faker->word());
-        }, \range(0, 2));
+        $frontMatter = Inside\Domain\Obsidian\FrontMatter::fromArray(\array_combine(
+            $faker->words(),
+            $faker->sentences(),
+        ));
 
         $note = Inside\Domain\Obsidian\Note::create(
             Inside\Domain\Shared\FilePath::create(
@@ -127,8 +131,8 @@ final class NoteTest extends Framework\TestCase
                     Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
                 ),
             ),
+            $frontMatter,
             $text,
-            $tags,
             \array_map(static function () use ($faker): Inside\Domain\Obsidian\Attachment {
                 return Inside\Domain\Obsidian\Attachment::create(
                     Inside\Domain\Shared\FilePath::create(
@@ -146,20 +150,15 @@ final class NoteTest extends Framework\TestCase
         $expected = \sprintf(
             <<<'TXT'
 ```
-tags:
 %s
 ```
 %s
 TXT,
-            \implode(
-                \PHP_EOL,
-                \array_map(static function (Inside\Domain\Shared\Tag $tag): string {
-                    return \sprintf(
-                        '  - %s',
-                        $tag->toString(),
-                    );
-                }, $tags),
-            ),
+            \trim(Yaml\Yaml::dump(
+                $frontMatter->toArray(),
+                2,
+                2,
+            )),
             $text->toString(),
         );
 

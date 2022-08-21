@@ -22,31 +22,29 @@ use Symfony\Component\Yaml;
 final class Note
 {
     /**
-     * @param array<int, Inside\Domain\Shared\Tag> $tags
-     * @param array<int, Attachment>               $attachments
+     * @param array<int, Attachment> $attachments
      */
     private function __construct(
         private readonly Inside\Domain\Shared\FilePath $filePath,
+        private readonly FrontMatter $frontMatter,
         private readonly Inside\Domain\Shared\Text $text,
-        private readonly array $tags,
         private readonly array $attachments,
     ) {
     }
 
     /**
-     * @param array<int, Inside\Domain\Shared\Tag> $tags
-     * @param array<int, Attachment>               $attachments
+     * @param array<int, Attachment> $attachments
      */
     public static function create(
         Inside\Domain\Shared\FilePath $filePath,
+        FrontMatter $frontMatter,
         Inside\Domain\Shared\Text $text,
-        array $tags,
         array $attachments,
     ): self {
         return new self(
             $filePath,
+            $frontMatter,
             $text,
-            $tags,
             $attachments,
         );
     }
@@ -56,14 +54,14 @@ final class Note
         return $this->filePath;
     }
 
+    public function frontMatter(): FrontMatter
+    {
+        return $this->frontMatter;
+    }
+
     public function text(): Inside\Domain\Shared\Text
     {
         return $this->text;
-    }
-
-    public function tags(): array
-    {
-        return $this->tags;
     }
 
     /**
@@ -76,7 +74,7 @@ final class Note
 
     public function toString(): string
     {
-        if ([] === $this->tags) {
+        if ([] === $this->frontMatter->toArray()) {
             return $this->text->toString();
         }
 
@@ -88,11 +86,7 @@ final class Note
 %s
 TXT,
             \trim(Yaml\Yaml::dump(
-                [
-                    'tags' => \array_map(static function (Inside\Domain\Shared\Tag $tag): string {
-                        return $tag->toString();
-                    }, $this->tags),
-                ],
+                $this->frontMatter->toArray(),
                 2,
                 2,
             )),

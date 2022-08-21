@@ -79,7 +79,15 @@
       <code>$faker-&gt;fileExtension()</code>
       <code>$faker-&gt;fileExtension()</code>
     </MixedArgument>
-    <TooManyArguments occurrences="5"/>
+    <MixedArgumentTypeCoercion occurrences="2">
+      <code>$faker-&gt;words()</code>
+      <code>$faker-&gt;words()</code>
+    </MixedArgumentTypeCoercion>
+    <PossiblyInvalidArgument occurrences="2">
+      <code>$faker-&gt;sentences()</code>
+      <code>$faker-&gt;sentences()</code>
+    </PossiblyInvalidArgument>
+    <TooManyArguments occurrences="3"/>
   </file>
   <file src="test/Unit/Inside/Domain/Shared/ExtensionTest.php">
     <MixedArgument occurrences="4">
@@ -130,6 +138,14 @@
       <code>$faker-&gt;fileExtension()</code>
       <code>$faker-&gt;fileExtension()</code>
     </MixedArgument>
+    <MixedArgumentTypeCoercion occurrences="2">
+      <code>$faker-&gt;words()</code>
+      <code>$faker-&gt;words()</code>
+    </MixedArgumentTypeCoercion>
+    <PossiblyInvalidArgument occurrences="2">
+      <code>$faker-&gt;sentences()</code>
+      <code>$faker-&gt;sentences()</code>
+    </PossiblyInvalidArgument>
     <TooManyArguments occurrences="2"/>
   </file>
 </files>
