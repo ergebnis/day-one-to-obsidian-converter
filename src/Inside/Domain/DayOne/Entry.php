@@ -21,8 +21,8 @@ use Ergebnis\DayOneToObsidianConverter\Inside;
 final class Entry
 {
     /**
-     * @param array<int, Inside\Domain\Shared\Tag> $tags
-     * @param array<int, Photo>                    $photos
+     * @param array<int, Tag>   $tags
+     * @param array<int, Photo> $photos
      */
     private function __construct(
         private readonly EntryIdentifier $identifier,
@@ -34,8 +34,8 @@ final class Entry
     }
 
     /**
-     * @param array<int, Inside\Domain\Shared\Tag> $tags
-     * @param array<int, Photo>                    $photos
+     * @param array<int, Tag>   $tags
+     * @param array<int, Photo> $photos
      */
     public static function create(
         EntryIdentifier $identifier,
@@ -69,7 +69,7 @@ final class Entry
     }
 
     /**
-     * @return array<int, Inside\Domain\Shared\Tag>
+     * @return array<int, Tag>
      */
     public function tags(): array
     {

@@ -65,8 +65,8 @@ final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
                 $tags = [];
 
                 if (\array_key_exists('tags', $entry)) {
-                    $tags = \array_map(static function (string $value): Inside\Domain\Shared\Tag {
-                        return Inside\Domain\Shared\Tag::fromString($value);
+                    $tags = \array_map(static function (string $value): Inside\Domain\DayOne\Tag {
+                        return Inside\Domain\DayOne\Tag::fromString($value);
                     }, $entry['tags']);
                 }
 

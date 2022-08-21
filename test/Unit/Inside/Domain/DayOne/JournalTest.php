@@ -27,13 +27,13 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\EntryIdentifier
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Photo
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\PhotoIdentifier
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Tag
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileContent
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Tag
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Text
  */
 final class JournalTest extends Framework\TestCase
@@ -57,8 +57,8 @@ final class JournalTest extends Framework\TestCase
                 Inside\Domain\DayOne\EntryIdentifier::fromString($faker->sha1()),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime())),
                 Inside\Domain\Shared\Text::fromString($faker->realText()),
-                \array_map(static function () use ($faker): Inside\Domain\Shared\Tag {
-                    return Inside\Domain\Shared\Tag::fromString($faker->word());
+                \array_map(static function () use ($faker): Inside\Domain\DayOne\Tag {
+                    return Inside\Domain\DayOne\Tag::fromString($faker->word());
                 }, \range(0, 2)),
                 \array_map(static function () use ($faker): Inside\Domain\DayOne\Photo {
                     return Inside\Domain\DayOne\Photo::create(

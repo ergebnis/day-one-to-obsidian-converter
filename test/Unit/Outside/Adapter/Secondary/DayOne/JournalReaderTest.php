@@ -30,13 +30,13 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Journal
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Photo
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\PhotoIdentifier
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Tag
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileContent
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Tag
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Text
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Port\Secondary\DayOne\FileDoesNotContainJson
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Port\Secondary\DayOne\FileDoesNotContainJsonValidAccordingToSchema
@@ -135,8 +135,8 @@ Next came an angry voice—the Rabbit's—'Pat\! Pat\! Where are you?' And then 
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -192,9 +192,9 @@ MARKDOWN
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -230,11 +230,11 @@ MARKDOWN
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('City'),
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Architecture'),
+                    Inside\Domain\DayOne\Tag::fromString('City'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Architecture'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -302,11 +302,11 @@ By midnight the blazing trees along the slopes of Richmond Park and the glare of
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('test2'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Photography'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('test2'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Photography'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -364,10 +364,10 @@ This photo is amazing. That's all. I'll never climb this mountain, but this phot
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Exercise'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Exercise'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -403,10 +403,10 @@ Harvest time. The colors... gorgeous. Love this time of year. We picked out a fe
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Fall'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Fall'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -486,11 +486,11 @@ But we are all in the hands of the Gods; and Pip jumped again. It was under very
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('test2'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('Weddings'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('test2'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('Weddings'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -641,16 +641,16 @@ We'll be heading to Hawaii next summer\!
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('Vacation'),
-                    Inside\Domain\Shared\Tag::fromString('Tickets'),
-                    Inside\Domain\Shared\Tag::fromString('Island'),
-                    Inside\Domain\Shared\Tag::fromString('tag'),
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Travel'),
-                    Inside\Domain\Shared\Tag::fromString('test2'),
-                    Inside\Domain\Shared\Tag::fromString('newtag'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('Vacation'),
+                    Inside\Domain\DayOne\Tag::fromString('Tickets'),
+                    Inside\Domain\DayOne\Tag::fromString('Island'),
+                    Inside\Domain\DayOne\Tag::fromString('tag'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Travel'),
+                    Inside\Domain\DayOne\Tag::fromString('test2'),
+                    Inside\Domain\DayOne\Tag::fromString('newtag'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -717,11 +717,11 @@ The cold weather is coming. Frost on the lawn isn't one of my favorite things. I
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Autumn'),
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Fall'),
+                    Inside\Domain\DayOne\Tag::fromString('Autumn'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Fall'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -855,11 +855,11 @@ MARKDOWN
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Recipes'),
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Holidays'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('Recipes'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Holidays'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -900,9 +900,9 @@ MARKDOWN
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
                 ],
                 [],
             ),
@@ -955,10 +955,10 @@ One by one the mice came creeping back, and Toto did not bark again, although he
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Food'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Food'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -1060,9 +1060,9 @@ This was a delicious burger!
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -1094,10 +1094,10 @@ Hello
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Weddings'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Weddings'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -1149,11 +1149,11 @@ The performance, so noisily announced by the Honourable Mr. Batulcar, was to com
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Fruit'),
-                    Inside\Domain\Shared\Tag::fromString('Travel'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Fruit'),
+                    Inside\Domain\DayOne\Tag::fromString('Travel'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -1225,11 +1225,11 @@ My favorite book
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Novels'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Reading'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Novels'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Reading'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
                 ],
                 [],
             ),
@@ -1255,10 +1255,10 @@ I was in a satellite flying around the planet for this one. ;-)
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Architecture'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Architecture'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -1310,9 +1310,9 @@ I was in a satellite flying around the planet for this one\. ;\-\)
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Architecture'),
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Architecture'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -1372,10 +1372,10 @@ Gutting the pumpkins for Halloween is always a good time. Here's a great recipe
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Holidays'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Holidays'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -1503,9 +1503,9 @@ Gutting the pumpkins for Halloween is always a good time\. Here's a great recipe
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Holidays'),
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Holidays'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -1623,10 +1623,10 @@ Ah, yeah... Time for some football at Rice-Eccles Stadium. The crowd is here in 
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Sports'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Sports'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -1674,11 +1674,11 @@ I tried to get a picture with my iPhone through the telescope. It didn’t turn 
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Stars'),
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Astronomy'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('Stars'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Astronomy'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -1732,11 +1732,11 @@ MARKDOWN
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Instagram'),
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Day One'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('Instagram'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Day One'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -1820,10 +1820,10 @@ Played *Onitama* with Kris at MD Headquarters. I was picking up some games I bou
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Board Games'),
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('Board Games'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
                 ],
                 [],
             ),
@@ -1857,10 +1857,10 @@ This was not an encouraging opening for a conversation. Alice replied, rather sh
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Novels'),
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('Novels'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
                 ],
                 [],
             ),
@@ -1897,10 +1897,10 @@ It was great to have Beth's family over with mine. Crowded... but great. It's we
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Holidays'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Holidays'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -2032,10 +2032,10 @@ I love my garden. The whole act of growing my own food—selecting this year's c
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Garden'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Garden'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -2101,11 +2101,11 @@ Presently the Rabbit came up to the door, and tried to open it; but, as the door
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Novels'),
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('Quotes'),
+                    Inside\Domain\DayOne\Tag::fromString('Novels'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('Quotes'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -2166,11 +2166,11 @@ fjdklsa;fjkdsl;ajkfl;
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Photography'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('Train'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Photography'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('Train'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -2286,10 +2286,10 @@ Alice could think of nothing else to say but 'It belongs to the Duchess: you'd b
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Birds'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Birds'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -2328,11 +2328,11 @@ The hike to the iconic Delicate Arch is one of my favorite of all time\. So pret
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Nature'),
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Travel'),
+                    Inside\Domain\DayOne\Tag::fromString('Nature'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Travel'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -2416,11 +2416,11 @@ Wow. I wonder what I would do if confronted with a Ball of Fire like that.
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Novels'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Reading'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Novels'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Reading'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
                 ],
                 [],
             ),
@@ -2449,11 +2449,11 @@ And... yeah... there's this. So much for healthy eating....
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Health'),
-                    Inside\Domain\Shared\Tag::fromString('Food'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Health'),
+                    Inside\Domain\DayOne\Tag::fromString('Food'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -2538,11 +2538,11 @@ As she neared the city the warriors rushed out upon the plain to meet her, but i
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Novels'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Reading'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Novels'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Reading'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
                 ],
                 [],
             ),
@@ -2558,11 +2558,11 @@ Don’t you ever wish you could go?
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Novels'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Reading'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Novels'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Reading'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
                 ],
                 [],
             ),
@@ -2575,10 +2575,10 @@ Tried out a VR system yesterday for the first time at work yesterday. Pretty ama
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Video games'),
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Video games'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
                 ],
                 [],
             ),
@@ -2621,10 +2621,10 @@ She was a good deal frightened by this very sudden change, but she felt that the
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Garden'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Garden'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -2700,11 +2700,11 @@ Fantastic trip to New York\. We caught a concert while we were there and loved i
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Architecture'),
-                    Inside\Domain\Shared\Tag::fromString('Travel'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Architecture'),
+                    Inside\Domain\DayOne\Tag::fromString('Travel'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -2758,10 +2758,10 @@ Combine the food with the other features of the season—sunshine, green\-grass\
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Food'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Food'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -2841,11 +2841,11 @@ From Jules Verne:
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Novels'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Reading'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Novels'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Reading'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
                 ],
                 [],
             ),
@@ -2860,11 +2860,11 @@ MARKDOWN
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Wine'),
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Drinks'),
+                    Inside\Domain\DayOne\Tag::fromString('Wine'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Drinks'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -2896,10 +2896,10 @@ So good\. Definitely coming here again\.
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Food'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Food'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -2969,11 +2969,11 @@ Preformatted text block using a tab\\\.
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Markdown'),
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Rich text'),
+                    Inside\Domain\DayOne\Tag::fromString('Markdown'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Rich text'),
                 ],
                 [],
             ),
@@ -3001,9 +3001,9 @@ MARKDOWN
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -3150,11 +3150,11 @@ P
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Cars'),
-                    Inside\Domain\Shared\Tag::fromString('Travel'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Cars'),
+                    Inside\Domain\DayOne\Tag::fromString('Travel'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -3257,10 +3257,10 @@ It is March 8 and it is snowing in Utah\. The weather here can be fickle sometim
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Snow'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Snow'),
                 ],
                 [],
             ),
@@ -3275,9 +3275,9 @@ MARKDOWN
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -3337,9 +3337,9 @@ Horizontal line 👇🏻
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -3370,12 +3370,12 @@ We went to the convention center to check out the cool RVs and trailers\. I am a
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Conventions'),
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('Testing'),
-                    Inside\Domain\Shared\Tag::fromString('RV'),
+                    Inside\Domain\DayOne\Tag::fromString('Conventions'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('Testing'),
+                    Inside\Domain\DayOne\Tag::fromString('RV'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -3423,11 +3423,11 @@ The train started\.
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Train'),
-                    Inside\Domain\Shared\Tag::fromString('Testing'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Train'),
+                    Inside\Domain\DayOne\Tag::fromString('Testing'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -3460,10 +3460,10 @@ We had a great time in New York sampling the sights, sounds, and tastes of the "
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Testing'),
-                    Inside\Domain\Shared\Tag::fromString('Travel'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Testing'),
+                    Inside\Domain\DayOne\Tag::fromString('Travel'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -3494,7 +3494,7 @@ Hanging out in the backyard while the weather starts to get nice\.
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Testing'),
+                    Inside\Domain\DayOne\Tag::fromString('Testing'),
                 ],
                 [],
             ),
@@ -3524,7 +3524,7 @@ Testing something\. Testing it once more\.
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Testing'),
+                    Inside\Domain\DayOne\Tag::fromString('Testing'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(
@@ -3586,11 +3586,11 @@ MARKDOWN
 MARKDOWN
                 ),
                 [
-                    Inside\Domain\Shared\Tag::fromString('Pizza'),
-                    Inside\Domain\Shared\Tag::fromString('Flying'),
-                    Inside\Domain\Shared\Tag::fromString('diary'),
-                    Inside\Domain\Shared\Tag::fromString('Test'),
-                    Inside\Domain\Shared\Tag::fromString('Testing'),
+                    Inside\Domain\DayOne\Tag::fromString('Pizza'),
+                    Inside\Domain\DayOne\Tag::fromString('Flying'),
+                    Inside\Domain\DayOne\Tag::fromString('diary'),
+                    Inside\Domain\DayOne\Tag::fromString('Test'),
+                    Inside\Domain\DayOne\Tag::fromString('Testing'),
                 ],
                 [
                     Inside\Domain\DayOne\Photo::create(

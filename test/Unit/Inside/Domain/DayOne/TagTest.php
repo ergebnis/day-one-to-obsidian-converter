@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @see https://github.com/ergebnis/day-one-to-obsidian-converter
  */
 
-namespace Ergebnis\DayOneToObsidianConverter\Test\Unit\Inside\Domain\Shared;
+namespace Ergebnis\DayOneToObsidianConverter\Test\Unit\Inside\Domain\DayOne;
 
 use Ergebnis\DayOneToObsidianConverter\Inside;
 use Ergebnis\DayOneToObsidianConverter\Test;
@@ -20,7 +20,7 @@ use PHPUnit\Framework;
 /**
  * @internal
  *
- * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Tag
+ * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Tag
  */
 final class TagTest extends Framework\TestCase
 {
@@ -30,7 +30,7 @@ final class TagTest extends Framework\TestCase
     {
         $value = self::faker()->word();
 
-        $tag = Inside\Domain\Shared\Tag::fromString($value);
+        $tag = Inside\Domain\DayOne\Tag::fromString($value);
 
         self::assertSame($value, $tag->toString());
     }

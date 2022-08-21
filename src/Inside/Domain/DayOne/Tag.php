@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @see https://github.com/ergebnis/day-one-to-obsidian-converter
  */
 
-namespace Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared;
+namespace Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne;
 
 /**
  * @psalm-immutable

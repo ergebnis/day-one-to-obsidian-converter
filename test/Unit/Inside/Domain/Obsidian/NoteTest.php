@@ -23,6 +23,7 @@ use Symfony\Component\Yaml;
  *
  * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Obsidian\Note
  *
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Tag
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Obsidian\Attachment
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Obsidian\FrontMatter
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
@@ -31,7 +32,6 @@ use Symfony\Component\Yaml;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileContent
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Tag
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Text
  */
 final class NoteTest extends Framework\TestCase
