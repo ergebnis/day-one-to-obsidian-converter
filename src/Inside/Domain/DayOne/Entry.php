@@ -68,11 +68,17 @@ final class Entry
         return $this->text;
     }
 
+    /**
+     * @return array<int, Inside\Domain\Shared\Tag>
+     */
     public function tags(): array
     {
         return $this->tags;
     }
 
+    /**
+     * @return array<int, Photo>
+     */
     public function photos(): array
     {
         return $this->photos;
