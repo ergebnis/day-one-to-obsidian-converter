@@ -47,6 +47,9 @@ final class Journal
         return $this->filePath;
     }
 
+    /**
+     * @return array<int, Entry>
+     */
     public function entries(): array
     {
         return $this->entries;
