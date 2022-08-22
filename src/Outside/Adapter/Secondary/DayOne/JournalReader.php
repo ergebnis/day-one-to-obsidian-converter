@@ -56,6 +56,14 @@ final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
         return Inside\Domain\DayOne\Journal::create(
             $filePath,
             ...\array_map(static function (array $entry) use ($filePath): Inside\Domain\DayOne\Entry {
+                $creationDate = Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable($entry['creationDate']));
+
+                $modifiedDate = Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable($creationDate->toDateTimeImmutable());
+
+                if (\array_key_exists('modifiedDate', $entry)) {
+                    $modifiedDate = Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable($entry['modifiedDate']));
+                }
+
                 $text = '';
 
                 if (\array_key_exists('text', $entry)) {
@@ -95,7 +103,8 @@ final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
 
                 return Inside\Domain\DayOne\Entry::create(
                     Inside\Domain\DayOne\EntryIdentifier::fromString($entry['uuid']),
-                    Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable($entry['creationDate'])),
+                    $creationDate,
+                    $modifiedDate,
                     Inside\Domain\Shared\Text::fromString($text),
                     $tags,
                     $photos,

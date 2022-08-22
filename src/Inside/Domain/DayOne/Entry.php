@@ -27,6 +27,7 @@ final class Entry
     private function __construct(
         private readonly EntryIdentifier $identifier,
         private readonly CreationDate $creationDate,
+        private readonly ModifiedDate $modifiedDate,
         private readonly Inside\Domain\Shared\Text $text,
         private readonly array $tags,
         private readonly array $photos,
@@ -40,6 +41,7 @@ final class Entry
     public static function create(
         EntryIdentifier $identifier,
         CreationDate $creationDate,
+        ModifiedDate $modifiedDate,
         Inside\Domain\Shared\Text $text,
         array $tags,
         array $photos,
@@ -47,6 +49,7 @@ final class Entry
         return new self(
             $identifier,
             $creationDate,
+            $modifiedDate,
             $text,
             $tags,
             $photos,
@@ -61,6 +64,11 @@ final class Entry
     public function creationDate(): CreationDate
     {
         return $this->creationDate;
+    }
+
+    public function modifiedDate(): ModifiedDate
+    {
+        return $this->modifiedDate;
     }
 
     public function text(): Inside\Domain\Shared\Text

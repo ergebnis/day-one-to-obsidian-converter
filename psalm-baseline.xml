@@ -16,9 +16,10 @@
     </ImpureMethodCall>
   </file>
   <file src="src/Outside/Adapter/Secondary/DayOne/JournalReader.php">
-    <MixedArgument occurrences="9">
+    <MixedArgument occurrences="10">
       <code>$data['entries']</code>
       <code>$entry['creationDate']</code>
+      <code>$entry['modifiedDate']</code>
       <code>$entry['photos']</code>
       <code>$entry['tags']</code>
       <code>$entry['uuid']</code>

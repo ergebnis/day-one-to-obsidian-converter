@@ -28,6 +28,7 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Entry
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\EntryIdentifier
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Journal
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\ModifiedDate
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Photo
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\PhotoIdentifier
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Tag
@@ -97,6 +98,7 @@ final class JournalReaderTest extends Framework\TestCase
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('2E542464666C4ACE91E83539FF114A76'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2004-10-13T00:38:16.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-12T19:44:30.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 **Luckily** for ***Alice***, the little magic bottle had now had its full effect, and she grew no larger: still it was very uncomfortable, and, as there seemed to be no sort of chance of her ever getting out of the room again, no wonder she felt unhappy\.
@@ -186,6 +188,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('AED1E7D94603407693F2AE91142F9089'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2008-01-01T07:01:33.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:48:09.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 ![](dayone-moment://435C5006CF49455699940E1E3B7F5D75)
@@ -216,6 +219,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('BFC78F64945A4971A8A8B27B404483B5'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2009-03-15T12:15:18.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:48:11.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 # Lady Liberty, New York City, NY
@@ -284,6 +288,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('E3264EA138CB44478294A8B1345A1DA0'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2011-03-02T17:48:50.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:48:11.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 Notes from the Daily Commute
@@ -356,6 +361,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('CA894DC835314616922B7F289D61A48D'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2012-03-15T23:15:31.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:48:09.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 This photo is amazing. That's all. I'll never climb this mountain, but this photo takes me to the heights without the effort.
@@ -389,6 +395,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('7D58DB9C74454659AE14A2D7C6A1FCD9'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2012-10-06T17:16:37.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:48:09.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 ![](dayone-moment://8DD1FA21FA3D4EDAB3FC5F23C6EC7BCB)
@@ -456,6 +463,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('CBCAF8F655E74A9693CCEC8C4BAAF392'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2013-03-04T17:49:01.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:48:09.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 Jessa and Aldo's wedding was, well, great. What else can you expect from two young people in love. It was wonderful to be with the family and celebrate with the young couple.
@@ -610,6 +618,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('80F62149F21B433F92D770F56F8FB8ED'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2013-03-16T11:48:31.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:48:11.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 # Plans for Our Trip to Hawaii
@@ -686,6 +695,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('8B1A0F8B282C4E19B3415AF9DADA5F4C'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2013-10-01T15:50:57.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:48:06.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 ![](dayone-moment://56D4DFB5FDFC43EB872AE1297081854C)
@@ -841,6 +851,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('18EDC9F2FD1947CAA0EA9C2C13132D3A'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2014-11-13T22:23:30.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:48:06.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 ## Some recipes for Thanksgiving:
@@ -881,6 +892,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('D1DF49182FF24717998E317D846B0728'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2015-02-28T17:48:40.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-05-18T21:07:51.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 # To Do Tomorrow
@@ -909,6 +921,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('4C968598AC3D4F75B7095F5BD6865EDA'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2015-03-19T16:26:50.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:48:06.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 ![](dayone-moment://B3506E2516C848E8AA4794EF77CC0F9F)
@@ -1050,6 +1063,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('B68D1277B34F4F478329EA28D10F3634'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2015-06-09T17:20:21.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:48:10.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 Having lunch
@@ -1084,6 +1098,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('056C18F77A674A63A9C8F013ABFC5113'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2015-07-18T11:25:09.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:48:04.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 ![](dayone-moment://0702E3C16D9B4B518DD666CFBD97C204)
@@ -1119,6 +1134,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('D8EFDCDB5635451CAE22210A7ED2BDBF'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2015-08-08T13:51:34.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:48:11.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 ![](dayone-moment://42B86A7BB69E4DE0AFD7360016816FD5)
@@ -1217,6 +1233,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('16C53FB6601E4EB1B9428EC63A665413'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2015-09-29T19:56:03.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-05-18T21:02:48.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 My favorite book
@@ -1236,6 +1253,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('00086B3AEFD345E0B295312CC1E2FDDF'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2015-10-18T08:00:15.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:48:06.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 ![](dayone-moment://3A2E9655A5E74BE480F173CEBF912950)
@@ -1294,6 +1312,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('09CB99EF774246EBAE77DE3C34BD5296'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2015-10-18T10:00:15.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-19T03:23:14.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 ![](dayone-moment://0CF856D8769149059D9353DCEFB6297A)
@@ -1348,6 +1367,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('599FFA98036A4F44BA201FB7ECCBB431'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2015-10-18T20:06:37.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:48:12.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 ![](dayone-moment://CB3CF350C0184E23986D572498010F92)
@@ -1481,6 +1501,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('B57AF867C32C42D8A7496C40F8D0745A'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2015-10-18T22:06:37.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-19T03:23:41.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 ![](dayone-moment://582722853C304953A524BFFBEF871A44)
@@ -1611,6 +1632,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('1165FB0424FD434FB420D8D8331BD488'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2015-10-23T02:00:26.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:48:08.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 ![](dayone-moment://E93925E2A7D94426916327029AC702A2)
@@ -1662,6 +1684,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('7FCBF81624684F32A8978857728FF23E'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2015-10-30T04:30:39.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:48:10.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 I went stargazing last night.
@@ -1700,6 +1723,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('0612F133C9F14A3396A261E13E619E56'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2015-12-03T04:50:59.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:48:05.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 ![](dayone-moment://842DEFD0FD554382B3B1BA7C2E8360E2)
@@ -1814,6 +1838,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('B96F372A55EA4284A1E0ED22C605B235'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2015-12-29T22:55:11.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-05-18T20:59:16.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 Played *Onitama* with Kris at MD Headquarters. I was picking up some games I bought from them. They were: *Kemet* and expansion, *Ticket to Ride: UK/Pennsylvania*, *Imperial Settlers: Atlanteans*, and *Sanssouci*.
@@ -1830,6 +1855,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('FE5A449F06744F50A916DD7674470DDD'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2016-02-29T04:19:27.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-05-18T21:00:12.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 # The Dilemma
@@ -1867,6 +1893,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('CD10058BE1824DC3A2380423C98D1F7C'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2016-03-03T20:51:36.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:48:12.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 ![](dayone-moment://512BE6C305224D56AF19BED9001D2B30)
@@ -2020,6 +2047,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('ABB28326E79C45449AAB352F46F9820B'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2016-03-15T19:07:31.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:48:10.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 I love my garden. The whole act of growing my own food—selecting this year's crop, cultivating and nourishing it, witnessing the miracle of buds turn to seedlings turn to plants with produce—is therapeutic and good for the soul. I love it. Even better, my kids love it. Life is a miracle to behold.
@@ -2085,6 +2113,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('9FCCA9634FD24C4483DC0C2BAA1BED6E'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2016-03-15T22:08:54.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:48:10.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 'Oh, you foolish Alice!' she answered herself. 'How can you learn lessons in here? Why, there's hardly room for YOU, and no room at all for any lesson-books!'
@@ -2127,6 +2156,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('ED07EB0E9D7545D9BC71AE73E3400DF1'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2016-03-16T01:01:26.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:48:11.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 ![](dayone-moment://79AEB93C3F7E404CB6E2F9B3C7BB43F5)
@@ -2262,6 +2292,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('421BA514DEAB454FA8BAA76452C4F53C'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2016-04-20T14:51:44.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:48:09.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 Flamingoes are funny.
@@ -2311,6 +2342,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('33B8FFE93C924DCB8BE9EA5704D61748'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2016-05-01T21:02:04.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:48:11.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 # I love this state\!
@@ -2396,6 +2428,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('965F18261E8C432E9D37E4BF8882CF90'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2016-05-07T14:13:16.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-05-18T21:07:25.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 I was reading the Wizard of Oz last night, and came across this passage
@@ -2427,6 +2460,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('2625948D823E4E578E6DC6480B3AE433'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2016-05-17T11:33:44.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:48:02.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 ![](dayone-moment://1FBC53D51E0846AFB5A917AD1D79C072)
@@ -2517,6 +2551,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('435CBD1CAAE841609CA0A7C0F66BC2BE'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2016-05-18T13:09:09.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-05-18T21:05:47.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 Sola and I had entered a building upon the front of the city, in fact, the same one in which I had had my encounter with the apes, and, wishing to see what had caused the sudden retreat, I mounted to an upper floor and peered from the window out over the valley and the hills beyond; and there I saw the cause of their sudden scurrying to cover. A huge craft, long, low, and gray-painted, swung slowly over the crest of the nearest hill. Following it came another, and another, and another, until twenty of them, swinging low above the ground, sailed slowly and majestically toward us.
@@ -2549,6 +2584,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('00519835094C4B8F9FC47C9CDB2A09BF'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2016-05-29T22:08:34.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-05-18T21:01:09.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 Over the rainbow
@@ -2569,6 +2605,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('6B2AF04BDB604AB6A46823D3D14E24CC'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2016-06-19T21:54:20.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-05-18T21:02:24.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 Tried out a VR system yesterday for the first time at work yesterday. Pretty amazing. While I was using it, I overheard one person in the office saying, “Did I look that stupid one I was doing it, too?” Yes. Yes, you did.
@@ -2585,6 +2622,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('FCF360DA31C14E15A1456629614FEE6A'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2016-06-25T19:54:37.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:47:56.000000+000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 ![](dayone-moment://7BC3425EDDEB432D92DAF6622CF5A0AC)
@@ -2688,6 +2726,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('8A607DF32EB44D148DD4E51723B7F02B'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2016-07-17T09:29:22.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:47:56.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 ![](dayone-moment://CF33789476E741A0905F711DC343387F)
@@ -2740,6 +2779,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('829E1249D41C4FEEAA4474A151539E85'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2016-07-23T22:06:56.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:47:57.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 ![](dayone-moment://E002E3A90FBB49A7A8F2BBFFC2241F52)
@@ -2825,6 +2865,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('558CA665CEF142ED92CA82256E766730'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2016-07-29T21:57:47.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-05-18T21:09:11.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 # I love reading\.
@@ -2852,6 +2893,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('414DFD668D984A73907D062842ABF37E'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2016-08-11T22:11:25.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:47:57.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 ![](dayone-moment://26BC6721F6A94B2F98C92E442DECE1BD)
@@ -2886,6 +2928,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('97369F00AA4C4207918198C10A340E58'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2016-08-14T00:02:10.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:47:57.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 # I neeeeeeeed Italian food\. Need\. I took this shot before I ate this food\. Amazing\.
@@ -2921,6 +2964,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('B3D8951E78A34EB09A5B26C92B06B673'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2016-08-29T14:57:45.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-05-18T21:04:06.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 # Day One Markdown Syntax
@@ -2980,6 +3024,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('42863030ACBA4E6A9F938522432D0F72'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2018-12-16T15:54:21.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-12T17:57:42.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 # Test
@@ -3109,6 +3154,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('DF531CA5D2074D9998907F85EA7B38F5'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2019-01-12T23:01:07.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:47:59.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 It did so indeed, and much sooner than she had expected: before she had drunk half the bottle, she found her head pressing against the ceiling, and had to stoop to save her neck from being broken\. She hastily put down the bottle, saying to herself 'That's quite enough—I hope I shan't grow any more—As it is, I can't get out at the door—I do wish I hadn't drunk quite so much\!'
@@ -3246,6 +3292,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('C1628926A59D4E3696D193660CB7CA54'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2019-03-08T19:27:04.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-05-18T21:07:27.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 # Snow day\!
@@ -3267,6 +3314,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('117C6CD166FA4EB087D141AA874E6356'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2019-04-24T19:28:06.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:48:01.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 # Day One on iPad\!
@@ -3299,6 +3347,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('A9197829055540C8BBEE3B615714CD65'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-01-07T17:37:16.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-01T17:48:01.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 # Header 1
@@ -3361,6 +3410,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('BFBC0D27D22D48EFBBCB2BC61F024A7A'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-02-17T21:49:06.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-22T18:00:37.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 # RV show
@@ -3397,6 +3447,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('9C083C91D3DC493197381A9C765E46E3'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-03-10T18:36:41.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-22T18:00:37.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 # A recent family conversation on the train
@@ -3449,6 +3500,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('6AD6D8629B5841E2A00FA0A34E9D422D'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-05-08T16:34:46.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-22T18:00:37.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 # Trip to New York
@@ -3485,6 +3537,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('E50B82D3AD414619ABFC2688B7D8301F'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-05-25T02:34:47.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-22T18:00:37.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 # Summer nights\!
@@ -3501,6 +3554,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('B19ABC7100664FA186E3C60A9D00B59F'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-05-25T23:35:36.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-24T17:50:33.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 ![](dayone-moment://5044FCF5EE8F43A1A5CC1894404D20C9)
@@ -3574,6 +3628,7 @@ MARKDOWN
             Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString('86F0A60ED1AC4EC391BF3430A8C7A44A'),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-05-26T21:59:37.000000+0000')),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable('2020-10-22T18:00:37.000000+0000')),
                 Inside\Domain\Shared\Text::fromString(
                     <<<'MARKDOWN'
 # Here are some aerial shots from Rich's plane\. Loved the fly over the town center\. Such a unique view of the area\.

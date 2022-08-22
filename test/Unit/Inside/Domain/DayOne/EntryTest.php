@@ -24,6 +24,7 @@ use PHPUnit\Framework;
  *
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\CreationDate
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\EntryIdentifier
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\ModifiedDate
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Photo
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\PhotoIdentifier
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Tag
@@ -45,6 +46,7 @@ final class EntryTest extends Framework\TestCase
 
         $entryIdentifier = Inside\Domain\DayOne\EntryIdentifier::fromString($faker->sha1());
         $creationDate = Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime()));
+        $modifiedDate = Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime()));
         $text = Inside\Domain\Shared\Text::fromString($faker->realText());
         $tags = \array_map(static function () use ($faker): Inside\Domain\DayOne\Tag {
             return Inside\Domain\DayOne\Tag::fromString($faker->word());
@@ -66,6 +68,7 @@ final class EntryTest extends Framework\TestCase
         $entry = Inside\Domain\DayOne\Entry::create(
             $entryIdentifier,
             $creationDate,
+            $modifiedDate,
             $text,
             $tags,
             $photos,
@@ -73,6 +76,7 @@ final class EntryTest extends Framework\TestCase
 
         self::assertSame($entryIdentifier, $entry->identifier());
         self::assertSame($creationDate, $entry->creationDate());
+        self::assertSame($modifiedDate, $entry->modifiedDate());
         self::assertSame($text, $entry->text());
         self::assertSame($tags, $entry->tags());
         self::assertSame($photos, $entry->photos());

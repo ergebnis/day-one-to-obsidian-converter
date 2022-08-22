@@ -25,6 +25,7 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\CreationDate
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Entry
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\EntryIdentifier
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\ModifiedDate
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Photo
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\PhotoIdentifier
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Tag
@@ -56,6 +57,7 @@ final class JournalTest extends Framework\TestCase
             return Inside\Domain\DayOne\Entry::create(
                 Inside\Domain\DayOne\EntryIdentifier::fromString($faker->sha1()),
                 Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime())),
+                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime())),
                 Inside\Domain\Shared\Text::fromString($faker->realText()),
                 \array_map(static function () use ($faker): Inside\Domain\DayOne\Tag {
                     return Inside\Domain\DayOne\Tag::fromString($faker->word());
