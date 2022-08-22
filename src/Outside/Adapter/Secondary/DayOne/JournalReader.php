@@ -57,6 +57,7 @@ final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
             $filePath,
             ...\array_map(static function (array $entry) use ($filePath): Inside\Domain\DayOne\Entry {
                 $creationDate = Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable($entry['creationDate']));
+
                 $modifiedDate = Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable($creationDate->toDateTimeImmutable());
 
                 if (\array_key_exists('modifiedDate', $entry)) {
@@ -100,6 +101,17 @@ final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
                     }, $entry['photos']);
                 }
 
+                $data = $entry;
+
+                unset(
+                    $data['creationDate'],
+                    $data['modifiedDate'],
+                    $data['photos'],
+                    $data['richText'],
+                    $data['tags'],
+                    $data['text'],
+                );
+
                 return Inside\Domain\DayOne\Entry::create(
                     Inside\Domain\DayOne\EntryIdentifier::fromString($entry['uuid']),
                     $creationDate,
@@ -107,8 +119,32 @@ final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
                     Inside\Domain\Shared\Text::fromString($text),
                     $tags,
                     $photos,
+                    self::normalizeData($data),
                 );
             }, $data['entries']),
         );
+    }
+
+    private static function normalizeData($value)
+    {
+        if (!\is_array($value)) {
+            return $value;
+        }
+
+        $keys = \array_keys($value);
+
+        $stringKeys = \array_filter($keys, static function ($key): bool {
+            return \is_string($key);
+        });
+
+        if ($keys === $stringKeys) {
+            \ksort($value);
+        }
+
+        foreach ($value as $k => $v) {
+            $value[$k] = self::normalizeData($v);
+        }
+
+        return $value;
     }
 }

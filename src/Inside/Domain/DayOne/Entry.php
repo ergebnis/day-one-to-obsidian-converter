@@ -31,6 +31,7 @@ final class Entry
         private readonly Inside\Domain\Shared\Text $text,
         private readonly array $tags,
         private readonly array $photos,
+        private readonly array $data,
     ) {
     }
 
@@ -45,6 +46,7 @@ final class Entry
         Inside\Domain\Shared\Text $text,
         array $tags,
         array $photos,
+        array $data,
     ): self {
         return new self(
             $identifier,
@@ -53,6 +55,7 @@ final class Entry
             $text,
             $tags,
             $photos,
+            $data,
         );
     }
 
@@ -90,5 +93,10 @@ final class Entry
     public function photos(): array
     {
         return $this->photos;
+    }
+
+    public function data(): array
+    {
+        return $this->data;
     }
 }

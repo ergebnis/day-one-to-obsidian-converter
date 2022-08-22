@@ -75,6 +75,10 @@ final class JournalTest extends Framework\TestCase
                         Inside\Domain\Shared\FileContent::fromString($faker->realText()),
                     );
                 }, \range(0, 2)),
+                \array_combine(
+                    $faker->words(),
+                    $faker->sentences(),
+                ),
             );
         }, \range(0, 2));
 

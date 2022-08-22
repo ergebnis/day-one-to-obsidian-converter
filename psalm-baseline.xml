@@ -16,7 +16,13 @@
     </ImpureMethodCall>
   </file>
   <file src="src/Outside/Adapter/Secondary/DayOne/JournalReader.php">
-    <MixedArgument occurrences="10">
+    <MissingParamType occurrences="1">
+      <code>$value</code>
+    </MissingParamType>
+    <MissingReturnType occurrences="1">
+      <code>normalizeData</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="11">
       <code>$data['entries']</code>
       <code>$entry['creationDate']</code>
       <code>$entry['modifiedDate']</code>
@@ -27,6 +33,7 @@
       <code>$photo['md5']</code>
       <code>$photo['type']</code>
       <code>$text</code>
+      <code>self::normalizeData($data)</code>
     </MixedArgument>
     <MixedArgumentTypeCoercion occurrences="2">
       <code>$photos</code>
@@ -35,15 +42,26 @@
     <MixedArrayAccess occurrences="1">
       <code>$data['entries']</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="2">
+    <MixedAssignment occurrences="4">
       <code>$data</code>
       <code>$text</code>
+      <code>$v</code>
+      <code>$value[$k]</code>
     </MixedAssignment>
+    <TypeDoesNotContainType occurrences="1">
+      <code>$keys === $stringKeys</code>
+    </TypeDoesNotContainType>
   </file>
   <file src="test/Unit/Inside/Domain/DayOne/EntryTest.php">
     <MixedArgument occurrences="1">
       <code>$faker-&gt;fileExtension()</code>
     </MixedArgument>
+    <MixedArgumentTypeCoercion occurrences="1">
+      <code>$faker-&gt;words()</code>
+    </MixedArgumentTypeCoercion>
+    <PossiblyInvalidArgument occurrences="1">
+      <code>$faker-&gt;sentences()</code>
+    </PossiblyInvalidArgument>
     <TooManyArguments occurrences="2"/>
   </file>
   <file src="test/Unit/Inside/Domain/DayOne/JournalTest.php">
@@ -51,6 +69,12 @@
       <code>$faker-&gt;fileExtension()</code>
       <code>$faker-&gt;fileExtension()</code>
     </MixedArgument>
+    <MixedArgumentTypeCoercion occurrences="1">
+      <code>$faker-&gt;words()</code>
+    </MixedArgumentTypeCoercion>
+    <PossiblyInvalidArgument occurrences="1">
+      <code>$faker-&gt;sentences()</code>
+    </PossiblyInvalidArgument>
     <TooManyArguments occurrences="3"/>
   </file>
   <file src="test/Unit/Inside/Domain/DayOne/PhotoTest.php">

@@ -64,6 +64,10 @@ final class EntryTest extends Framework\TestCase
                 Inside\Domain\Shared\FileContent::fromString($faker->realText()),
             );
         }, \range(0, 2));
+        $data = \array_combine(
+            $faker->words(),
+            $faker->sentences(),
+        );
 
         $entry = Inside\Domain\DayOne\Entry::create(
             $entryIdentifier,
@@ -72,6 +76,7 @@ final class EntryTest extends Framework\TestCase
             $text,
             $tags,
             $photos,
+            $data,
         );
 
         self::assertSame($entryIdentifier, $entry->identifier());
@@ -80,5 +85,6 @@ final class EntryTest extends Framework\TestCase
         self::assertSame($text, $entry->text());
         self::assertSame($tags, $entry->tags());
         self::assertSame($photos, $entry->photos());
+        self::assertSame($data, $entry->data());
     }
 }
