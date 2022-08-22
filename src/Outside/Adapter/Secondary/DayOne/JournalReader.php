@@ -57,7 +57,6 @@ final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
             $filePath,
             ...\array_map(static function (array $entry) use ($filePath): Inside\Domain\DayOne\Entry {
                 $creationDate = Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable($entry['creationDate']));
-
                 $modifiedDate = Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable($creationDate->toDateTimeImmutable());
 
                 if (\array_key_exists('modifiedDate', $entry)) {
