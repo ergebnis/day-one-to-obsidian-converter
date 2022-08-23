@@ -57,21 +57,6 @@ final class NoteWriterTest extends Framework\TestCase
             self::temporaryDirectory(),
         ));
 
-        $attachments = \array_map(static function () use ($faker): Inside\Domain\Obsidian\Attachment {
-            $filePath = Inside\Domain\Shared\FilePath::create(
-                Inside\Domain\Shared\Directory::fromString($faker->slug()),
-                Inside\Domain\Shared\FileName::create(
-                    Inside\Domain\Shared\BaseName::fromString($faker->slug()),
-                    Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
-                ),
-            );
-
-            return Inside\Domain\Obsidian\Attachment::create(
-                $filePath,
-                Inside\Domain\Shared\FileContent::fromString($faker->realText()),
-            );
-        }, \range(0, 2));
-
         $note = Inside\Domain\Obsidian\Note::create(
             Inside\Domain\Shared\FilePath::create(
                 $directory,
@@ -85,21 +70,23 @@ final class NoteWriterTest extends Framework\TestCase
                 $faker->sentences(),
             )),
             Inside\Domain\Shared\Text::fromString('Hello, world!'),
-            $attachments,
+            \array_map(static function () use ($faker): Inside\Domain\Obsidian\Attachment {
+                $filePath = Inside\Domain\Shared\FilePath::create(
+                    Inside\Domain\Shared\Directory::fromString($faker->slug()),
+                    Inside\Domain\Shared\FileName::create(
+                        Inside\Domain\Shared\BaseName::fromString($faker->slug()),
+                        Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
+                    ),
+                );
+
+                return Inside\Domain\Obsidian\Attachment::create(
+                    $filePath,
+                    Inside\Domain\Shared\FileContent::fromString($faker->realText()),
+                );
+            }, \range(0, 2)),
         );
 
-        $attachmentWriter = $this->createMock(Inside\Port\Secondary\Obsidian\AttachmentWriter::class);
-
-        $attachmentWriter
-            ->expects(self::exactly(\count($attachments)))
-            ->method('write')
-            ->withConsecutive(...\array_map(static function (Inside\Domain\Obsidian\Attachment $attachment) {
-                return [
-                    self::identicalTo($attachment),
-                ];
-            }, $attachments));
-
-        $noteWriter = new Outside\Adapter\Secondary\Obsidian\NoteWriter($attachmentWriter);
+        $noteWriter = new Outside\Adapter\Secondary\Obsidian\NoteWriter();
 
         $noteWriter->write($note);
 
@@ -118,21 +105,6 @@ final class NoteWriterTest extends Framework\TestCase
 
         self::fileSystem()->mkdir($directory->toString());
 
-        $attachments = \array_map(static function () use ($faker): Inside\Domain\Obsidian\Attachment {
-            $filePath = Inside\Domain\Shared\FilePath::create(
-                Inside\Domain\Shared\Directory::fromString($faker->slug()),
-                Inside\Domain\Shared\FileName::create(
-                    Inside\Domain\Shared\BaseName::fromString($faker->slug()),
-                    Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
-                ),
-            );
-
-            return Inside\Domain\Obsidian\Attachment::create(
-                $filePath,
-                Inside\Domain\Shared\FileContent::fromString($faker->realText()),
-            );
-        }, \range(0, 2));
-
         $note = Inside\Domain\Obsidian\Note::create(
             Inside\Domain\Shared\FilePath::create(
                 $directory,
@@ -146,21 +118,23 @@ final class NoteWriterTest extends Framework\TestCase
                 $faker->sentences(),
             )),
             Inside\Domain\Shared\Text::fromString('Hello, world!'),
-            $attachments,
+            \array_map(static function () use ($faker): Inside\Domain\Obsidian\Attachment {
+                $filePath = Inside\Domain\Shared\FilePath::create(
+                    Inside\Domain\Shared\Directory::fromString($faker->slug()),
+                    Inside\Domain\Shared\FileName::create(
+                        Inside\Domain\Shared\BaseName::fromString($faker->slug()),
+                        Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
+                    ),
+                );
+
+                return Inside\Domain\Obsidian\Attachment::create(
+                    $filePath,
+                    Inside\Domain\Shared\FileContent::fromString($faker->realText()),
+                );
+            }, \range(0, 2)),
         );
 
-        $attachmentWriter = $this->createMock(Inside\Port\Secondary\Obsidian\AttachmentWriter::class);
-
-        $attachmentWriter
-            ->expects(self::exactly(\count($attachments)))
-            ->method('write')
-            ->withConsecutive(...\array_map(static function (Inside\Domain\Obsidian\Attachment $attachment) {
-                return [
-                    self::identicalTo($attachment),
-                ];
-            }, $attachments));
-
-        $noteWriter = new Outside\Adapter\Secondary\Obsidian\NoteWriter($attachmentWriter);
+        $noteWriter = new Outside\Adapter\Secondary\Obsidian\NoteWriter();
 
         $noteWriter->write($note);
 

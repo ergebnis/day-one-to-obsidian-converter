@@ -150,12 +150,6 @@
       <code>$faker-&gt;fileExtension()</code>
     </MixedArgument>
   </file>
-  <file src="test/Unit/Outside/Adapter/Secondary/Obsidian/AttachmentWriterTest.php">
-    <MixedArgument occurrences="2">
-      <code>$faker-&gt;fileExtension()</code>
-      <code>$faker-&gt;fileExtension()</code>
-    </MixedArgument>
-  </file>
   <file src="test/Unit/Outside/Adapter/Secondary/Obsidian/NoteWriterTest.php">
     <MixedArgument occurrences="4">
       <code>$faker-&gt;fileExtension()</code>
