@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Ergebnis\DayOneToObsidianConverter\Inside\Domain\Obsidian;
 
-use Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileContent;
 use Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath;
 
 /**
@@ -21,29 +20,17 @@ use Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath;
  */
 final class Attachment
 {
-    private function __construct(
-        private readonly FilePath $filePath,
-        private readonly FileContent $fileContent,
-    ) {
+    private function __construct(private readonly FilePath $filePath)
+    {
     }
 
-    public static function create(
-        FilePath $filePath,
-        FileContent $fileContent,
-    ): self {
-        return new self(
-            $filePath,
-            $fileContent,
-        );
+    public static function create(FilePath $filePath): self
+    {
+        return new self($filePath);
     }
 
     public function filePath(): FilePath
     {
         return $this->filePath;
-    }
-
-    public function fileContent(): FileContent
-    {
-        return $this->fileContent;
     }
 }

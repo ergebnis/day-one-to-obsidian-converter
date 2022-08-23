@@ -32,7 +32,6 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileContent
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Text
@@ -72,7 +71,6 @@ final class JournalTest extends Framework\TestCase
                                 Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
                             ),
                         ),
-                        Inside\Domain\Shared\FileContent::fromString($faker->realText()),
                     );
                 }, \range(0, 2)),
                 \array_combine(

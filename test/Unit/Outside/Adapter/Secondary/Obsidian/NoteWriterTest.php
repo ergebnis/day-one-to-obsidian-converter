@@ -29,7 +29,6 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileContent
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Text
@@ -71,18 +70,13 @@ final class NoteWriterTest extends Framework\TestCase
             )),
             Inside\Domain\Shared\Text::fromString('Hello, world!'),
             \array_map(static function () use ($faker): Inside\Domain\Obsidian\Attachment {
-                $filePath = Inside\Domain\Shared\FilePath::create(
+                return Inside\Domain\Obsidian\Attachment::create(Inside\Domain\Shared\FilePath::create(
                     Inside\Domain\Shared\Directory::fromString($faker->slug()),
                     Inside\Domain\Shared\FileName::create(
                         Inside\Domain\Shared\BaseName::fromString($faker->slug()),
                         Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
                     ),
-                );
-
-                return Inside\Domain\Obsidian\Attachment::create(
-                    $filePath,
-                    Inside\Domain\Shared\FileContent::fromString($faker->realText()),
-                );
+                ));
             }, \range(0, 2)),
         );
 
@@ -119,18 +113,13 @@ final class NoteWriterTest extends Framework\TestCase
             )),
             Inside\Domain\Shared\Text::fromString('Hello, world!'),
             \array_map(static function () use ($faker): Inside\Domain\Obsidian\Attachment {
-                $filePath = Inside\Domain\Shared\FilePath::create(
+                return Inside\Domain\Obsidian\Attachment::create(Inside\Domain\Shared\FilePath::create(
                     Inside\Domain\Shared\Directory::fromString($faker->slug()),
                     Inside\Domain\Shared\FileName::create(
                         Inside\Domain\Shared\BaseName::fromString($faker->slug()),
                         Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
                     ),
-                );
-
-                return Inside\Domain\Obsidian\Attachment::create(
-                    $filePath,
-                    Inside\Domain\Shared\FileContent::fromString($faker->realText()),
-                );
+                ));
             }, \range(0, 2)),
         );
 

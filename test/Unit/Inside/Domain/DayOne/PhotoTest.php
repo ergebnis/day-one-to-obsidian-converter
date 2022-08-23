@@ -27,7 +27,6 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileContent
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath
  */
@@ -47,16 +46,13 @@ final class PhotoTest extends Framework\TestCase
                 Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
             ),
         );
-        $fileContent = Inside\Domain\Shared\FileContent::fromString($faker->realText());
 
         $photo = Inside\Domain\DayOne\Photo::create(
             $identifier,
             $filePath,
-            $fileContent,
         );
 
         self::assertSame($identifier, $photo->identifier());
         self::assertSame($filePath, $photo->filePath());
-        self::assertSame($fileContent, $photo->fileContent());
     }
 }

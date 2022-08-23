@@ -82,21 +82,18 @@ final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
 
                 if (\array_key_exists('photos', $entry)) {
                     $photos = \array_map(static function (array $photo) use ($filePath): Inside\Domain\DayOne\Photo {
-                        $photoFilePath = Inside\Domain\Shared\FilePath::create(
-                            Inside\Domain\Shared\Directory::fromString(\sprintf(
-                                '%s/photos',
-                                $filePath->directory()->toString(),
-                            )),
-                            Inside\Domain\Shared\FileName::create(
-                                Inside\Domain\Shared\BaseName::fromString($photo['md5']),
-                                Inside\Domain\Shared\Extension::fromString($photo['type']),
-                            ),
-                        );
-
                         return Inside\Domain\DayOne\Photo::create(
                             Inside\Domain\DayOne\PhotoIdentifier::fromString($photo['identifier']),
-                            $photoFilePath,
-                            Inside\Domain\Shared\FileContent::fromString($photoFilePath->toString()),
+                            Inside\Domain\Shared\FilePath::create(
+                                Inside\Domain\Shared\Directory::fromString(\sprintf(
+                                    '%s/photos',
+                                    $filePath->directory()->toString(),
+                                )),
+                                Inside\Domain\Shared\FileName::create(
+                                    Inside\Domain\Shared\BaseName::fromString($photo['md5']),
+                                    Inside\Domain\Shared\Extension::fromString($photo['type']),
+                                ),
+                            ),
                         );
                     }, $entry['photos']);
                 }
