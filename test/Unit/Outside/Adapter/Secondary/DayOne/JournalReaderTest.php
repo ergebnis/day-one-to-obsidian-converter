@@ -41,6 +41,7 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Port\Secondary\DayOne\FileDoesNotContainJson
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Port\Secondary\DayOne\FileDoesNotContainJsonValidAccordingToSchema
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Port\Secondary\DayOne\FileDoesNotExist
+ * @uses \Ergebnis\DayOneToObsidianConverter\Outside\Infrastructure\DataNormalizer
  */
 final class JournalReaderTest extends Framework\TestCase
 {
@@ -50,7 +51,10 @@ final class JournalReaderTest extends Framework\TestCase
     {
         $filePath = Inside\Domain\Shared\FilePath::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalReader/does-not-exist/Journal.json');
 
-        $journalReader = new Outside\Adapter\Secondary\DayOne\JournalReader(new SchemaValidator\SchemaValidator());
+        $journalReader = new Outside\Adapter\Secondary\DayOne\JournalReader(
+            new SchemaValidator\SchemaValidator(),
+            new Outside\Infrastructure\DataNormalizer(),
+        );
 
         $this->expectException(Inside\Port\Secondary\DayOne\FileDoesNotExist::class);
 
@@ -61,7 +65,10 @@ final class JournalReaderTest extends Framework\TestCase
     {
         $filePath = Inside\Domain\Shared\FilePath::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalReader/not-json/Journal.json');
 
-        $journalReader = new Outside\Adapter\Secondary\DayOne\JournalReader(new SchemaValidator\SchemaValidator());
+        $journalReader = new Outside\Adapter\Secondary\DayOne\JournalReader(
+            new SchemaValidator\SchemaValidator(),
+            new Outside\Infrastructure\DataNormalizer(),
+        );
 
         $this->expectException(Inside\Port\Secondary\DayOne\FileDoesNotContainJson::class);
 
@@ -72,7 +79,10 @@ final class JournalReaderTest extends Framework\TestCase
     {
         $filePath = Inside\Domain\Shared\FilePath::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalReader/not-valid-according-to-schema/Journal.json');
 
-        $journalReader = new Outside\Adapter\Secondary\DayOne\JournalReader(new SchemaValidator\SchemaValidator());
+        $journalReader = new Outside\Adapter\Secondary\DayOne\JournalReader(
+            new SchemaValidator\SchemaValidator(),
+            new Outside\Infrastructure\DataNormalizer(),
+        );
 
         $this->expectException(Inside\Port\Secondary\DayOne\FileDoesNotContainJsonValidAccordingToSchema::class);
 
@@ -83,7 +93,10 @@ final class JournalReaderTest extends Framework\TestCase
     {
         $filePath = Inside\Domain\Shared\FilePath::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalReader/valid-according-to-schema/Journal.json');
 
-        $journalReader = new Outside\Adapter\Secondary\DayOne\JournalReader(new SchemaValidator\SchemaValidator());
+        $journalReader = new Outside\Adapter\Secondary\DayOne\JournalReader(
+            new SchemaValidator\SchemaValidator(),
+            new Outside\Infrastructure\DataNormalizer(),
+        );
 
         $journal = $journalReader->read($filePath);
 

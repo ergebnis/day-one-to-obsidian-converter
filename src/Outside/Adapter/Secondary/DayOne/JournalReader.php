@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Ergebnis\DayOneToObsidianConverter\Outside\Adapter\Secondary\DayOne;
 
 use Ergebnis\DayOneToObsidianConverter\Inside;
+use Ergebnis\DayOneToObsidianConverter\Outside;
 use Ergebnis\Json\SchemaValidator;
 
 /**
@@ -22,8 +23,10 @@ use Ergebnis\Json\SchemaValidator;
  */
 final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
 {
-    public function __construct(private readonly SchemaValidator\SchemaValidator $schemaValidator)
-    {
+    public function __construct(
+        private readonly SchemaValidator\SchemaValidator $schemaValidator,
+        private readonly Outside\Infrastructure\DataNormalizer $dataNormalizer,
+    ) {
     }
 
     public function read(Inside\Domain\Shared\FilePath $filePath): Inside\Domain\DayOne\Journal
@@ -53,9 +56,11 @@ final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
             throw Inside\Port\Secondary\DayOne\FileDoesNotContainJsonValidAccordingToSchema::at($filePath);
         }
 
+        $dataNormalizer = $this->dataNormalizer;
+
         return Inside\Domain\DayOne\Journal::create(
             $filePath,
-            ...\array_map(static function (array $entry) use ($filePath): Inside\Domain\DayOne\Entry {
+            ...\array_map(static function (array $entry) use ($filePath, $dataNormalizer): Inside\Domain\DayOne\Entry {
                 $creationDate = Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable($entry['creationDate']));
 
                 $modifiedDate = Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable($creationDate->toDateTimeImmutable());
@@ -116,32 +121,9 @@ final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
                     Inside\Domain\Shared\Text::fromString($text),
                     $tags,
                     $photos,
-                    self::normalizeData($data),
+                    $dataNormalizer->normalize($data),
                 );
             }, $data['entries']),
         );
-    }
-
-    private static function normalizeData($value)
-    {
-        if (!\is_array($value)) {
-            return $value;
-        }
-
-        $keys = \array_keys($value);
-
-        $stringKeys = \array_filter($keys, static function ($key): bool {
-            return \is_string($key);
-        });
-
-        if ($keys === $stringKeys) {
-            \ksort($value);
-        }
-
-        foreach ($value as $k => $v) {
-            $value[$k] = self::normalizeData($v);
-        }
-
-        return $value;
     }
 }

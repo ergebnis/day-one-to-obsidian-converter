@@ -16,13 +16,8 @@
     </ImpureMethodCall>
   </file>
   <file src="src/Outside/Adapter/Secondary/DayOne/JournalReader.php">
-    <MissingParamType occurrences="1">
-      <code>$value</code>
-    </MissingParamType>
-    <MissingReturnType occurrences="1">
-      <code>normalizeData</code>
-    </MissingReturnType>
     <MixedArgument occurrences="11">
+      <code>$dataNormalizer-&gt;normalize($data)</code>
       <code>$data['entries']</code>
       <code>$entry['creationDate']</code>
       <code>$entry['modifiedDate']</code>
@@ -33,7 +28,6 @@
       <code>$photo['md5']</code>
       <code>$photo['type']</code>
       <code>$text</code>
-      <code>self::normalizeData($data)</code>
     </MixedArgument>
     <MixedArgumentTypeCoercion occurrences="2">
       <code>$photos</code>
@@ -42,11 +36,21 @@
     <MixedArrayAccess occurrences="1">
       <code>$data['entries']</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="4">
+    <MixedAssignment occurrences="2">
       <code>$data</code>
       <code>$text</code>
-      <code>$v</code>
-      <code>$value[$k]</code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Outside/Infrastructure/DataNormalizer.php">
+    <MissingParamType occurrences="1">
+      <code>$data</code>
+    </MissingParamType>
+    <MissingReturnType occurrences="1">
+      <code>normalize</code>
+    </MissingReturnType>
+    <MixedAssignment occurrences="2">
+      <code>$data[$key]</code>
+      <code>$value</code>
     </MixedAssignment>
     <TypeDoesNotContainType occurrences="1">
       <code>$keys === $stringKeys</code>
