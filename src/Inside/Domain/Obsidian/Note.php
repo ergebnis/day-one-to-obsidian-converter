@@ -87,7 +87,7 @@ final class Note
 TXT,
             \trim(Yaml\Yaml::dump(
                 $this->frontMatter->toArray(),
-                2,
+                8,
                 2,
             )),
             $this->text->toString(),
