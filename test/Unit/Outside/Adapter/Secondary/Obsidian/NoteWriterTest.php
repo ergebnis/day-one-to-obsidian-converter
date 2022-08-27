@@ -47,28 +47,23 @@ final class NoteWriterTest extends Framework\TestCase
         self::fileSystem()->remove(self::temporaryDirectory());
     }
 
-    public function testWriteWritesNoteWhenDirectoryDoesNotExist(): void
+    public function testWriteWriteNoteWhenNoteDoesNotHaveFrontMatterAndDirectoryDoesNotExist(): void
     {
         $faker = self::faker();
 
-        $directory = Inside\Domain\Shared\Directory::fromString(\sprintf(
-            '%s/obsidian',
-            self::temporaryDirectory(),
-        ));
-
         $note = Inside\Domain\Obsidian\Note::create(
             Inside\Domain\Shared\FilePath::create(
-                $directory,
+                Inside\Domain\Shared\Directory::fromString(\sprintf(
+                    '%s/obsidian',
+                    self::temporaryDirectory(),
+                )),
                 Inside\Domain\Shared\FileName::create(
                     Inside\Domain\Shared\BaseName::fromString($faker->slug()),
                     Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
                 ),
             ),
-            Inside\Domain\Obsidian\FrontMatter::fromArray(\array_combine(
-                $faker->words(),
-                $faker->sentences(),
-            )),
-            Inside\Domain\Shared\Text::fromString('Hello, world!'),
+            Inside\Domain\Obsidian\FrontMatter::fromArray([]),
+            Inside\Domain\Shared\Text::fromString($faker->realText()),
             \array_map(static function () use ($faker): Inside\Domain\Obsidian\Attachment {
                 return Inside\Domain\Obsidian\Attachment::create(Inside\Domain\Shared\FilePath::create(
                     Inside\Domain\Shared\Directory::fromString($faker->slug()),
@@ -85,10 +80,48 @@ final class NoteWriterTest extends Framework\TestCase
         $noteWriter->write($note);
 
         self::assertFileExists($note->filePath()->toString());
-        self::assertSame($note->toString(), \file_get_contents($note->filePath()->toString()));
+        self::assertSame($note->text()->toString(), \file_get_contents($note->filePath()->toString()));
     }
 
-    public function testWriteWritesNoteWhenDirectoryExists(): void
+    public function testWriteWriteNoteWhenNoteDoesNotHaveFrontMatterAndDirectoryExists(): void
+    {
+        $faker = self::faker();
+
+        $note = Inside\Domain\Obsidian\Note::create(
+            Inside\Domain\Shared\FilePath::create(
+                Inside\Domain\Shared\Directory::fromString(\sprintf(
+                    '%s/obsidian',
+                    self::temporaryDirectory(),
+                )),
+                Inside\Domain\Shared\FileName::create(
+                    Inside\Domain\Shared\BaseName::fromString($faker->slug()),
+                    Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
+                ),
+            ),
+            Inside\Domain\Obsidian\FrontMatter::fromArray([]),
+            Inside\Domain\Shared\Text::fromString($faker->realText()),
+            \array_map(static function () use ($faker): Inside\Domain\Obsidian\Attachment {
+                return Inside\Domain\Obsidian\Attachment::create(Inside\Domain\Shared\FilePath::create(
+                    Inside\Domain\Shared\Directory::fromString($faker->slug()),
+                    Inside\Domain\Shared\FileName::create(
+                        Inside\Domain\Shared\BaseName::fromString($faker->slug()),
+                        Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
+                    ),
+                ));
+            }, \range(0, 2)),
+        );
+
+        self::fileSystem()->mkdir($note->filePath()->directory()->toString());
+
+        $noteWriter = new Outside\Adapter\Secondary\Obsidian\NoteWriter();
+
+        $noteWriter->write($note);
+
+        self::assertFileExists($note->filePath()->toString());
+        self::assertSame($note->text()->toString(), \file_get_contents($note->filePath()->toString()));
+    }
+
+    public function testWriteWriteNoteWhenNoteHasFrontMatterAndDirectoryDoesNotExist(): void
     {
         $faker = self::faker();
 
@@ -96,8 +129,6 @@ final class NoteWriterTest extends Framework\TestCase
             '%s/obsidian',
             self::temporaryDirectory(),
         ));
-
-        self::fileSystem()->mkdir($directory->toString());
 
         $note = Inside\Domain\Obsidian\Note::create(
             Inside\Domain\Shared\FilePath::create(
@@ -107,11 +138,44 @@ final class NoteWriterTest extends Framework\TestCase
                     Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
                 ),
             ),
-            Inside\Domain\Obsidian\FrontMatter::fromArray(\array_combine(
-                $faker->words(),
-                $faker->sentences(),
-            )),
-            Inside\Domain\Shared\Text::fromString('Hello, world!'),
+            Inside\Domain\Obsidian\FrontMatter::fromArray([
+                'dayOne' => [
+                    'creationDevice' => 'Adam’s Apple (7+)',
+                    'duration' => 0,
+                    'editingTime' => 7.2522701025009155,
+                    'location' => [
+                        'administrativeArea' => 'NT',
+                        'country' => 'Australia',
+                        'latitude' => -23.7006893157959,
+                        'localityName' => 'Alice Springs',
+                        'longitude' => 133.8813018798828,
+                        'placeName' => 'Uncle\'s Tavern',
+                        'region' => [
+                            'center' => [
+                                'latitude' => -23.7006893157959,
+                                'longitude' => 133.8813018798828,
+                            ],
+                            'radius' => 75,
+                        ],
+                    ],
+                    'starred' => false,
+                    'timeZone' => 'America/Boise',
+                    'uuid' => '2E542464666C4ACE91E83539FF114A76',
+                    'weather' => [
+                        'conditionsDescription' => 'Partly Cloudy',
+                        'pressureMB' => 1015.5700073242188,
+                        'relativeHumidity' => 0,
+                        'temperatureCelsius' => 34,
+                        'visibilityKM' => 0,
+                        'weatherCode' => 'partly-cloudy',
+                        'weatherServiceName' => 'Forecast.io',
+                        'windBearing' => 346,
+                        'windChillCelsius' => 0,
+                        'windSpeedKPH' => 9.5600004196167,
+                    ],
+                ],
+            ]),
+            Inside\Domain\Shared\Text::fromString($faker->realText()),
             \array_map(static function () use ($faker): Inside\Domain\Obsidian\Attachment {
                 return Inside\Domain\Obsidian\Attachment::create(Inside\Domain\Shared\FilePath::create(
                     Inside\Domain\Shared\Directory::fromString($faker->slug()),
@@ -128,6 +192,160 @@ final class NoteWriterTest extends Framework\TestCase
         $noteWriter->write($note);
 
         self::assertFileExists($note->filePath()->toString());
-        self::assertSame($note->toString(), \file_get_contents($note->filePath()->toString()));
+
+        $expected = \sprintf(
+            <<<'TXT'
+```
+dayOne:
+  creationDevice: 'Adam’s Apple (7+)'
+  duration: 0
+  editingTime: 7.2522701025009
+  location:
+    administrativeArea: NT
+    country: Australia
+    latitude: -23.700689315796
+    localityName: 'Alice Springs'
+    longitude: 133.88130187988
+    placeName: "Uncle's Tavern"
+    region:
+      center:
+        latitude: -23.700689315796
+        longitude: 133.88130187988
+      radius: 75
+  starred: false
+  timeZone: America/Boise
+  uuid: 2E542464666C4ACE91E83539FF114A76
+  weather:
+    conditionsDescription: 'Partly Cloudy'
+    pressureMB: 1015.5700073242
+    relativeHumidity: 0
+    temperatureCelsius: 34
+    visibilityKM: 0
+    weatherCode: partly-cloudy
+    weatherServiceName: Forecast.io
+    windBearing: 346
+    windChillCelsius: 0
+    windSpeedKPH: 9.5600004196167
+```
+%s
+TXT,
+            $note->text()->toString(),
+        );
+
+        self::assertSame($expected, \file_get_contents($note->filePath()->toString()));
+    }
+
+    public function testWriteWriteNoteWhenNoteHasFrontMatterAndDirectoryExists(): void
+    {
+        $faker = self::faker();
+
+        $note = Inside\Domain\Obsidian\Note::create(
+            Inside\Domain\Shared\FilePath::create(
+                Inside\Domain\Shared\Directory::fromString(\sprintf(
+                    '%s/obsidian',
+                    self::temporaryDirectory(),
+                )),
+                Inside\Domain\Shared\FileName::create(
+                    Inside\Domain\Shared\BaseName::fromString($faker->slug()),
+                    Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
+                ),
+            ),
+            Inside\Domain\Obsidian\FrontMatter::fromArray([
+                'dayOne' => [
+                    'creationDevice' => 'Adam’s Apple (7+)',
+                    'duration' => 0,
+                    'editingTime' => 7.2522701025009155,
+                    'location' => [
+                        'administrativeArea' => 'NT',
+                        'country' => 'Australia',
+                        'latitude' => -23.7006893157959,
+                        'localityName' => 'Alice Springs',
+                        'longitude' => 133.8813018798828,
+                        'placeName' => 'Uncle\'s Tavern',
+                        'region' => [
+                            'center' => [
+                                'latitude' => -23.7006893157959,
+                                'longitude' => 133.8813018798828,
+                            ],
+                            'radius' => 75,
+                        ],
+                    ],
+                    'starred' => false,
+                    'timeZone' => 'America/Boise',
+                    'uuid' => '2E542464666C4ACE91E83539FF114A76',
+                    'weather' => [
+                        'conditionsDescription' => 'Partly Cloudy',
+                        'pressureMB' => 1015.5700073242188,
+                        'relativeHumidity' => 0,
+                        'temperatureCelsius' => 34,
+                        'visibilityKM' => 0,
+                        'weatherCode' => 'partly-cloudy',
+                        'weatherServiceName' => 'Forecast.io',
+                        'windBearing' => 346,
+                        'windChillCelsius' => 0,
+                        'windSpeedKPH' => 9.5600004196167,
+                    ],
+                ],
+            ]),
+            Inside\Domain\Shared\Text::fromString($faker->realText()),
+            \array_map(static function () use ($faker): Inside\Domain\Obsidian\Attachment {
+                return Inside\Domain\Obsidian\Attachment::create(Inside\Domain\Shared\FilePath::create(
+                    Inside\Domain\Shared\Directory::fromString($faker->slug()),
+                    Inside\Domain\Shared\FileName::create(
+                        Inside\Domain\Shared\BaseName::fromString($faker->slug()),
+                        Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
+                    ),
+                ));
+            }, \range(0, 2)),
+        );
+
+        self::fileSystem()->mkdir($note->filePath()->directory()->toString());
+
+        $noteWriter = new Outside\Adapter\Secondary\Obsidian\NoteWriter();
+
+        $noteWriter->write($note);
+
+        self::assertFileExists($note->filePath()->toString());
+
+        $expected = \sprintf(
+            <<<'TXT'
+```
+dayOne:
+  creationDevice: 'Adam’s Apple (7+)'
+  duration: 0
+  editingTime: 7.2522701025009
+  location:
+    administrativeArea: NT
+    country: Australia
+    latitude: -23.700689315796
+    localityName: 'Alice Springs'
+    longitude: 133.88130187988
+    placeName: "Uncle's Tavern"
+    region:
+      center:
+        latitude: -23.700689315796
+        longitude: 133.88130187988
+      radius: 75
+  starred: false
+  timeZone: America/Boise
+  uuid: 2E542464666C4ACE91E83539FF114A76
+  weather:
+    conditionsDescription: 'Partly Cloudy'
+    pressureMB: 1015.5700073242
+    relativeHumidity: 0
+    temperatureCelsius: 34
+    visibilityKM: 0
+    weatherCode: partly-cloudy
+    weatherServiceName: Forecast.io
+    windBearing: 346
+    windChillCelsius: 0
+    windSpeedKPH: 9.5600004196167
+```
+%s
+TXT,
+            $note->text()->toString(),
+        );
+
+        self::assertSame($expected, \file_get_contents($note->filePath()->toString()));
     }
 }

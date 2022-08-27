@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Ergebnis\DayOneToObsidianConverter\Inside\Domain\Obsidian;
 
 use Ergebnis\DayOneToObsidianConverter\Inside;
-use Symfony\Component\Yaml;
 
 /**
  * @psalm-immutable
@@ -70,27 +69,5 @@ final class Note
     public function attachments(): array
     {
         return $this->attachments;
-    }
-
-    public function toString(): string
-    {
-        if ([] === $this->frontMatter->toArray()) {
-            return $this->text->toString();
-        }
-
-        return \sprintf(
-            <<<'TXT'
-```
-%s
-```
-%s
-TXT,
-            \trim(Yaml\Yaml::dump(
-                $this->frontMatter->toArray(),
-                8,
-                2,
-            )),
-            $this->text->toString(),
-        );
     }
 }

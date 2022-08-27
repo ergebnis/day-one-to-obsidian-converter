@@ -15,6 +15,7 @@ namespace Ergebnis\DayOneToObsidianConverter\Outside\Adapter\Secondary\Obsidian;
 
 use Ergebnis\DayOneToObsidianConverter\Inside;
 use Symfony\Component\Filesystem;
+use Symfony\Component\Yaml;
 
 final class NoteWriter implements Inside\Port\Secondary\Obsidian\NoteWriter
 {
@@ -27,9 +28,28 @@ final class NoteWriter implements Inside\Port\Secondary\Obsidian\NoteWriter
 
     public function write(Inside\Domain\Obsidian\Note $note): void
     {
+        $content = $note->text()->toString();
+
+        if ([] !== $note->frontMatter()->toArray()) {
+            $content = \sprintf(
+                <<<'TXT'
+```
+%s
+```
+%s
+TXT,
+                \trim(Yaml\Yaml::dump(
+                    $note->frontMatter()->toArray(),
+                    8,
+                    2,
+                )),
+                $note->text()->toString(),
+            );
+        }
+
         $this->filesystem->dumpFile(
             $note->filePath()->toString(),
-            $note->toString(),
+            $content,
         );
     }
 }
