@@ -22,19 +22,11 @@ use PHPUnit\Framework;
  *
  * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Journal
  *
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\CreationDate
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Entry
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\EntryIdentifier
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\ModifiedDate
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Photo
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\PhotoIdentifier
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Tag
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Text
  */
 final class JournalTest extends Framework\TestCase
 {
@@ -52,40 +44,8 @@ final class JournalTest extends Framework\TestCase
             ),
         );
 
-        $entries = \array_map(static function () use ($faker): Inside\Domain\DayOne\Entry {
-            return Inside\Domain\DayOne\Entry::create(
-                Inside\Domain\DayOne\EntryIdentifier::fromString($faker->sha1()),
-                Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime())),
-                Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime())),
-                Inside\Domain\Shared\Text::fromString($faker->realText()),
-                \array_map(static function () use ($faker): Inside\Domain\DayOne\Tag {
-                    return Inside\Domain\DayOne\Tag::fromString($faker->word());
-                }, \range(0, 2)),
-                \array_map(static function () use ($faker): Inside\Domain\DayOne\Photo {
-                    return Inside\Domain\DayOne\Photo::create(
-                        Inside\Domain\DayOne\PhotoIdentifier::fromString($faker->sha1()),
-                        Inside\Domain\Shared\FilePath::create(
-                            Inside\Domain\Shared\Directory::fromString($faker->slug()),
-                            Inside\Domain\Shared\FileName::create(
-                                Inside\Domain\Shared\BaseName::fromString($faker->slug()),
-                                Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
-                            ),
-                        ),
-                    );
-                }, \range(0, 2)),
-                \array_combine(
-                    $faker->words(),
-                    $faker->sentences(),
-                ),
-            );
-        }, \range(0, 2));
-
-        $journal = Inside\Domain\DayOne\Journal::create(
-            $filePath,
-            ...$entries,
-        );
+        $journal = Inside\Domain\DayOne\Journal::create($filePath);
 
         self::assertSame($filePath, $journal->filePath());
-        self::assertSame($entries, $journal->entries());
     }
 }

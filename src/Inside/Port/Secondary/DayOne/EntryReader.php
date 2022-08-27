@@ -15,7 +15,14 @@ namespace Ergebnis\DayOneToObsidianConverter\Inside\Port\Secondary\DayOne;
 
 use Ergebnis\DayOneToObsidianConverter\Inside;
 
-interface JournalReader
+interface EntryReader
 {
-    public function read(Inside\Domain\Shared\FilePath $filePath): Inside\Domain\DayOne\Journal;
+    /**
+     * @throws FileDoesNotExist
+     * @throws FileDoesNotContainJson
+     * @throws FileDoesNotContainJsonValidAccordingToSchema
+     *
+     * @return array<int, Inside\Domain\DayOne\Entry>
+     */
+    public function read(Inside\Domain\DayOne\Journal $journal): array;
 }

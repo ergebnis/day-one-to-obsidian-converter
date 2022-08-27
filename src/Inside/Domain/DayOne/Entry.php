@@ -25,6 +25,7 @@ final class Entry
      * @param array<int, Photo> $photos
      */
     private function __construct(
+        private readonly Journal $journal,
         private readonly EntryIdentifier $identifier,
         private readonly CreationDate $creationDate,
         private readonly ModifiedDate $modifiedDate,
@@ -40,6 +41,7 @@ final class Entry
      * @param array<int, Photo> $photos
      */
     public static function create(
+        Journal $journal,
         EntryIdentifier $identifier,
         CreationDate $creationDate,
         ModifiedDate $modifiedDate,
@@ -49,6 +51,7 @@ final class Entry
         array $data,
     ): self {
         return new self(
+            $journal,
             $identifier,
             $creationDate,
             $modifiedDate,
@@ -57,6 +60,11 @@ final class Entry
             $photos,
             $data,
         );
+    }
+
+    public function journal(): Journal
+    {
+        return $this->journal;
     }
 
     public function identifier(): EntryIdentifier

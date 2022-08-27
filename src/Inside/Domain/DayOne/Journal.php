@@ -20,38 +20,17 @@ use Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath;
  */
 final class Journal
 {
-    /**
-     * @var array<int, Entry>
-     */
-    private readonly array $entries;
-
-    private function __construct(
-        private readonly FilePath $filePath,
-        Entry ...$entries,
-    ) {
-        $this->entries = $entries;
+    private function __construct(private readonly FilePath $filePath)
+    {
     }
 
-    public static function create(
-        FilePath $filePath,
-        Entry ...$entries,
-    ): self {
-        return new self(
-            $filePath,
-            ...$entries,
-        );
+    public static function create(FilePath $filePath): self
+    {
+        return new self($filePath);
     }
 
     public function filePath(): FilePath
     {
         return $this->filePath;
-    }
-
-    /**
-     * @return array<int, Entry>
-     */
-    public function entries(): array
-    {
-        return $this->entries;
     }
 }

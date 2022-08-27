@@ -24,6 +24,7 @@ use PHPUnit\Framework;
  *
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\CreationDate
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\EntryIdentifier
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Journal
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\ModifiedDate
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Photo
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\PhotoIdentifier
@@ -43,6 +44,13 @@ final class EntryTest extends Framework\TestCase
     {
         $faker = self::faker();
 
+        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::create(
+            Inside\Domain\Shared\Directory::fromString($faker->slug()),
+            Inside\Domain\Shared\FileName::create(
+                Inside\Domain\Shared\BaseName::fromString($faker->slug()),
+                Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
+            ),
+        ));
         $entryIdentifier = Inside\Domain\DayOne\EntryIdentifier::fromString($faker->sha1());
         $creationDate = Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime()));
         $modifiedDate = Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime()));
@@ -68,6 +76,7 @@ final class EntryTest extends Framework\TestCase
         );
 
         $entry = Inside\Domain\DayOne\Entry::create(
+            $journal,
             $entryIdentifier,
             $creationDate,
             $modifiedDate,
@@ -77,6 +86,7 @@ final class EntryTest extends Framework\TestCase
             $data,
         );
 
+        self::assertSame($journal, $entry->journal());
         self::assertSame($entryIdentifier, $entry->identifier());
         self::assertSame($creationDate, $entry->creationDate());
         self::assertSame($modifiedDate, $entry->modifiedDate());
