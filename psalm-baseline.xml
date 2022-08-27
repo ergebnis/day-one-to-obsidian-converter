@@ -95,8 +95,7 @@
     </PossiblyInvalidArgument>
   </file>
   <file src="test/Unit/Inside/Domain/Obsidian/NoteTest.php">
-    <MixedArgument occurrences="2">
-      <code>$faker-&gt;fileExtension()</code>
+    <MixedArgument occurrences="1">
       <code>$faker-&gt;fileExtension()</code>
     </MixedArgument>
     <MixedArgumentTypeCoercion occurrences="1">
@@ -105,7 +104,6 @@
     <PossiblyInvalidArgument occurrences="1">
       <code>$faker-&gt;sentences()</code>
     </PossiblyInvalidArgument>
-    <TooManyArguments occurrences="1"/>
   </file>
   <file src="test/Unit/Inside/Domain/Shared/ExtensionTest.php">
     <MixedArgument occurrences="4">
@@ -144,16 +142,11 @@
     </MixedArgument>
   </file>
   <file src="test/Unit/Outside/Adapter/Secondary/Obsidian/NoteWriterTest.php">
-    <MixedArgument occurrences="8">
-      <code>$faker-&gt;fileExtension()</code>
-      <code>$faker-&gt;fileExtension()</code>
-      <code>$faker-&gt;fileExtension()</code>
-      <code>$faker-&gt;fileExtension()</code>
+    <MixedArgument occurrences="4">
       <code>$faker-&gt;fileExtension()</code>
       <code>$faker-&gt;fileExtension()</code>
       <code>$faker-&gt;fileExtension()</code>
       <code>$faker-&gt;fileExtension()</code>
     </MixedArgument>
-    <TooManyArguments occurrences="4"/>
   </file>
 </files>

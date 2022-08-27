@@ -23,7 +23,6 @@ use PHPUnit\Framework;
  * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Obsidian\Note
  *
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Tag
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Obsidian\Attachment
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Obsidian\FrontMatter
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
@@ -52,26 +51,15 @@ final class NoteTest extends Framework\TestCase
             $faker->sentences(),
         ));
         $text = Inside\Domain\Shared\Text::fromString($faker->realText());
-        $attachments = \array_map(static function () use ($faker): Inside\Domain\Obsidian\Attachment {
-            return Inside\Domain\Obsidian\Attachment::create(Inside\Domain\Shared\FilePath::create(
-                Inside\Domain\Shared\Directory::fromString($faker->slug()),
-                Inside\Domain\Shared\FileName::create(
-                    Inside\Domain\Shared\BaseName::fromString($faker->slug()),
-                    Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
-                ),
-            ));
-        }, \range(0, 2));
 
         $note = Inside\Domain\Obsidian\Note::create(
             $filePath,
             $frontMatter,
             $text,
-            $attachments,
         );
 
         self::assertSame($filePath, $note->filePath());
         self::assertSame($frontMatter, $note->frontMatter());
         self::assertSame($text, $note->text());
-        self::assertSame($attachments, $note->attachments());
     }
 }

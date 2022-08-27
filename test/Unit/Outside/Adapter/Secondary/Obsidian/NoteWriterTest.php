@@ -23,7 +23,6 @@ use PHPUnit\Framework;
  *
  * @covers \Ergebnis\DayOneToObsidianConverter\Outside\Adapter\Secondary\Obsidian\NoteWriter
  *
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Obsidian\Attachment
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Obsidian\FrontMatter
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Obsidian\Note
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
@@ -64,15 +63,6 @@ final class NoteWriterTest extends Framework\TestCase
             ),
             Inside\Domain\Obsidian\FrontMatter::fromArray([]),
             Inside\Domain\Shared\Text::fromString($faker->realText()),
-            \array_map(static function () use ($faker): Inside\Domain\Obsidian\Attachment {
-                return Inside\Domain\Obsidian\Attachment::create(Inside\Domain\Shared\FilePath::create(
-                    Inside\Domain\Shared\Directory::fromString($faker->slug()),
-                    Inside\Domain\Shared\FileName::create(
-                        Inside\Domain\Shared\BaseName::fromString($faker->slug()),
-                        Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
-                    ),
-                ));
-            }, \range(0, 2)),
         );
 
         $noteWriter = new Outside\Adapter\Secondary\Obsidian\NoteWriter();
@@ -100,15 +90,6 @@ final class NoteWriterTest extends Framework\TestCase
             ),
             Inside\Domain\Obsidian\FrontMatter::fromArray([]),
             Inside\Domain\Shared\Text::fromString($faker->realText()),
-            \array_map(static function () use ($faker): Inside\Domain\Obsidian\Attachment {
-                return Inside\Domain\Obsidian\Attachment::create(Inside\Domain\Shared\FilePath::create(
-                    Inside\Domain\Shared\Directory::fromString($faker->slug()),
-                    Inside\Domain\Shared\FileName::create(
-                        Inside\Domain\Shared\BaseName::fromString($faker->slug()),
-                        Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
-                    ),
-                ));
-            }, \range(0, 2)),
         );
 
         self::fileSystem()->mkdir($note->filePath()->directory()->toString());
@@ -176,15 +157,6 @@ final class NoteWriterTest extends Framework\TestCase
                 ],
             ]),
             Inside\Domain\Shared\Text::fromString($faker->realText()),
-            \array_map(static function () use ($faker): Inside\Domain\Obsidian\Attachment {
-                return Inside\Domain\Obsidian\Attachment::create(Inside\Domain\Shared\FilePath::create(
-                    Inside\Domain\Shared\Directory::fromString($faker->slug()),
-                    Inside\Domain\Shared\FileName::create(
-                        Inside\Domain\Shared\BaseName::fromString($faker->slug()),
-                        Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
-                    ),
-                ));
-            }, \range(0, 2)),
         );
 
         $noteWriter = new Outside\Adapter\Secondary\Obsidian\NoteWriter();
@@ -288,15 +260,6 @@ TXT,
                 ],
             ]),
             Inside\Domain\Shared\Text::fromString($faker->realText()),
-            \array_map(static function () use ($faker): Inside\Domain\Obsidian\Attachment {
-                return Inside\Domain\Obsidian\Attachment::create(Inside\Domain\Shared\FilePath::create(
-                    Inside\Domain\Shared\Directory::fromString($faker->slug()),
-                    Inside\Domain\Shared\FileName::create(
-                        Inside\Domain\Shared\BaseName::fromString($faker->slug()),
-                        Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
-                    ),
-                ));
-            }, \range(0, 2)),
         );
 
         self::fileSystem()->mkdir($note->filePath()->directory()->toString());

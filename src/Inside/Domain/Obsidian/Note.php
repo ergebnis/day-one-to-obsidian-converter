@@ -20,31 +20,22 @@ use Ergebnis\DayOneToObsidianConverter\Inside;
  */
 final class Note
 {
-    /**
-     * @param array<int, Attachment> $attachments
-     */
     private function __construct(
         private readonly Inside\Domain\Shared\FilePath $filePath,
         private readonly FrontMatter $frontMatter,
         private readonly Inside\Domain\Shared\Text $text,
-        private readonly array $attachments,
     ) {
     }
 
-    /**
-     * @param array<int, Attachment> $attachments
-     */
     public static function create(
         Inside\Domain\Shared\FilePath $filePath,
         FrontMatter $frontMatter,
         Inside\Domain\Shared\Text $text,
-        array $attachments,
     ): self {
         return new self(
             $filePath,
             $frontMatter,
             $text,
-            $attachments,
         );
     }
 
@@ -61,13 +52,5 @@ final class Note
     public function text(): Inside\Domain\Shared\Text
     {
         return $this->text;
-    }
-
-    /**
-     * @return array<int, Attachment>
-     */
-    public function attachments(): array
-    {
-        return $this->attachments;
     }
 }
