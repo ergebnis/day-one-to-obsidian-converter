@@ -22,9 +22,9 @@ final class Text
     {
     }
 
-    public static function fromString(string $name): self
+    public static function fromString(string $value): self
     {
-        return new self($name);
+        return new self($value);
     }
 
     public function toString(): string
