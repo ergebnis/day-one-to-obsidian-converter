@@ -13,23 +13,23 @@ declare(strict_types=1);
 
 namespace Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne;
 
-use Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath;
+use Ergebnis\DayOneToObsidianConverter\Inside;
 
 /**
  * @psalm-immutable
  */
 final class Journal
 {
-    private function __construct(private readonly FilePath $filePath)
+    private function __construct(private readonly Inside\Domain\Shared\FilePath $filePath)
     {
     }
 
-    public static function create(FilePath $filePath): self
+    public static function create(Inside\Domain\Shared\FilePath $filePath): self
     {
         return new self($filePath);
     }
 
-    public function filePath(): FilePath
+    public function filePath(): Inside\Domain\Shared\FilePath
     {
         return $this->filePath;
     }
