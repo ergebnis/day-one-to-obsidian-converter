@@ -72,6 +72,11 @@
       <code>$faker-&gt;fileExtension()</code>
     </MixedArgument>
   </file>
+  <file src="test/Unit/Inside/Domain/DayOneToObsidian/FilePath/InObsidianAttachmentDirectoryTest.php">
+    <MixedArgument occurrences="1">
+      <code>$faker-&gt;fileExtension()</code>
+    </MixedArgument>
+  </file>
   <file src="test/Unit/Inside/Domain/Obsidian/FrontMatterTest.php">
     <MixedArgumentTypeCoercion occurrences="1">
       <code>$faker-&gt;words()</code>
