@@ -51,9 +51,9 @@ final class InObsidianAttachmentDirectoryTest extends Framework\TestCase
 
         $obsidianAttachmentDirectory = Inside\Domain\Shared\Directory::fromString($faker->slug());
 
-        $attachmentFilePathGenerator = new Inside\Domain\DayOneToObsidian\FilePath\InObsidianAttachmentDirectory($obsidianAttachmentDirectory);
+        $obsidianAttachmentFilePathMapper = new Inside\Domain\DayOneToObsidian\FilePath\InObsidianAttachmentDirectory($obsidianAttachmentDirectory);
 
-        $obsidianAttachmentFilePath = $attachmentFilePathGenerator->map($dayOnePhoto);
+        $obsidianAttachmentFilePath = $obsidianAttachmentFilePathMapper->map($dayOnePhoto);
 
         $expected = Inside\Domain\Shared\FilePath::create(
             $obsidianAttachmentDirectory,
