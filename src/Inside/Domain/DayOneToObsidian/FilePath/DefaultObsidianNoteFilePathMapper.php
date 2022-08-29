@@ -41,7 +41,7 @@ final class DefaultObsidianNoteFilePathMapper implements ObsidianNoteFilePathMap
 
         return Inside\Domain\Shared\FilePath::create(
             Inside\Domain\Shared\Directory::fromString(\sprintf(
-                '../../../../../%s',
+                '../../../../%s',
                 $filePathRelativeToObsidianVaultDirectory->directory()->toString(),
             )),
             $filePathRelativeToObsidianVaultDirectory->fileName(),
@@ -52,7 +52,7 @@ final class DefaultObsidianNoteFilePathMapper implements ObsidianNoteFilePathMap
     {
         return Inside\Domain\Shared\FilePath::create(
             Inside\Domain\Shared\Directory::fromString(\sprintf(
-                '%s/Journal/%s/%s',
+                '%s/%s/%s',
                 \str_replace(
                     ': ',
                     '/',

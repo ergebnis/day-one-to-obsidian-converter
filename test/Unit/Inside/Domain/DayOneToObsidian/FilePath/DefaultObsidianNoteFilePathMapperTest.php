@@ -72,7 +72,7 @@ final class DefaultObsidianNoteFilePathMapperTest extends Framework\TestCase
 
         $expected = Inside\Domain\Shared\FilePath::create(
             Inside\Domain\Shared\Directory::fromString(\sprintf(
-                '%s/%s/Journal/%s/%s',
+                '%s/%s/%s/%s',
                 $obsidianVaultDirectory->toString(),
                 $modifiedJournalBaseName->toString(),
                 $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y'),
@@ -121,7 +121,7 @@ final class DefaultObsidianNoteFilePathMapperTest extends Framework\TestCase
 
         $expected = Inside\Domain\Shared\FilePath::create(
             Inside\Domain\Shared\Directory::fromString(\sprintf(
-                '../../../../../%s/Journal/%s/%s',
+                '../../../../%s/%s/%s',
                 $modifiedJournalBaseName->toString(),
                 $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y'),
                 $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y-m'),
