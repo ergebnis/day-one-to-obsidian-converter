@@ -23,33 +23,24 @@ final class RemoveNonPrintableCharacters implements TextProcessor
     /**
      * @var array<string, string>
      */
-    private array $replacements;
+    private array $nonPrintableCharacters;
 
     public function __construct()
     {
-        $characters = [
+        $this->nonPrintableCharacters = [
             'figure-space-u+2007' => \pack('H*', 'e28087'),
             'non-breaking-space-u+202f' => \pack('H*', 'e280af'),
             'non-breaking-space-u+a0' => \pack('H*', 'c2a0'),
             'word-joiner-u+2060' => \pack('H*', 'e281a0'),
             'zero-width-space-U+200B' => \pack('H*', 'e2808b'),
         ];
-
-        $this->replacements = \array_combine(
-            $characters,
-            \array_fill(
-                0,
-                \count($characters),
-                '',
-            ),
-        );
     }
 
     public function process(Inside\Domain\Shared\Text $text): Inside\Domain\Shared\Text
     {
         return Inside\Domain\Shared\Text::fromString(\str_replace(
-            \array_keys($this->replacements),
-            $this->replacements,
+            $this->nonPrintableCharacters,
+            '',
             $text->toString(),
         ));
     }
