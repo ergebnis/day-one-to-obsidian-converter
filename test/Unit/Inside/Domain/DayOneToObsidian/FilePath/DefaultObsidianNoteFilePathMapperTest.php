@@ -20,7 +20,7 @@ use PHPUnit\Framework;
 /**
  * @internal
  *
- * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOneToObsidian\FilePath\InObsidianVaultDirectory
+ * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOneToObsidian\FilePath\DefaultObsidianNoteFilePathMapper
  *
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\CreationDate
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Entry
@@ -34,7 +34,7 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Text
  */
-final class InObsidianVaultDirectoryTest extends Framework\TestCase
+final class DefaultObsidianNoteFilePathMapperTest extends Framework\TestCase
 {
     use Test\Util\Helper;
 
@@ -66,7 +66,7 @@ final class InObsidianVaultDirectoryTest extends Framework\TestCase
 
         $obsidianVaultDirectory = Inside\Domain\Shared\Directory::fromString($faker->slug());
 
-        $obsidianNoteFilePathMapper = new Inside\Domain\DayOneToObsidian\FilePath\InObsidianVaultDirectory($obsidianVaultDirectory);
+        $obsidianNoteFilePathMapper = new Inside\Domain\DayOneToObsidian\FilePath\DefaultObsidianNoteFilePathMapper($obsidianVaultDirectory);
 
         $obsidianNoteFilePath = $obsidianNoteFilePathMapper->map($dayOneEntry);
 

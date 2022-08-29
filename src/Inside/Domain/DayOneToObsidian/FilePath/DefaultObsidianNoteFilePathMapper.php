@@ -15,7 +15,7 @@ namespace Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOneToObsidian\File
 
 use Ergebnis\DayOneToObsidianConverter\Inside;
 
-final class InObsidianVaultDirectory implements ObsidianNoteFilePathMapper
+final class DefaultObsidianNoteFilePathMapper implements ObsidianNoteFilePathMapper
 {
     public function __construct(private readonly Inside\Domain\Shared\Directory $obsidianVaultDirectory)
     {
