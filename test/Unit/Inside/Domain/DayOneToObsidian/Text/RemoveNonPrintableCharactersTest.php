@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Ergebnis\DayOneToObsidianConverter\Test\Unit\Inside\Domain\DayOneToObsidian\Text;
 
 use Ergebnis\DayOneToObsidianConverter\Inside;
-use Ergebnis\DayOneToObsidianConverter\Test;
 use PHPUnit\Framework;
 
 /**
@@ -26,8 +25,6 @@ use PHPUnit\Framework;
  */
 final class RemoveNonPrintableCharactersTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
-
     public function testProcessRemovesNonPrintableCharacters(): void
     {
         $figureSpaceUPlus2007 = \pack('H*', 'e28087');
