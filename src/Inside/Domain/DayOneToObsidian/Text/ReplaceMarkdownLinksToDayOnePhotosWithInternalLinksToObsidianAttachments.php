@@ -34,7 +34,7 @@ final class ReplaceMarkdownLinksToDayOnePhotosWithInternalLinksToObsidianAttachm
                 );
             }, $dayOnePhotos),
             \array_map(static function (Inside\Domain\DayOne\Photo $dayOnePhoto) use ($obsidianAttachmentFilePathMapper): string {
-                $obsidianAttachmentFilePath = $obsidianAttachmentFilePathMapper->map($dayOnePhoto);
+                $obsidianAttachmentFilePath = $obsidianAttachmentFilePathMapper->mapToFilePathInObsidianAttachmentDirectory($dayOnePhoto);
 
                 return \sprintf(
                     '![[%s]]',

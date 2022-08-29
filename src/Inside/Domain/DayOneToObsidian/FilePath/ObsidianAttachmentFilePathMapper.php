@@ -17,5 +17,5 @@ use Ergebnis\DayOneToObsidianConverter\Inside;
 
 interface ObsidianAttachmentFilePathMapper
 {
-    public function map(Inside\Domain\DayOne\Photo $dayOnePhoto): Inside\Domain\Shared\FilePath;
+    public function mapToFilePathInObsidianAttachmentDirectory(Inside\Domain\DayOne\Photo $dayOnePhoto): Inside\Domain\Shared\FilePath;
 }

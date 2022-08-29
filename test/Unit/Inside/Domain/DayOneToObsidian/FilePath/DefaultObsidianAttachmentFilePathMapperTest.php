@@ -34,7 +34,7 @@ final class DefaultObsidianAttachmentFilePathMapperTest extends Framework\TestCa
 {
     use Test\Util\Helper;
 
-    public function testMapReturnsFilePathCombingObsidianAttachmentDirectoryAndDayOnePhotoFileName(): void
+    public function testMapToFilePathInObsidianAttachmentDirectoryReturnsFilePathCombinigObsidianAttachmentDirectoryAndDayOnePhotoFileName(): void
     {
         $faker = self::faker();
 
@@ -53,7 +53,7 @@ final class DefaultObsidianAttachmentFilePathMapperTest extends Framework\TestCa
 
         $obsidianAttachmentFilePathMapper = new Inside\Domain\DayOneToObsidian\FilePath\DefaultObsidianAttachmentFilePathMapper($obsidianAttachmentDirectory);
 
-        $obsidianAttachmentFilePath = $obsidianAttachmentFilePathMapper->map($dayOnePhoto);
+        $obsidianAttachmentFilePath = $obsidianAttachmentFilePathMapper->mapToFilePathInObsidianAttachmentDirectory($dayOnePhoto);
 
         $expected = Inside\Domain\Shared\FilePath::create(
             $obsidianAttachmentDirectory,
