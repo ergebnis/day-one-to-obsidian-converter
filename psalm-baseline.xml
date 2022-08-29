@@ -72,7 +72,7 @@
       <code>$faker-&gt;fileExtension()</code>
     </MixedArgument>
   </file>
-  <file src="test/Unit/Inside/Domain/DayOneToObsidian/FilePath/InObsidianAttachmentDirectoryTest.php">
+  <file src="test/Unit/Inside/Domain/DayOneToObsidian/FilePath/DefaultObsidianAttachmentFilePathMapperTest.php">
     <MixedArgument occurrences="1">
       <code>$faker-&gt;fileExtension()</code>
     </MixedArgument>

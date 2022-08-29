@@ -15,7 +15,7 @@ namespace Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOneToObsidian\File
 
 use Ergebnis\DayOneToObsidianConverter\Inside;
 
-final class InObsidianAttachmentDirectory implements ObsidianAttachmentFilePathMapper
+final class DefaultObsidianAttachmentFilePathMapper implements ObsidianAttachmentFilePathMapper
 {
     public function __construct(private readonly Inside\Domain\Shared\Directory $obsidianAttachmentDirectory)
     {

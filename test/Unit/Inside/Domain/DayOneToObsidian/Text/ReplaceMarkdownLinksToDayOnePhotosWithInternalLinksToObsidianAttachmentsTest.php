@@ -24,7 +24,7 @@ use PHPUnit\Framework;
  *
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Photo
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\PhotoIdentifier
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOneToObsidian\FilePath\InObsidianAttachmentDirectory
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOneToObsidian\FilePath\DefaultObsidianAttachmentFilePathMapper
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
@@ -62,7 +62,7 @@ MARKDOWN);
             $faker->slug(),
         ));
 
-        $obsidianAttachmentFilePathMapper = new Inside\Domain\DayOneToObsidian\FilePath\InObsidianAttachmentDirectory(Inside\Domain\Shared\Directory::fromString(\sprintf(
+        $obsidianAttachmentFilePathMapper = new Inside\Domain\DayOneToObsidian\FilePath\DefaultObsidianAttachmentFilePathMapper(Inside\Domain\Shared\Directory::fromString(\sprintf(
             '%s/%s/Attachments',
             $faker->slug(),
             $faker->slug(),

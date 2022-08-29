@@ -20,7 +20,7 @@ use PHPUnit\Framework;
 /**
  * @internal
  *
- * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOneToObsidian\FilePath\InObsidianAttachmentDirectory
+ * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOneToObsidian\FilePath\DefaultObsidianAttachmentFilePathMapper
  *
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Photo
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\PhotoIdentifier
@@ -30,7 +30,7 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath
  */
-final class InObsidianAttachmentDirectoryTest extends Framework\TestCase
+final class DefaultObsidianAttachmentFilePathMapperTest extends Framework\TestCase
 {
     use Test\Util\Helper;
 
@@ -51,7 +51,7 @@ final class InObsidianAttachmentDirectoryTest extends Framework\TestCase
 
         $obsidianAttachmentDirectory = Inside\Domain\Shared\Directory::fromString($faker->slug());
 
-        $obsidianAttachmentFilePathMapper = new Inside\Domain\DayOneToObsidian\FilePath\InObsidianAttachmentDirectory($obsidianAttachmentDirectory);
+        $obsidianAttachmentFilePathMapper = new Inside\Domain\DayOneToObsidian\FilePath\DefaultObsidianAttachmentFilePathMapper($obsidianAttachmentDirectory);
 
         $obsidianAttachmentFilePath = $obsidianAttachmentFilePathMapper->map($dayOnePhoto);
 
