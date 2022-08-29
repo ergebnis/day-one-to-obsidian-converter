@@ -20,17 +20,30 @@ use Ergebnis\DayOneToObsidianConverter\Inside;
  */
 final class Journal
 {
-    private function __construct(private readonly Inside\Domain\Shared\FilePath $filePath)
-    {
+    private function __construct(
+        private readonly Inside\Domain\Shared\FilePath $filePath,
+        private readonly Inside\Domain\Shared\Directory $photoDirectory,
+    ) {
     }
 
     public static function create(Inside\Domain\Shared\FilePath $filePath): self
     {
-        return new self($filePath);
+        return new self(
+            $filePath,
+            Inside\Domain\Shared\Directory::fromString(\sprintf(
+                '%s/photos',
+                $filePath->directory()->toString(),
+            )),
+        );
     }
 
     public function filePath(): Inside\Domain\Shared\FilePath
     {
         return $this->filePath;
+    }
+
+    public function photoDirectory(): Inside\Domain\Shared\Directory
+    {
+        return $this->photoDirectory;
     }
 }

@@ -88,10 +88,7 @@ final class EntryReader implements Inside\Port\Secondary\DayOne\EntryReader
                     return Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString($photo['identifier']),
                         Inside\Domain\Shared\FilePath::create(
-                            Inside\Domain\Shared\Directory::fromString(\sprintf(
-                                '%s/photos',
-                                $journal->filePath()->directory()->toString(),
-                            )),
+                            $journal->photoDirectory(),
                             Inside\Domain\Shared\FileName::create(
                                 Inside\Domain\Shared\BaseName::fromString($photo['md5']),
                                 Inside\Domain\Shared\Extension::fromString($photo['type']),

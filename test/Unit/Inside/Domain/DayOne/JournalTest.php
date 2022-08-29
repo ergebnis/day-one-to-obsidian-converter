@@ -47,5 +47,12 @@ final class JournalTest extends Framework\TestCase
         $journal = Inside\Domain\DayOne\Journal::create($filePath);
 
         self::assertSame($filePath, $journal->filePath());
+
+        $expected = Inside\Domain\Shared\Directory::fromString(\sprintf(
+            '%s/photos',
+            $filePath->directory()->toString(),
+        ));
+
+        self::assertEquals($expected, $journal->photoDirectory());
     }
 }
