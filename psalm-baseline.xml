@@ -78,7 +78,8 @@
     </MixedArgument>
   </file>
   <file src="test/Unit/Inside/Domain/DayOneToObsidian/FilePath/DefaultObsidianNoteFilePathMapperTest.php">
-    <MixedArgument occurrences="1">
+    <MixedArgument occurrences="2">
+      <code>$faker-&gt;fileExtension()</code>
       <code>$faker-&gt;fileExtension()</code>
     </MixedArgument>
   </file>

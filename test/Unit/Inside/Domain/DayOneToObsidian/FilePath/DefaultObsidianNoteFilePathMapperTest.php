@@ -88,6 +88,54 @@ final class DefaultObsidianNoteFilePathMapperTest extends Framework\TestCase
     }
 
     /**
+     * @dataProvider provideOriginalJournalBaseNameAndModifiedJournalBaseName
+     */
+    public function testMapToFilePathRelativeToObsidianVaultDirectoryReturnsFilePathCombiningDayOneJournalNameAndRepresentationOfEntryCreationDate(
+        Inside\Domain\Shared\BaseName $originalJournalBaseName,
+        Inside\Domain\Shared\BaseName $modifiedJournalBaseName,
+    ): void {
+        $faker = self::faker();
+
+        $dayOneEntry = Inside\Domain\DayOne\Entry::create(
+            Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::create(
+                Inside\Domain\Shared\Directory::fromString($faker->slug()),
+                Inside\Domain\Shared\FileName::create(
+                    $originalJournalBaseName,
+                    Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
+                ),
+            )),
+            Inside\Domain\DayOne\EntryIdentifier::fromString($faker->sha1()),
+            Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime())),
+            Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime())),
+            Inside\Domain\Shared\Text::fromString($faker->realText()),
+            [],
+            [],
+            [],
+        );
+
+        $obsidianVaultDirectory = Inside\Domain\Shared\Directory::fromString($faker->slug());
+
+        $obsidianNoteFilePathMapper = new Inside\Domain\DayOneToObsidian\FilePath\DefaultObsidianNoteFilePathMapper($obsidianVaultDirectory);
+
+        $obsidianNoteFilePath = $obsidianNoteFilePathMapper->mapToFilePathRelativeToObsidianVaultDirectory($dayOneEntry);
+
+        $expected = Inside\Domain\Shared\FilePath::create(
+            Inside\Domain\Shared\Directory::fromString(\sprintf(
+                '%s/Journal/%s/%s',
+                $modifiedJournalBaseName->toString(),
+                $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y'),
+                $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y-m'),
+            )),
+            Inside\Domain\Shared\FileName::create(
+                Inside\Domain\Shared\BaseName::fromString($dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y-m-d H.i')),
+                Inside\Domain\Shared\Extension::fromString('md'),
+            ),
+        );
+
+        self::assertEquals($expected, $obsidianNoteFilePath);
+    }
+
+    /**
      * @return \Generator<string, array{0: Inside\Domain\Shared\BaseName, 1: Inside\Domain\Shared\BaseName}>
      */
     public function provideOriginalJournalBaseNameAndModifiedJournalBaseName(): \Generator
