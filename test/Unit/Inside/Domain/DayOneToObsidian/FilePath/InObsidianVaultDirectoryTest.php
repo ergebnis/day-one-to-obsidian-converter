@@ -66,9 +66,9 @@ final class InObsidianVaultDirectoryTest extends Framework\TestCase
 
         $obsidianVaultDirectory = Inside\Domain\Shared\Directory::fromString($faker->slug());
 
-        $attachmentFilePathGenerator = new Inside\Domain\DayOneToObsidian\FilePath\InObsidianVaultDirectory($obsidianVaultDirectory);
+        $obsidianNoteFilePathMapper = new Inside\Domain\DayOneToObsidian\FilePath\InObsidianVaultDirectory($obsidianVaultDirectory);
 
-        $obsidianNoteFilePath = $attachmentFilePathGenerator->map($dayOneEntry);
+        $obsidianNoteFilePath = $obsidianNoteFilePathMapper->map($dayOneEntry);
 
         $expected = Inside\Domain\Shared\FilePath::create(
             Inside\Domain\Shared\Directory::fromString(\sprintf(
