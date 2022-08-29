@@ -41,7 +41,7 @@ final class DefaultObsidianNoteFilePathMapperTest extends Framework\TestCase
     /**
      * @dataProvider provideOriginalJournalBaseNameAndModifiedJournalBaseName
      */
-    public function testMapToFilePathInObsidianVaultDirectoryReturnsFilePathCombingObsidianVaultDirectoryDayOneJournalNameAndRepresentationOfEntryCreationDate(
+    public function testMapToFilePathInObsidianVaultDirectoryReturnsFilePathCombiningObsidianVaultDirectoryDayOneJournalNameAndRepresentationOfEntryCreationDate(
         Inside\Domain\Shared\BaseName $originalJournalBaseName,
         Inside\Domain\Shared\BaseName $modifiedJournalBaseName,
     ): void {
