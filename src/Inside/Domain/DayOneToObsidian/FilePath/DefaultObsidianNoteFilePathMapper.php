@@ -21,7 +21,7 @@ final class DefaultObsidianNoteFilePathMapper implements ObsidianNoteFilePathMap
     {
     }
 
-    public function map(Inside\Domain\DayOne\Entry $dayOneEntry): Inside\Domain\Shared\FilePath
+    public function mapToFilePathInObsidianVaultDirectory(Inside\Domain\DayOne\Entry $dayOneEntry): Inside\Domain\Shared\FilePath
     {
         return Inside\Domain\Shared\FilePath::create(
             Inside\Domain\Shared\Directory::fromString(\sprintf(

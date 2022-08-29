@@ -41,7 +41,7 @@ final class DefaultObsidianNoteFilePathMapperTest extends Framework\TestCase
     /**
      * @dataProvider provideOriginalJournalBaseNameAndModifiedJournalBaseName
      */
-    public function testMapReturnsFilePathCombingObsidianVaultDirectoryDayOneJournalNameAndRepresentationOfEntryCreationDate(
+    public function testMapToFilePathInObsidianVaultDirectoryReturnsFilePathCombingObsidianVaultDirectoryDayOneJournalNameAndRepresentationOfEntryCreationDate(
         Inside\Domain\Shared\BaseName $originalJournalBaseName,
         Inside\Domain\Shared\BaseName $modifiedJournalBaseName,
     ): void {
@@ -68,7 +68,7 @@ final class DefaultObsidianNoteFilePathMapperTest extends Framework\TestCase
 
         $obsidianNoteFilePathMapper = new Inside\Domain\DayOneToObsidian\FilePath\DefaultObsidianNoteFilePathMapper($obsidianVaultDirectory);
 
-        $obsidianNoteFilePath = $obsidianNoteFilePathMapper->map($dayOneEntry);
+        $obsidianNoteFilePath = $obsidianNoteFilePathMapper->mapToFilePathInObsidianVaultDirectory($dayOneEntry);
 
         $expected = Inside\Domain\Shared\FilePath::create(
             Inside\Domain\Shared\Directory::fromString(\sprintf(
