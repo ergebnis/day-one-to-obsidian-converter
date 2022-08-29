@@ -19,5 +19,5 @@ interface ObsidianNoteFilePathMapper
 {
     public function mapToFilePathInObsidianVaultDirectory(Inside\Domain\DayOne\Entry $dayOneEntry): Inside\Domain\Shared\FilePath;
 
-    public function mapToFilePathRelativeToObsidianVaultDirectory(Inside\Domain\DayOne\Entry $dayOneEntry): Inside\Domain\Shared\FilePath;
+    public function mapToFilePathRelativeToOtherObsidianNote(Inside\Domain\DayOne\Entry $dayOneEntry): Inside\Domain\Shared\FilePath;
 }
