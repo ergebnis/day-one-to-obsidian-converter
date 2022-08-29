@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="4.26.0@6998fabb2bf528b65777bf9941920888d23c03ac">
+  <file src="src/Inside/Domain/DayOneToObsidian/Text/TextProcessorPipeline.php">
+    <MixedPropertyTypeCoercion occurrences="1">
+      <code>$textProcessors</code>
+    </MixedPropertyTypeCoercion>
+  </file>
   <file src="src/Inside/Domain/Shared/FileName.php">
     <ImpureMethodCall occurrences="1">
       <code>empty</code>
@@ -94,6 +99,14 @@
       <code>$faker-&gt;fileExtension()</code>
       <code>$faker-&gt;fileExtension()</code>
     </MixedArgument>
+  </file>
+  <file src="test/Unit/Inside/Domain/DayOneToObsidian/Text/TextProcessorPipelineTest.php">
+    <MixedArgumentTypeCoercion occurrences="1">
+      <code>$suffixes</code>
+    </MixedArgumentTypeCoercion>
+    <PossiblyInvalidArgument occurrences="1">
+      <code>$suffixes</code>
+    </PossiblyInvalidArgument>
   </file>
   <file src="test/Unit/Inside/Domain/Obsidian/FrontMatterTest.php">
     <MixedArgumentTypeCoercion occurrences="1">
