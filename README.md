@@ -47,7 +47,7 @@ Please have a look at [`LICENSE.md`](LICENSE.md).
 
 This converter is inspired by [`quantumgardener/dayone-to-obsidian`](https://github.com/quantumgardener/dayone-to-obsidian).
 
-The list of non-printable characters for the [`RemoveNonPrintableCharacters`] text processor is obtained from [`PhpCsFixer\Fixer\Basic\NonPrintableCharacterFixer`](https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/v3.10.0/src/Fixer/Basic/NonPrintableCharacterFixer.php#L58-L64), originally created by [Ivan Borzenkov](https://github.com/ivan1986).
+The list of non-printable characters for the [`RemoveNonPrintableCharacters`](src/Inside/Domain/DayOneToObsidian/Text/RemoveNonPrintableCharacters.php) text processor is obtained from [`PhpCsFixer\Fixer\Basic\NonPrintableCharacterFixer`](https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/v3.10.0/src/Fixer/Basic/NonPrintableCharacterFixer.php#L58-L64), originally created by [Ivan Borzenkov](https://github.com/ivan1986).
 
 ## Curious what I am up to?
 
