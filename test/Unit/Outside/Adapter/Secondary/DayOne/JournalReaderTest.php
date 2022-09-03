@@ -22,7 +22,7 @@ use PHPUnit\Framework;
 /**
  * @internal
  *
- * @covers \Ergebnis\DayOneToObsidianConverter\Outside\Adapter\Secondary\DayOne\EntryReader
+ * @covers \Ergebnis\DayOneToObsidianConverter\Outside\Adapter\Secondary\DayOne\JournalReader
  *
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\CreationDate
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Entry
@@ -43,15 +43,15 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Port\Secondary\DayOne\FileDoesNotExist
  * @uses \Ergebnis\DayOneToObsidianConverter\Outside\Infrastructure\DataNormalizer
  */
-final class EntryReaderTest extends Framework\TestCase
+final class JournalReaderTest extends Framework\TestCase
 {
     use Test\Util\Helper;
 
     public function testThrowsFileDoesNotExistWhenFileDoesNotExistAtFilePath(): void
     {
-        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/EntryReader/does-not-exist/Journal.json'));
+        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalReader/does-not-exist/Journal.json'));
 
-        $entryReader = new Outside\Adapter\Secondary\DayOne\EntryReader(
+        $journalReader = new Outside\Adapter\Secondary\DayOne\JournalReader(
             new SchemaValidator\SchemaValidator(),
             SchemaValidator\Json::fromFile(__DIR__ . '/../../../../../../resource/day-one/schema.json'),
             new Outside\Infrastructure\DataNormalizer(),
@@ -59,14 +59,14 @@ final class EntryReaderTest extends Framework\TestCase
 
         $this->expectException(Inside\Port\Secondary\DayOne\FileDoesNotExist::class);
 
-        $entryReader->read($journal);
+        $journalReader->read($journal);
     }
 
     public function testThrowsFileDoesNotContainJsonWhenFileAtFilePathDoesNotContainJson(): void
     {
-        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/EntryReader/not-json/Journal.json'));
+        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalReader/not-json/Journal.json'));
 
-        $entryReader = new Outside\Adapter\Secondary\DayOne\EntryReader(
+        $journalReader = new Outside\Adapter\Secondary\DayOne\JournalReader(
             new SchemaValidator\SchemaValidator(),
             SchemaValidator\Json::fromFile(__DIR__ . '/../../../../../../resource/day-one/schema.json'),
             new Outside\Infrastructure\DataNormalizer(),
@@ -74,14 +74,14 @@ final class EntryReaderTest extends Framework\TestCase
 
         $this->expectException(Inside\Port\Secondary\DayOne\FileDoesNotContainJson::class);
 
-        $entryReader->read($journal);
+        $journalReader->read($journal);
     }
 
     public function testThrowsFileDoesNotContainJsonWhenFileAtFilePathDoesNotContainJsonValidAccordingToSchema(): void
     {
-        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/EntryReader/not-valid-according-to-schema/Journal.json'));
+        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalReader/not-valid-according-to-schema/Journal.json'));
 
-        $entryReader = new Outside\Adapter\Secondary\DayOne\EntryReader(
+        $journalReader = new Outside\Adapter\Secondary\DayOne\JournalReader(
             new SchemaValidator\SchemaValidator(),
             SchemaValidator\Json::fromFile(__DIR__ . '/../../../../../../resource/day-one/schema.json'),
             new Outside\Infrastructure\DataNormalizer(),
@@ -89,20 +89,20 @@ final class EntryReaderTest extends Framework\TestCase
 
         $this->expectException(Inside\Port\Secondary\DayOne\FileDoesNotContainJsonValidAccordingToSchema::class);
 
-        $entryReader->read($journal);
+        $journalReader->read($journal);
     }
 
     public function testReturnsJournalWhenFileAtFilePathContainsJsonValidAccordingToSchema(): void
     {
-        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/EntryReader/valid-according-to-schema/Journal.json'));
+        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalReader/valid-according-to-schema/Journal.json'));
 
-        $entryReader = new Outside\Adapter\Secondary\DayOne\EntryReader(
+        $journalReader = new Outside\Adapter\Secondary\DayOne\JournalReader(
             new SchemaValidator\SchemaValidator(),
             SchemaValidator\Json::fromFile(__DIR__ . '/../../../../../../resource/day-one/schema.json'),
             new Outside\Infrastructure\DataNormalizer(),
         );
 
-        $entries = $entryReader->read($journal);
+        $entries = $journalReader->read($journal);
 
         $photosDirectory = Inside\Domain\Shared\Directory::fromString(\sprintf(
             '%s/photos',

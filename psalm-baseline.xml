@@ -10,7 +10,7 @@
       <code>empty</code>
     </ImpureMethodCall>
   </file>
-  <file src="src/Outside/Adapter/Secondary/DayOne/EntryReader.php">
+  <file src="src/Outside/Adapter/Secondary/DayOne/JournalReader.php">
     <MixedArgument occurrences="11">
       <code>$dataNormalizer-&gt;normalize($data)</code>
       <code>$data['entries']</code>

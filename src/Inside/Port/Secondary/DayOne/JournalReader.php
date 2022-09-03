@@ -15,7 +15,7 @@ namespace Ergebnis\DayOneToObsidianConverter\Inside\Port\Secondary\DayOne;
 
 use Ergebnis\DayOneToObsidianConverter\Inside;
 
-interface EntryReader
+interface JournalReader
 {
     /**
      * @throws FileDoesNotExist

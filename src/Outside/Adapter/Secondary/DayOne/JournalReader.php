@@ -21,7 +21,7 @@ use Ergebnis\Json\SchemaValidator;
  * @see https://dayoneapp.com/guides/settings/importing-data-to-day-one/
  * @see https://bloom-documentation.s3.amazonaws.com/JSON+Export+example.zip
  */
-final class EntryReader implements Inside\Port\Secondary\DayOne\EntryReader
+final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
 {
     public function __construct(
         private readonly SchemaValidator\SchemaValidator $schemaValidator,
