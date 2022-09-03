@@ -37,6 +37,7 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Text
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Port\Secondary\DayOne\FileDoesNotContainJson
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Port\Secondary\DayOne\FileDoesNotContainJsonValidAccordingToSchema
@@ -104,10 +105,10 @@ final class JournalReaderTest extends Framework\TestCase
 
         $entries = $journalReader->read($journal);
 
-        $photosDirectory = Inside\Domain\Shared\Directory::fromString(\sprintf(
+        $photosDirectory = Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
             '%s/photos',
-            $journal->filePath()->directory()->toString(),
-        ));
+            $journal->filePath()->directory()->path()->toString(),
+        )));
 
         $expected = [
             Inside\Domain\DayOne\Entry::create(

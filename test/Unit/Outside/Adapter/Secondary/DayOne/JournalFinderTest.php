@@ -30,6 +30,7 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
  */
 final class JournalFinderTest extends Framework\TestCase
 {
@@ -37,11 +38,11 @@ final class JournalFinderTest extends Framework\TestCase
 
     public function testFindReturnsEmptyArrayWhenDirectoryDoesNotExist(): void
     {
-        $directory = Inside\Domain\Shared\Directory::fromString(\sprintf(
+        $directory = Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
             '%s/%s',
             self::temporaryDirectory(),
             self::faker()->slug(),
-        ));
+        )));
 
         $journalFinder = new Outside\Adapter\Secondary\DayOne\JournalFinder(
             new SchemaValidator\SchemaValidator(),
@@ -55,13 +56,13 @@ final class JournalFinderTest extends Framework\TestCase
 
     public function testFindReturnsEmptyArrayWhenDirectoryExistsButDoesNotContainAnyFiles(): void
     {
-        $directory = Inside\Domain\Shared\Directory::fromString(\sprintf(
+        $directory = Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
             '%s/%s',
             self::temporaryDirectory(),
             self::faker()->slug(),
-        ));
+        )));
 
-        self::fileSystem()->mkdir($directory->toString());
+        self::fileSystem()->mkdir($directory->path()->toString());
 
         $journalFinder = new Outside\Adapter\Secondary\DayOne\JournalFinder(
             new SchemaValidator\SchemaValidator(),
@@ -75,9 +76,9 @@ final class JournalFinderTest extends Framework\TestCase
 
     public function testFindReturnsArrayWithJournalsWhereFilePathReferencesJsonFileThatIsValidAccordingToSchema(): void
     {
-        $directory = Inside\Domain\Shared\Directory::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalFinder');
+        $directory = Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalFinder'));
 
-        self::fileSystem()->mkdir($directory->toString());
+        self::fileSystem()->mkdir($directory->path()->toString());
 
         $journalFinder = new Outside\Adapter\Secondary\DayOne\JournalFinder(
             new SchemaValidator\SchemaValidator(),

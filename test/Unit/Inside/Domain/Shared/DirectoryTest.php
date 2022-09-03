@@ -21,23 +21,25 @@ use PHPUnit\Framework;
  * @internal
  *
  * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
+ *
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
  */
 final class DirectoryTest extends Framework\TestCase
 {
     use Test\Util\Helper;
 
-    public function testFromStringReturnsDirectory(): void
+    public function testCreateReturnsDirectory(): void
     {
         $faker = self::faker();
 
-        $value = \sprintf(
+        $path = Inside\Domain\Shared\Path::fromString(\sprintf(
             '%s/%s',
             $faker->slug(),
             $faker->slug(),
-        );
+        ));
 
-        $directory = Inside\Domain\Shared\Directory::fromString($value);
+        $directory = Inside\Domain\Shared\Directory::create($path);
 
-        self::assertSame($value, $directory->toString());
+        self::assertSame($path, $directory->path());
     }
 }

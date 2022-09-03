@@ -27,6 +27,7 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
  */
 final class JournalTest extends Framework\TestCase
 {
@@ -37,7 +38,7 @@ final class JournalTest extends Framework\TestCase
         $faker = self::faker();
 
         $filePath = Inside\Domain\Shared\FilePath::create(
-            Inside\Domain\Shared\Directory::fromString($faker->slug()),
+            Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString($faker->slug())),
             Inside\Domain\Shared\FileName::create(
                 Inside\Domain\Shared\BaseName::fromString($faker->slug()),
                 Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
@@ -48,10 +49,10 @@ final class JournalTest extends Framework\TestCase
 
         self::assertSame($filePath, $journal->filePath());
 
-        $expected = Inside\Domain\Shared\Directory::fromString(\sprintf(
+        $expected = Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
             '%s/photos',
-            $filePath->directory()->toString(),
-        ));
+            $filePath->directory()->path()->toString(),
+        )));
 
         self::assertEquals($expected, $journal->photoDirectory());
     }

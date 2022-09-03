@@ -18,17 +18,17 @@ namespace Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared;
  */
 final class Directory
 {
-    private function __construct(private readonly string $value)
+    private function __construct(private readonly Path $path)
     {
     }
 
-    public static function fromString(string $name): self
+    public static function create(Path $path): self
     {
-        return new self($name);
+        return new self($path);
     }
 
-    public function toString(): string
+    public function path(): Path
     {
-        return $this->value;
+        return $this->path;
     }
 }

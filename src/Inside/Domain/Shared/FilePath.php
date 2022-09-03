@@ -37,7 +37,7 @@ final class FilePath
     public static function fromString(string $value): self
     {
         return new self(
-            Directory::fromString(\dirname($value)),
+            Directory::create(Path::fromString(\dirname($value))),
             FileName::fromString(\basename($value)),
         );
     }
@@ -56,7 +56,7 @@ final class FilePath
     {
         return \sprintf(
             '%s/%s',
-            $this->directory->toString(),
+            $this->directory->path()->toString(),
             $this->fileName->toString(),
         );
     }

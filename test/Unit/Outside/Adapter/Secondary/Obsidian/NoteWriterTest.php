@@ -30,6 +30,7 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Text
  */
 final class NoteWriterTest extends Framework\TestCase
@@ -52,10 +53,10 @@ final class NoteWriterTest extends Framework\TestCase
 
         $note = Inside\Domain\Obsidian\Note::create(
             Inside\Domain\Shared\FilePath::create(
-                Inside\Domain\Shared\Directory::fromString(\sprintf(
+                Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                     '%s/obsidian',
                     self::temporaryDirectory(),
-                )),
+                ))),
                 Inside\Domain\Shared\FileName::create(
                     Inside\Domain\Shared\BaseName::fromString($faker->slug()),
                     Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
@@ -79,10 +80,10 @@ final class NoteWriterTest extends Framework\TestCase
 
         $note = Inside\Domain\Obsidian\Note::create(
             Inside\Domain\Shared\FilePath::create(
-                Inside\Domain\Shared\Directory::fromString(\sprintf(
+                Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                     '%s/obsidian',
                     self::temporaryDirectory(),
-                )),
+                ))),
                 Inside\Domain\Shared\FileName::create(
                     Inside\Domain\Shared\BaseName::fromString($faker->slug()),
                     Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
@@ -92,7 +93,7 @@ final class NoteWriterTest extends Framework\TestCase
             Inside\Domain\Shared\Text::fromString($faker->realText()),
         );
 
-        self::fileSystem()->mkdir($note->filePath()->directory()->toString());
+        self::fileSystem()->mkdir($note->filePath()->directory()->path()->toString());
 
         $noteWriter = new Outside\Adapter\Secondary\Obsidian\NoteWriter();
 
@@ -106,10 +107,10 @@ final class NoteWriterTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $directory = Inside\Domain\Shared\Directory::fromString(\sprintf(
+        $directory = Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
             '%s/obsidian',
             self::temporaryDirectory(),
-        ));
+        )));
 
         $note = Inside\Domain\Obsidian\Note::create(
             Inside\Domain\Shared\FilePath::create(
@@ -213,10 +214,10 @@ TXT,
 
         $note = Inside\Domain\Obsidian\Note::create(
             Inside\Domain\Shared\FilePath::create(
-                Inside\Domain\Shared\Directory::fromString(\sprintf(
+                Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                     '%s/obsidian',
                     self::temporaryDirectory(),
-                )),
+                ))),
                 Inside\Domain\Shared\FileName::create(
                     Inside\Domain\Shared\BaseName::fromString($faker->slug()),
                     Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
@@ -262,7 +263,7 @@ TXT,
             Inside\Domain\Shared\Text::fromString($faker->realText()),
         );
 
-        self::fileSystem()->mkdir($note->filePath()->directory()->toString());
+        self::fileSystem()->mkdir($note->filePath()->directory()->path()->toString());
 
         $noteWriter = new Outside\Adapter\Secondary\Obsidian\NoteWriter();
 

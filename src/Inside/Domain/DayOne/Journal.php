@@ -30,10 +30,10 @@ final class Journal
     {
         return new self(
             $filePath,
-            Inside\Domain\Shared\Directory::fromString(\sprintf(
+            Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                 '%s/photos',
-                $filePath->directory()->toString(),
-            )),
+                $filePath->directory()->path()->toString(),
+            ))),
         );
     }
 

@@ -26,6 +26,7 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
  */
 final class FilePathTest extends Framework\TestCase
 {
@@ -35,7 +36,7 @@ final class FilePathTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $directory = Inside\Domain\Shared\Directory::fromString($faker->slug());
+        $directory = Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString($faker->slug()));
         $fileName = Inside\Domain\Shared\FileName::create(
             Inside\Domain\Shared\BaseName::fromString($faker->slug()),
             Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
@@ -51,7 +52,7 @@ final class FilePathTest extends Framework\TestCase
 
         $expected = \sprintf(
             '%s/%s',
-            $directory->toString(),
+            $directory->path()->toString(),
             $fileName->toString(),
         );
 
@@ -62,7 +63,7 @@ final class FilePathTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $directory = Inside\Domain\Shared\Directory::fromString($faker->slug());
+        $directory = Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString($faker->slug()));
         $fileName = Inside\Domain\Shared\FileName::create(
             Inside\Domain\Shared\BaseName::fromString($faker->slug()),
             Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
@@ -70,7 +71,7 @@ final class FilePathTest extends Framework\TestCase
 
         $filePath = Inside\Domain\Shared\FilePath::fromString(\sprintf(
             '%s/%s',
-            $directory->toString(),
+            $directory->path()->toString(),
             $fileName->toString(),
         ));
 
@@ -79,7 +80,7 @@ final class FilePathTest extends Framework\TestCase
 
         $expected = \sprintf(
             '%s/%s',
-            $directory->toString(),
+            $directory->path()->toString(),
             $fileName->toString(),
         );
 

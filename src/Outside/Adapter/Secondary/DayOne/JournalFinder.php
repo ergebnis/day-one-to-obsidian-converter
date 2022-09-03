@@ -31,7 +31,7 @@ final class JournalFinder implements Inside\Port\Secondary\DayOne\JournalFinder
     {
         $files = \glob(\sprintf(
             '%s/*.json',
-            $directory->toString(),
+            $directory->path()->toString(),
         ));
 
         $schemaValidator = $this->schemaValidator;

@@ -32,6 +32,7 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Text
  */
 final class DefaultObsidianNoteFilePathMapperTest extends Framework\TestCase
@@ -49,7 +50,7 @@ final class DefaultObsidianNoteFilePathMapperTest extends Framework\TestCase
 
         $dayOneEntry = Inside\Domain\DayOne\Entry::create(
             Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::create(
-                Inside\Domain\Shared\Directory::fromString($faker->slug()),
+                Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString($faker->slug())),
                 Inside\Domain\Shared\FileName::create(
                     $originalJournalBaseName,
                     Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
@@ -64,20 +65,20 @@ final class DefaultObsidianNoteFilePathMapperTest extends Framework\TestCase
             [],
         );
 
-        $obsidianVaultDirectory = Inside\Domain\Shared\Directory::fromString($faker->slug());
+        $obsidianVaultDirectory = Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString($faker->slug()));
 
         $obsidianNoteFilePathMapper = new Inside\Domain\DayOneToObsidian\FilePath\DefaultObsidianNoteFilePathMapper($obsidianVaultDirectory);
 
         $obsidianNoteFilePath = $obsidianNoteFilePathMapper->mapToFilePathInObsidianVaultDirectory($dayOneEntry);
 
         $expected = Inside\Domain\Shared\FilePath::create(
-            Inside\Domain\Shared\Directory::fromString(\sprintf(
+            Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                 '%s/%s/%s/%s',
-                $obsidianVaultDirectory->toString(),
+                $obsidianVaultDirectory->path()->toString(),
                 $modifiedJournalBaseName->toString(),
                 $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y'),
                 $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y-m'),
-            )),
+            ))),
             Inside\Domain\Shared\FileName::create(
                 Inside\Domain\Shared\BaseName::fromString($dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y-m-d H.i')),
                 Inside\Domain\Shared\Extension::fromString('md'),
@@ -98,7 +99,7 @@ final class DefaultObsidianNoteFilePathMapperTest extends Framework\TestCase
 
         $dayOneEntry = Inside\Domain\DayOne\Entry::create(
             Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::create(
-                Inside\Domain\Shared\Directory::fromString($faker->slug()),
+                Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString($faker->slug())),
                 Inside\Domain\Shared\FileName::create(
                     $originalJournalBaseName,
                     Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
@@ -113,19 +114,19 @@ final class DefaultObsidianNoteFilePathMapperTest extends Framework\TestCase
             [],
         );
 
-        $obsidianVaultDirectory = Inside\Domain\Shared\Directory::fromString($faker->slug());
+        $obsidianVaultDirectory = Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString($faker->slug()));
 
         $obsidianNoteFilePathMapper = new Inside\Domain\DayOneToObsidian\FilePath\DefaultObsidianNoteFilePathMapper($obsidianVaultDirectory);
 
         $obsidianNoteFilePath = $obsidianNoteFilePathMapper->mapToFilePathRelativeToOtherObsidianNote($dayOneEntry);
 
         $expected = Inside\Domain\Shared\FilePath::create(
-            Inside\Domain\Shared\Directory::fromString(\sprintf(
+            Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                 '../../../../%s/%s/%s',
                 $modifiedJournalBaseName->toString(),
                 $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y'),
                 $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y-m'),
-            )),
+            ))),
             Inside\Domain\Shared\FileName::create(
                 Inside\Domain\Shared\BaseName::fromString($dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y-m-d H.i')),
                 Inside\Domain\Shared\Extension::fromString('md'),

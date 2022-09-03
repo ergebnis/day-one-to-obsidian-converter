@@ -33,6 +33,7 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Text
  */
 final class ReplaceMarkdownLinksToDayOneEntriesWithMarkdownLinksToObsidianNotesTest extends Framework\TestCase
@@ -59,15 +60,15 @@ final class ReplaceMarkdownLinksToDayOneEntriesWithMarkdownLinksToObsidianNotesT
 And so she went on, taking first one side and then the other, and making quite a conversation of it altogether; but after a few minutes she heard a voice outside, and stopped to listen.
 MARKDOWN);
 
-        $obsidianNoteFilePathMapper = new Inside\Domain\DayOneToObsidian\FilePath\DefaultObsidianNoteFilePathMapper(Inside\Domain\Shared\Directory::fromString(\sprintf(
+        $obsidianNoteFilePathMapper = new Inside\Domain\DayOneToObsidian\FilePath\DefaultObsidianNoteFilePathMapper(Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
             '%s/%s',
             $faker->slug(),
             $faker->slug(),
-        )));
+        ))));
 
         $dayOneEntryOne = Inside\Domain\DayOne\Entry::create(
             Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::create(
-                Inside\Domain\Shared\Directory::fromString($faker->slug()),
+                Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString($faker->slug())),
                 Inside\Domain\Shared\FileName::create(
                     Inside\Domain\Shared\BaseName::fromString($faker->slug()),
                     Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
@@ -84,7 +85,7 @@ MARKDOWN);
 
         $dayOneEntryThree = Inside\Domain\DayOne\Entry::create(
             Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::create(
-                Inside\Domain\Shared\Directory::fromString($faker->slug()),
+                Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString($faker->slug())),
                 Inside\Domain\Shared\FileName::create(
                     Inside\Domain\Shared\BaseName::fromString($faker->slug()),
                     Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),

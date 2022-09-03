@@ -26,11 +26,11 @@ final class DefaultObsidianNoteFilePathMapper implements ObsidianNoteFilePathMap
         $filePathRelativeToObsidianVaultDirectory = $this->mapToFilePathRelativeToObsidianVaultDirectory($dayOneEntry);
 
         return Inside\Domain\Shared\FilePath::create(
-            Inside\Domain\Shared\Directory::fromString(\sprintf(
+            Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                 '%s/%s',
-                $this->obsidianVaultDirectory->toString(),
-                $filePathRelativeToObsidianVaultDirectory->directory()->toString(),
-            )),
+                $this->obsidianVaultDirectory->path()->toString(),
+                $filePathRelativeToObsidianVaultDirectory->directory()->path()->toString(),
+            ))),
             $filePathRelativeToObsidianVaultDirectory->fileName(),
         );
     }
@@ -40,10 +40,10 @@ final class DefaultObsidianNoteFilePathMapper implements ObsidianNoteFilePathMap
         $filePathRelativeToObsidianVaultDirectory = $this->mapToFilePathRelativeToObsidianVaultDirectory($dayOneEntry);
 
         return Inside\Domain\Shared\FilePath::create(
-            Inside\Domain\Shared\Directory::fromString(\sprintf(
+            Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                 '../../../../%s',
-                $filePathRelativeToObsidianVaultDirectory->directory()->toString(),
-            )),
+                $filePathRelativeToObsidianVaultDirectory->directory()->path()->toString(),
+            ))),
             $filePathRelativeToObsidianVaultDirectory->fileName(),
         );
     }
@@ -51,7 +51,7 @@ final class DefaultObsidianNoteFilePathMapper implements ObsidianNoteFilePathMap
     private function mapToFilePathRelativeToObsidianVaultDirectory(Inside\Domain\DayOne\Entry $dayOneEntry): Inside\Domain\Shared\FilePath
     {
         return Inside\Domain\Shared\FilePath::create(
-            Inside\Domain\Shared\Directory::fromString(\sprintf(
+            Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                 '%s/%s/%s',
                 \str_replace(
                     ': ',
@@ -60,7 +60,7 @@ final class DefaultObsidianNoteFilePathMapper implements ObsidianNoteFilePathMap
                 ),
                 $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y'),
                 $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y-m'),
-            )),
+            ))),
             Inside\Domain\Shared\FileName::create(
                 Inside\Domain\Shared\BaseName::fromString($dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y-m-d H.i')),
                 Inside\Domain\Shared\Extension::fromString('md'),
