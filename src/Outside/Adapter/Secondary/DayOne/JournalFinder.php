@@ -46,7 +46,10 @@ final class JournalFinder implements Inside\Port\Secondary\DayOne\JournalFinder
 
         /** @var array<int, Inside\Domain\DayOne\Journal> $dayOneJournals */
         $dayOneJournals = \array_reduce(
-            \iterator_to_array($files),
+            \iterator_to_array(
+                $files,
+                false,
+            ),
             static function (array $dayOneJournals, Finder\SplFileInfo $fileInfo) use ($schemaValidator, $schema): array {
                 try {
                     $json = SchemaValidator\Json::fromFile($fileInfo->getRealPath());
