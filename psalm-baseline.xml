@@ -168,6 +168,11 @@
       <code>$faker-&gt;fileExtension()</code>
     </MixedArgument>
   </file>
+  <file src="test/Unit/Inside/Domain/Shared/PathTest.php">
+    <MixedArgument occurrences="1">
+      <code>$faker-&gt;fileExtension()</code>
+    </MixedArgument>
+  </file>
   <file src="test/Unit/Outside/Adapter/Secondary/Obsidian/NoteWriterTest.php">
     <MixedArgument occurrences="4">
       <code>$faker-&gt;fileExtension()</code>
