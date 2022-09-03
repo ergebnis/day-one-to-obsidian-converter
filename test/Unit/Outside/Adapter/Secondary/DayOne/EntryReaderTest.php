@@ -53,6 +53,7 @@ final class EntryReaderTest extends Framework\TestCase
 
         $entryReader = new Outside\Adapter\Secondary\DayOne\EntryReader(
             new SchemaValidator\SchemaValidator(),
+            SchemaValidator\Json::fromFile(__DIR__ . '/../../../../../../resource/day-one/schema.json'),
             new Outside\Infrastructure\DataNormalizer(),
         );
 
@@ -67,6 +68,7 @@ final class EntryReaderTest extends Framework\TestCase
 
         $entryReader = new Outside\Adapter\Secondary\DayOne\EntryReader(
             new SchemaValidator\SchemaValidator(),
+            SchemaValidator\Json::fromFile(__DIR__ . '/../../../../../../resource/day-one/schema.json'),
             new Outside\Infrastructure\DataNormalizer(),
         );
 
@@ -81,6 +83,7 @@ final class EntryReaderTest extends Framework\TestCase
 
         $entryReader = new Outside\Adapter\Secondary\DayOne\EntryReader(
             new SchemaValidator\SchemaValidator(),
+            SchemaValidator\Json::fromFile(__DIR__ . '/../../../../../../resource/day-one/schema.json'),
             new Outside\Infrastructure\DataNormalizer(),
         );
 
@@ -95,6 +98,7 @@ final class EntryReaderTest extends Framework\TestCase
 
         $entryReader = new Outside\Adapter\Secondary\DayOne\EntryReader(
             new SchemaValidator\SchemaValidator(),
+            SchemaValidator\Json::fromFile(__DIR__ . '/../../../../../../resource/day-one/schema.json'),
             new Outside\Infrastructure\DataNormalizer(),
         );
 

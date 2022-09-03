@@ -25,6 +25,7 @@ final class EntryReader implements Inside\Port\Secondary\DayOne\EntryReader
 {
     public function __construct(
         private readonly SchemaValidator\SchemaValidator $schemaValidator,
+        private readonly SchemaValidator\Json $schema,
         private readonly Outside\Infrastructure\DataNormalizer $dataNormalizer,
     ) {
     }
@@ -48,7 +49,7 @@ final class EntryReader implements Inside\Port\Secondary\DayOne\EntryReader
 
         $validationResult = $this->schemaValidator->validate(
             SchemaValidator\Json::fromFile($journal->filePath()->toString()),
-            SchemaValidator\Json::fromFile(__DIR__ . '/../../../../../resource/day-one/schema.json'),
+            $this->schema,
             SchemaValidator\JsonPointer::empty(),
         );
 
