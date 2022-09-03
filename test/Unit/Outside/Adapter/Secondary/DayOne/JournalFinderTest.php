@@ -78,8 +78,6 @@ final class JournalFinderTest extends Framework\TestCase
     {
         $directory = Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalFinder'));
 
-        self::fileSystem()->mkdir($directory->path()->toString());
-
         $journalFinder = new Outside\Adapter\Secondary\DayOne\JournalFinder(
             new SchemaValidator\SchemaValidator(),
             SchemaValidator\Json::fromFile(__DIR__ . '/../../../../../../resource/day-one/schema.json'),
