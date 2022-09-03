@@ -40,13 +40,12 @@ final class PhotoTest extends Framework\TestCase
         $faker = self::faker();
 
         $identifier = Inside\Domain\DayOne\PhotoIdentifier::fromString($faker->sha1());
-        $filePath = Inside\Domain\Shared\FilePath::create(
-            Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString($faker->slug())),
-            Inside\Domain\Shared\FileName::create(
-                Inside\Domain\Shared\BaseName::fromString($faker->slug()),
-                Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
-            ),
-        );
+        $filePath = Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+            '%s/%s.%s',
+            $faker->slug(),
+            $faker->slug(),
+            $faker->fileExtension(),
+        )));
 
         $photo = Inside\Domain\DayOne\Photo::create(
             $identifier,

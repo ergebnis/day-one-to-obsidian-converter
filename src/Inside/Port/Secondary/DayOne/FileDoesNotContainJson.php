@@ -21,7 +21,7 @@ final class FileDoesNotContainJson extends \RuntimeException
     {
         return new self(\sprintf(
             'The file at path "%s" does not contain valid JSON.',
-            $filePath->toString(),
+            $filePath->path()->toString(),
         ));
     }
 }

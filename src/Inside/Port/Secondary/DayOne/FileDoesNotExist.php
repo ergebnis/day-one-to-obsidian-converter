@@ -21,7 +21,7 @@ final class FileDoesNotExist extends \RuntimeException
     {
         return new self(\sprintf(
             'A file does not exist at file path "%s".',
-            $filePath->toString(),
+            $filePath->path()->toString(),
         ));
     }
 }

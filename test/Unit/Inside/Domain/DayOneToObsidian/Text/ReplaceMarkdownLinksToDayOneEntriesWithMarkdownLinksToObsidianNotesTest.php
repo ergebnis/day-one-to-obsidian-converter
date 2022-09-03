@@ -67,13 +67,12 @@ MARKDOWN);
         ))));
 
         $dayOneEntryOne = Inside\Domain\DayOne\Entry::create(
-            Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::create(
-                Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString($faker->slug())),
-                Inside\Domain\Shared\FileName::create(
-                    Inside\Domain\Shared\BaseName::fromString($faker->slug()),
-                    Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
-                ),
-            )),
+            Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                '%s/%s.%s',
+                $faker->slug(),
+                $faker->slug(),
+                $faker->fileExtension(),
+            )))),
             Inside\Domain\DayOne\EntryIdentifier::fromString('EE9D6208B99A47FAAF2F98E16D384CD0'),
             Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime())),
             Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime())),
@@ -84,13 +83,12 @@ MARKDOWN);
         );
 
         $dayOneEntryThree = Inside\Domain\DayOne\Entry::create(
-            Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::create(
-                Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString($faker->slug())),
-                Inside\Domain\Shared\FileName::create(
-                    Inside\Domain\Shared\BaseName::fromString($faker->slug()),
-                    Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
-                ),
-            )),
+            Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                '%s/%s.%s',
+                $faker->slug(),
+                $faker->slug(),
+                $faker->fileExtension(),
+            )))),
             Inside\Domain\DayOne\EntryIdentifier::fromString('EE9D6208090A47FAAF2F98E16D384CD0'),
             Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime())),
             Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime())),
@@ -123,8 +121,8 @@ MARKDOWN);
 
 And so she went on, taking first one side and then the other, and making quite a conversation of it altogether; but after a few minutes she heard a voice outside, and stopped to listen.
 MARKDOWN,
-            $obsidianNoteFilePathMapper->mapToFilePathRelativeToOtherObsidianNote($dayOneEntryOne)->toString(),
-            $obsidianNoteFilePathMapper->mapToFilePathRelativeToOtherObsidianNote($dayOneEntryThree)->toString(),
+            $obsidianNoteFilePathMapper->mapToFilePathRelativeToOtherObsidianNote($dayOneEntryOne)->path()->toString(),
+            $obsidianNoteFilePathMapper->mapToFilePathRelativeToOtherObsidianNote($dayOneEntryThree)->path()->toString(),
         ));
 
         self::assertEquals($expected, $processed);

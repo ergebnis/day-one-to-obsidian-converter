@@ -19,27 +19,24 @@ namespace Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared;
 final class FilePath
 {
     private function __construct(
+        private readonly Path $path,
         private readonly Directory $directory,
         private readonly FileName $fileName,
     ) {
     }
 
-    public static function create(
-        Directory $directory,
-        FileName $fileName,
-    ): self {
+    public static function create(Path $path): self
+    {
         return new self(
-            $directory,
-            $fileName,
+            $path,
+            Directory::create(Path::fromString(\dirname($path->toString()))),
+            FileName::fromString(\basename($path->toString())),
         );
     }
 
-    public static function fromString(string $value): self
+    public function path(): Path
     {
-        return new self(
-            Directory::create(Path::fromString(\dirname($value))),
-            FileName::fromString(\basename($value)),
-        );
+        return $this->path;
     }
 
     public function directory(): Directory

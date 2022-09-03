@@ -25,46 +25,37 @@ final class DefaultObsidianNoteFilePathMapper implements ObsidianNoteFilePathMap
     {
         $filePathRelativeToObsidianVaultDirectory = $this->mapToFilePathRelativeToObsidianVaultDirectory($dayOneEntry);
 
-        return Inside\Domain\Shared\FilePath::create(
-            Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
-                '%s/%s',
-                $this->obsidianVaultDirectory->path()->toString(),
-                $filePathRelativeToObsidianVaultDirectory->directory()->path()->toString(),
-            ))),
-            $filePathRelativeToObsidianVaultDirectory->fileName(),
-        );
+        return Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+            '%s/%s/%s',
+            $this->obsidianVaultDirectory->path()->toString(),
+            $filePathRelativeToObsidianVaultDirectory->directory()->path()->toString(),
+            $filePathRelativeToObsidianVaultDirectory->fileName()->toString(),
+        )));
     }
 
     public function mapToFilePathRelativeToOtherObsidianNote(Inside\Domain\DayOne\Entry $dayOneEntry): Inside\Domain\Shared\FilePath
     {
         $filePathRelativeToObsidianVaultDirectory = $this->mapToFilePathRelativeToObsidianVaultDirectory($dayOneEntry);
 
-        return Inside\Domain\Shared\FilePath::create(
-            Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
-                '../../../../%s',
-                $filePathRelativeToObsidianVaultDirectory->directory()->path()->toString(),
-            ))),
-            $filePathRelativeToObsidianVaultDirectory->fileName(),
-        );
+        return Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+            '../../../../%s/%s',
+            $filePathRelativeToObsidianVaultDirectory->directory()->path()->toString(),
+            $filePathRelativeToObsidianVaultDirectory->fileName()->toString(),
+        )));
     }
 
     private function mapToFilePathRelativeToObsidianVaultDirectory(Inside\Domain\DayOne\Entry $dayOneEntry): Inside\Domain\Shared\FilePath
     {
-        return Inside\Domain\Shared\FilePath::create(
-            Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
-                '%s/%s/%s',
-                \str_replace(
-                    ': ',
-                    '/',
-                    \urldecode($dayOneEntry->journal()->filePath()->fileName()->baseName()->toString()),
-                ),
-                $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y'),
-                $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y-m'),
-            ))),
-            Inside\Domain\Shared\FileName::create(
-                Inside\Domain\Shared\BaseName::fromString($dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y-m-d H.i')),
-                Inside\Domain\Shared\Extension::fromString('md'),
+        return Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+            '%s/%s/%s/%s.md',
+            \str_replace(
+                ': ',
+                '/',
+                \urldecode($dayOneEntry->journal()->filePath()->fileName()->baseName()->toString()),
             ),
-        );
+            $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y'),
+            $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y-m'),
+            $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y-m-d H.i'),
+        )));
     }
 }

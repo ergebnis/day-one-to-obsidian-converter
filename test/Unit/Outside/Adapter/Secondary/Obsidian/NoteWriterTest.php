@@ -52,16 +52,12 @@ final class NoteWriterTest extends Framework\TestCase
         $faker = self::faker();
 
         $note = Inside\Domain\Obsidian\Note::create(
-            Inside\Domain\Shared\FilePath::create(
-                Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
-                    '%s/obsidian',
-                    self::temporaryDirectory(),
-                ))),
-                Inside\Domain\Shared\FileName::create(
-                    Inside\Domain\Shared\BaseName::fromString($faker->slug()),
-                    Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
-                ),
-            ),
+            Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                '%s/obsidian/%s.%s',
+                self::temporaryDirectory(),
+                $faker->slug(),
+                $faker->fileExtension(),
+            ))),
             Inside\Domain\Obsidian\FrontMatter::fromArray([]),
             Inside\Domain\Shared\Text::fromString($faker->realText()),
         );
@@ -70,7 +66,7 @@ final class NoteWriterTest extends Framework\TestCase
 
         $noteWriter->write($note);
 
-        self::assertFileExists($note->filePath()->toString());
+        self::assertFileExists($note->filePath()->path()->toString());
         self::assertSame($note->text()->toString(), \file_get_contents($note->filePath()->toString()));
     }
 
@@ -79,16 +75,12 @@ final class NoteWriterTest extends Framework\TestCase
         $faker = self::faker();
 
         $note = Inside\Domain\Obsidian\Note::create(
-            Inside\Domain\Shared\FilePath::create(
-                Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
-                    '%s/obsidian',
-                    self::temporaryDirectory(),
-                ))),
-                Inside\Domain\Shared\FileName::create(
-                    Inside\Domain\Shared\BaseName::fromString($faker->slug()),
-                    Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
-                ),
-            ),
+            Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                '%s/obsidian/%s.%s',
+                self::temporaryDirectory(),
+                $faker->slug(),
+                $faker->fileExtension(),
+            ))),
             Inside\Domain\Obsidian\FrontMatter::fromArray([]),
             Inside\Domain\Shared\Text::fromString($faker->realText()),
         );
@@ -99,8 +91,8 @@ final class NoteWriterTest extends Framework\TestCase
 
         $noteWriter->write($note);
 
-        self::assertFileExists($note->filePath()->toString());
-        self::assertSame($note->text()->toString(), \file_get_contents($note->filePath()->toString()));
+        self::assertFileExists($note->filePath()->path()->toString());
+        self::assertSame($note->text()->toString(), \file_get_contents($note->filePath()->path()->toString()));
     }
 
     public function testWriteWriteNoteWhenNoteHasFrontMatterAndDirectoryDoesNotExist(): void
@@ -113,13 +105,12 @@ final class NoteWriterTest extends Framework\TestCase
         )));
 
         $note = Inside\Domain\Obsidian\Note::create(
-            Inside\Domain\Shared\FilePath::create(
-                $directory,
-                Inside\Domain\Shared\FileName::create(
-                    Inside\Domain\Shared\BaseName::fromString($faker->slug()),
-                    Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
-                ),
-            ),
+            Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                '%s/%s.%s',
+                $directory->path()->toString(),
+                $faker->slug(),
+                $faker->fileExtension(),
+            ))),
             Inside\Domain\Obsidian\FrontMatter::fromArray([
                 'dayOne' => [
                     'creationDevice' => 'Adam’s Apple (7+)',
@@ -164,7 +155,7 @@ final class NoteWriterTest extends Framework\TestCase
 
         $noteWriter->write($note);
 
-        self::assertFileExists($note->filePath()->toString());
+        self::assertFileExists($note->filePath()->path()->toString());
 
         $expected = \sprintf(
             <<<'TXT'
@@ -205,7 +196,7 @@ TXT,
             $note->text()->toString(),
         );
 
-        self::assertSame($expected, \file_get_contents($note->filePath()->toString()));
+        self::assertSame($expected, \file_get_contents($note->filePath()->path()->toString()));
     }
 
     public function testWriteWriteNoteWhenNoteHasFrontMatterAndDirectoryExists(): void
@@ -213,16 +204,12 @@ TXT,
         $faker = self::faker();
 
         $note = Inside\Domain\Obsidian\Note::create(
-            Inside\Domain\Shared\FilePath::create(
-                Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
-                    '%s/obsidian',
-                    self::temporaryDirectory(),
-                ))),
-                Inside\Domain\Shared\FileName::create(
-                    Inside\Domain\Shared\BaseName::fromString($faker->slug()),
-                    Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
-                ),
-            ),
+            Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                '%s/obsidian/%s.%s',
+                self::temporaryDirectory(),
+                $faker->slug(),
+                $faker->fileExtension(),
+            ))),
             Inside\Domain\Obsidian\FrontMatter::fromArray([
                 'dayOne' => [
                     'creationDevice' => 'Adam’s Apple (7+)',
@@ -269,7 +256,7 @@ TXT,
 
         $noteWriter->write($note);
 
-        self::assertFileExists($note->filePath()->toString());
+        self::assertFileExists($note->filePath()->path()->toString());
 
         $expected = \sprintf(
             <<<'TXT'
@@ -310,6 +297,6 @@ TXT,
             $note->text()->toString(),
         );
 
-        self::assertSame($expected, \file_get_contents($note->filePath()->toString()));
+        self::assertSame($expected, \file_get_contents($note->filePath()->path()->toString()));
     }
 }

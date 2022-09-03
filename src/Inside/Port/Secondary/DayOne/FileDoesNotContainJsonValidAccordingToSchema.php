@@ -21,7 +21,7 @@ final class FileDoesNotContainJsonValidAccordingToSchema extends \RuntimeExcepti
     {
         return new self(\sprintf(
             'The file at path "%s" does not contain JSON valid according to the schema for DayOne journals .',
-            $filePath->toString(),
+            $filePath->path()->toString(),
         ));
     }
 }

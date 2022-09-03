@@ -35,13 +35,13 @@ final class FileDoesNotContainJsonValidAccordingToSchemaTest extends Framework\T
 
     public static function testAtReturnsFileDoesNotContainJsonValidAccordingToSchema(): void
     {
-        $filePath = Inside\Domain\Shared\FilePath::fromString(__FILE__);
+        $filePath = Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(__FILE__));
 
         $exception = Inside\Port\Secondary\DayOne\FileDoesNotContainJsonValidAccordingToSchema::at($filePath);
 
         $expected = \sprintf(
             'The file at path "%s" does not contain JSON valid according to the schema for DayOne journals .',
-            $filePath->toString(),
+            $filePath->path()->toString(),
         );
 
         self::assertSame($expected, $exception->getMessage());

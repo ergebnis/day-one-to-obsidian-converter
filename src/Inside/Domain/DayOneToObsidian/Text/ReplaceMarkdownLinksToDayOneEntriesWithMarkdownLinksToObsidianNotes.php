@@ -34,7 +34,7 @@ final class ReplaceMarkdownLinksToDayOneEntriesWithMarkdownLinksToObsidianNotes 
                 );
             }, $dayOneEntries),
             \array_map(static function (Inside\Domain\DayOne\Entry $dayOneEntry) use ($obsidianNoteFilePathMapper): string {
-                return $obsidianNoteFilePathMapper->mapToFilePathRelativeToOtherObsidianNote($dayOneEntry)->toString();
+                return $obsidianNoteFilePathMapper->mapToFilePathRelativeToOtherObsidianNote($dayOneEntry)->path()->toString();
             }, $dayOneEntries),
         );
     }

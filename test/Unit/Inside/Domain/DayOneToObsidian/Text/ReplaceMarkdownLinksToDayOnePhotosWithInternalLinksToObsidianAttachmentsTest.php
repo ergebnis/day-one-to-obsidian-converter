@@ -83,17 +83,19 @@ MARKDOWN);
             $obsidianAttachmentFilePathMapper,
             Inside\Domain\DayOne\Photo::create(
                 Inside\Domain\DayOne\PhotoIdentifier::fromString('88E71E5B4F1F4853A0F8A7F480A0168C'),
-                Inside\Domain\Shared\FilePath::create(
-                    $dayOnePhotoDirectory,
-                    $obsidianAttachmentOneFileName,
-                ),
+                Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                    '%s/%s',
+                    $dayOnePhotoDirectory->path()->toString(),
+                    $obsidianAttachmentOneFileName->toString(),
+                ))),
             ),
             Inside\Domain\DayOne\Photo::create(
                 Inside\Domain\DayOne\PhotoIdentifier::fromString('8A04A939330C4182A83402BA944467D2'),
-                Inside\Domain\Shared\FilePath::create(
-                    $dayOnePhotoDirectory,
-                    $obsidianAttachmentThreeFileName,
-                ),
+                Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                    '%s/%s',
+                    $dayOnePhotoDirectory->path()->toString(),
+                    $obsidianAttachmentThreeFileName->toString(),
+                ))),
             ),
         );
 

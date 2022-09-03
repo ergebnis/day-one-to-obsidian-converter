@@ -49,13 +49,12 @@ final class DefaultObsidianNoteFilePathMapperTest extends Framework\TestCase
         $faker = self::faker();
 
         $dayOneEntry = Inside\Domain\DayOne\Entry::create(
-            Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::create(
-                Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString($faker->slug())),
-                Inside\Domain\Shared\FileName::create(
-                    $originalJournalBaseName,
-                    Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
-                ),
-            )),
+            Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                '%s/%s.%s',
+                $faker->slug(),
+                $originalJournalBaseName->toString(),
+                $faker->fileExtension(),
+            )))),
             Inside\Domain\DayOne\EntryIdentifier::fromString($faker->sha1()),
             Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime())),
             Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime())),
@@ -71,19 +70,14 @@ final class DefaultObsidianNoteFilePathMapperTest extends Framework\TestCase
 
         $obsidianNoteFilePath = $obsidianNoteFilePathMapper->mapToFilePathInObsidianVaultDirectory($dayOneEntry);
 
-        $expected = Inside\Domain\Shared\FilePath::create(
-            Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
-                '%s/%s/%s/%s',
-                $obsidianVaultDirectory->path()->toString(),
-                $modifiedJournalBaseName->toString(),
-                $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y'),
-                $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y-m'),
-            ))),
-            Inside\Domain\Shared\FileName::create(
-                Inside\Domain\Shared\BaseName::fromString($dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y-m-d H.i')),
-                Inside\Domain\Shared\Extension::fromString('md'),
-            ),
-        );
+        $expected = Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+            '%s/%s/%s/%s/%s.md',
+            $obsidianVaultDirectory->path()->toString(),
+            $modifiedJournalBaseName->toString(),
+            $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y'),
+            $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y-m'),
+            $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y-m-d H.i'),
+        )));
 
         self::assertEquals($expected, $obsidianNoteFilePath);
     }
@@ -98,13 +92,12 @@ final class DefaultObsidianNoteFilePathMapperTest extends Framework\TestCase
         $faker = self::faker();
 
         $dayOneEntry = Inside\Domain\DayOne\Entry::create(
-            Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::create(
-                Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString($faker->slug())),
-                Inside\Domain\Shared\FileName::create(
-                    $originalJournalBaseName,
-                    Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
-                ),
-            )),
+            Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                '%s/%s.%s',
+                $faker->slug(),
+                $originalJournalBaseName->toString(),
+                $faker->fileExtension(),
+            )))),
             Inside\Domain\DayOne\EntryIdentifier::fromString($faker->sha1()),
             Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime())),
             Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime())),
@@ -120,18 +113,15 @@ final class DefaultObsidianNoteFilePathMapperTest extends Framework\TestCase
 
         $obsidianNoteFilePath = $obsidianNoteFilePathMapper->mapToFilePathRelativeToOtherObsidianNote($dayOneEntry);
 
-        $expected = Inside\Domain\Shared\FilePath::create(
-            Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
-                '../../../../%s/%s/%s',
+        $expected = Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(
+            \sprintf(
+                '../../../../%s/%s/%s/%s.md',
                 $modifiedJournalBaseName->toString(),
                 $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y'),
                 $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y-m'),
-            ))),
-            Inside\Domain\Shared\FileName::create(
-                Inside\Domain\Shared\BaseName::fromString($dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y-m-d H.i')),
-                Inside\Domain\Shared\Extension::fromString('md'),
+                $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y-m-d H.i'),
             ),
-        );
+        ));
 
         self::assertEquals($expected, $obsidianNoteFilePath);
     }

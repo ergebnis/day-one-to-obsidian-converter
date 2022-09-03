@@ -35,13 +35,13 @@ final class FileDoesNotContainJsonTest extends Framework\TestCase
 
     public static function testAtReturnsFileDoesNotContainJson(): void
     {
-        $filePath = Inside\Domain\Shared\FilePath::fromString(__FILE__);
+        $filePath = Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(__FILE__));
 
         $exception = Inside\Port\Secondary\DayOne\FileDoesNotContainJson::at($filePath);
 
         $expected = \sprintf(
             'The file at path "%s" does not contain valid JSON.',
-            $filePath->toString(),
+            $filePath->path()->toString(),
         );
 
         self::assertSame($expected, $exception->getMessage());

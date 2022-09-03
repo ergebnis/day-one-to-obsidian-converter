@@ -32,13 +32,13 @@ final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
 
     public function read(Inside\Domain\DayOne\Journal $journal): array
     {
-        if (!\is_file($journal->filePath()->toString())) {
+        if (!\is_file($journal->filePath()->path()->toString())) {
             throw Inside\Port\Secondary\DayOne\FileDoesNotExist::at($journal->filePath());
         }
 
         try {
             $data = \json_decode(
-                \file_get_contents($journal->filePath()->toString()),
+                \file_get_contents($journal->filePath()->path()->toString()),
                 true,
                 512,
                 \JSON_THROW_ON_ERROR,
@@ -48,7 +48,7 @@ final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
         }
 
         $validationResult = $this->schemaValidator->validate(
-            SchemaValidator\Json::fromFile($journal->filePath()->toString()),
+            SchemaValidator\Json::fromFile($journal->filePath()->path()->toString()),
             $this->schema,
             SchemaValidator\JsonPointer::empty(),
         );
@@ -88,13 +88,12 @@ final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
                 $photos = \array_map(static function (array $photo) use ($journal): Inside\Domain\DayOne\Photo {
                     return Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString($photo['identifier']),
-                        Inside\Domain\Shared\FilePath::create(
-                            $journal->photoDirectory(),
-                            Inside\Domain\Shared\FileName::create(
-                                Inside\Domain\Shared\BaseName::fromString($photo['md5']),
-                                Inside\Domain\Shared\Extension::fromString($photo['type']),
-                            ),
-                        ),
+                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                            '%s/%s.%s',
+                            $journal->photoDirectory()->path()->toString(),
+                            $photo['md5'],
+                            $photo['type'],
+                        ))),
                     );
                 }, $entry['photos']);
             }

@@ -45,13 +45,12 @@ final class EntryTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::create(
-            Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString($faker->slug())),
-            Inside\Domain\Shared\FileName::create(
-                Inside\Domain\Shared\BaseName::fromString($faker->slug()),
-                Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
-            ),
-        ));
+        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+            '%s/%s.%s',
+            $faker->slug(),
+            $faker->slug(),
+            $faker->fileExtension(),
+        ))));
         $entryIdentifier = Inside\Domain\DayOne\EntryIdentifier::fromString($faker->sha1());
         $creationDate = Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime()));
         $modifiedDate = Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime()));
@@ -62,13 +61,12 @@ final class EntryTest extends Framework\TestCase
         $photos = \array_map(static function () use ($faker): Inside\Domain\DayOne\Photo {
             return Inside\Domain\DayOne\Photo::create(
                 Inside\Domain\DayOne\PhotoIdentifier::fromString($faker->sha1()),
-                Inside\Domain\Shared\FilePath::create(
-                    Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString($faker->slug())),
-                    Inside\Domain\Shared\FileName::create(
-                        Inside\Domain\Shared\BaseName::fromString($faker->slug()),
-                        Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
-                    ),
-                ),
+                Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                    '%s/%s.%s',
+                    $faker->slug(),
+                    $faker->slug(),
+                    $faker->fileExtension(),
+                ))),
             );
         }, \range(0, 2));
         $data = \array_combine(

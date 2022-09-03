@@ -40,13 +40,12 @@ final class NoteTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $filePath = Inside\Domain\Shared\FilePath::create(
-            Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString($faker->slug())),
-            Inside\Domain\Shared\FileName::create(
-                Inside\Domain\Shared\BaseName::fromString($faker->slug()),
-                Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
-            ),
-        );
+        $filePath = Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+            '%s/%s.%s',
+            $faker->slug(),
+            $faker->slug(),
+            $faker->fileExtension(),
+        )));
         $frontMatter = Inside\Domain\Obsidian\FrontMatter::fromArray(\array_combine(
             $faker->words(),
             $faker->sentences(),

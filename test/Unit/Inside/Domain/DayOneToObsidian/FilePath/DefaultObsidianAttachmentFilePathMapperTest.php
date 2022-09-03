@@ -41,13 +41,12 @@ final class DefaultObsidianAttachmentFilePathMapperTest extends Framework\TestCa
 
         $dayOnePhoto = Inside\Domain\DayOne\Photo::create(
             Inside\Domain\DayOne\PhotoIdentifier::fromString($faker->sha1()),
-            Inside\Domain\Shared\FilePath::create(
-                Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString($faker->slug())),
-                Inside\Domain\Shared\FileName::create(
-                    Inside\Domain\Shared\BaseName::fromString($faker->slug()),
-                    Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
-                ),
-            ),
+            Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                '%s/%s.%s',
+                $faker->slug(),
+                $faker->slug(),
+                $faker->fileExtension(),
+            ))),
         );
 
         $obsidianAttachmentDirectory = Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString($faker->slug()));
@@ -56,10 +55,11 @@ final class DefaultObsidianAttachmentFilePathMapperTest extends Framework\TestCa
 
         $obsidianAttachmentFilePath = $obsidianAttachmentFilePathMapper->mapToFilePathInObsidianAttachmentDirectory($dayOnePhoto);
 
-        $expected = Inside\Domain\Shared\FilePath::create(
-            $obsidianAttachmentDirectory,
-            $dayOnePhoto->filePath()->fileName(),
-        );
+        $expected = Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+            '%s/%s',
+            $obsidianAttachmentDirectory->path()->toString(),
+            $dayOnePhoto->filePath()->fileName()->toString(),
+        )));
 
         self::assertEquals($expected, $obsidianAttachmentFilePath);
     }
