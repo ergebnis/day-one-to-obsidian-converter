@@ -10,6 +10,11 @@
       <code>empty</code>
     </ImpureMethodCall>
   </file>
+  <file src="src/Outside/Adapter/Secondary/DayOne/JournalFinder.php">
+    <MixedReturnTypeCoercion occurrences="2">
+      <code>array&lt;int, Inside\Domain\DayOne\Journal&gt;</code>
+    </MixedReturnTypeCoercion>
+  </file>
   <file src="src/Outside/Adapter/Secondary/DayOne/JournalReader.php">
     <MixedArgument occurrences="11">
       <code>$dataNormalizer-&gt;normalize($data)</code>

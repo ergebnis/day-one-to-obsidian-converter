@@ -15,7 +15,6 @@ namespace Ergebnis\DayOneToObsidianConverter\Outside\Adapter\Secondary\DayOne;
 
 use Ergebnis\DayOneToObsidianConverter\Inside;
 use Ergebnis\Json\SchemaValidator;
-use Symfony\Component\Finder;
 
 final class JournalFinder implements Inside\Port\Secondary\DayOne\JournalFinder
 {
@@ -30,30 +29,24 @@ final class JournalFinder implements Inside\Port\Secondary\DayOne\JournalFinder
      */
     public function find(Inside\Domain\Shared\Directory $directory): array
     {
-        $finder = new Finder\Finder();
-
-        try {
-            $files = $finder
-                ->files()
-                ->in($directory->toString())
-                ->name('*.json');
-        } catch (Finder\Exception\DirectoryNotFoundException) {
-            return [];
-        }
+        $files = \glob(\sprintf(
+            '%s/*.json',
+            $directory->toString(),
+        ));
 
         $schemaValidator = $this->schemaValidator;
         $schema = $this->schema;
 
-        /** @var array<int, Inside\Domain\DayOne\Journal> $dayOneJournals */
-        $dayOneJournals = \array_reduce(
-            \iterator_to_array(
-                $files,
-                false,
-            ),
-            static function (array $dayOneJournals, Finder\SplFileInfo $fileInfo) use ($schemaValidator, $schema): array {
+        return \array_reduce(
+            $files,
+            static function (array $dayOneJournals, string $file) use ($schemaValidator, $schema): array {
+                if (!\is_file($file)) {
+                    return $dayOneJournals;
+                }
+
                 try {
-                    $json = SchemaValidator\Json::fromFile($fileInfo->getRealPath());
-                } catch (\Throwable) {
+                    $json = SchemaValidator\Json::fromFile($file);
+                } catch (SchemaValidator\Exception\DoesNotExist|SchemaValidator\Exception\CanNotBeRead|SchemaValidator\Exception\InvalidJson) {
                     return [];
                 }
 
@@ -67,20 +60,11 @@ final class JournalFinder implements Inside\Port\Secondary\DayOne\JournalFinder
                     return $dayOneJournals;
                 }
 
-                $dayOneJournals[] = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::fromString($fileInfo->getRealPath()));
+                $dayOneJournals[] = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::fromString($file));
 
                 return $dayOneJournals;
             },
             [],
         );
-
-        \usort($dayOneJournals, static function (Inside\Domain\DayOne\Journal $a, Inside\Domain\DayOne\Journal $b): int {
-            return \strcmp(
-                $a->filePath()->toString(),
-                $b->filePath()->toString(),
-            );
-        });
-
-        return $dayOneJournals;
     }
 }
