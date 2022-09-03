@@ -87,9 +87,9 @@ final class JournalFinderTest extends Framework\TestCase
         $journals = $journalFinder->find($directory);
 
         $expected = [
-            Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::fromString(\realpath(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalFinder/AlsoValidAccordingToSchema.json'))),
-            Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::fromString(\realpath(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalFinder/AnotherOneValidAccordingToSchema.json'))),
-            Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::fromString(\realpath(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalFinder/ValidAccordingToSchema.json'))),
+            Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::fromString(\realpath(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalFinder/ValidAccordingToSchemaOne.json'))),
+            Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::fromString(\realpath(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalFinder/ValidAccordingToSchemaThree.json'))),
+            Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::fromString(\realpath(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalFinder/ValidAccordingToSchemaTwo.json'))),
         ];
 
         self::assertEquals($expected, $journals);
