@@ -22,11 +22,6 @@ use PHPUnit\Framework;
  *
  * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Port\Secondary\DayOne\FileDoesNotContainJson
  *
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
  */
 final class FileDoesNotContainJsonTest extends Framework\TestCase
@@ -35,13 +30,13 @@ final class FileDoesNotContainJsonTest extends Framework\TestCase
 
     public static function testAtReturnsFileDoesNotContainJson(): void
     {
-        $filePath = Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(__FILE__));
+        $path = Inside\Domain\Shared\Path::fromString(__FILE__);
 
-        $exception = Inside\Port\Secondary\DayOne\FileDoesNotContainJson::at($filePath);
+        $exception = Inside\Port\Secondary\DayOne\FileDoesNotContainJson::at($path);
 
         $expected = \sprintf(
             'The file at path "%s" does not contain valid JSON.',
-            $filePath->path()->toString(),
+            $path->toString(),
         );
 
         self::assertSame($expected, $exception->getMessage());

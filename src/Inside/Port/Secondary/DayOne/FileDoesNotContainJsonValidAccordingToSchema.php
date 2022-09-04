@@ -17,11 +17,11 @@ use Ergebnis\DayOneToObsidianConverter\Inside;
 
 final class FileDoesNotContainJsonValidAccordingToSchema extends \RuntimeException
 {
-    public static function at(Inside\Domain\Shared\FilePath $filePath): self
+    public static function at(Inside\Domain\Shared\Path $path): self
     {
         return new self(\sprintf(
             'The file at path "%s" does not contain JSON valid according to the schema for DayOne journals .',
-            $filePath->path()->toString(),
+            $path->toString(),
         ));
     }
 }

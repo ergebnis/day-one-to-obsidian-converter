@@ -22,11 +22,6 @@ use PHPUnit\Framework;
  *
  * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Port\Secondary\DayOne\FileDoesNotContainJsonValidAccordingToSchema
  *
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
  */
 final class FileDoesNotContainJsonValidAccordingToSchemaTest extends Framework\TestCase
@@ -35,13 +30,13 @@ final class FileDoesNotContainJsonValidAccordingToSchemaTest extends Framework\T
 
     public static function testAtReturnsFileDoesNotContainJsonValidAccordingToSchema(): void
     {
-        $filePath = Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(__FILE__));
+        $path = Inside\Domain\Shared\Path::fromString(__FILE__);
 
-        $exception = Inside\Port\Secondary\DayOne\FileDoesNotContainJsonValidAccordingToSchema::at($filePath);
+        $exception = Inside\Port\Secondary\DayOne\FileDoesNotContainJsonValidAccordingToSchema::at($path);
 
         $expected = \sprintf(
             'The file at path "%s" does not contain JSON valid according to the schema for DayOne journals .',
-            $filePath->path()->toString(),
+            $path->toString(),
         );
 
         self::assertSame($expected, $exception->getMessage());

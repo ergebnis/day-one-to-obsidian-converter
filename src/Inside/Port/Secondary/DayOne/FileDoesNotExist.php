@@ -17,11 +17,11 @@ use Ergebnis\DayOneToObsidianConverter\Inside;
 
 final class FileDoesNotExist extends \RuntimeException
 {
-    public static function at(Inside\Domain\Shared\FilePath $filePath): self
+    public static function at(Inside\Domain\Shared\Path $path): self
     {
         return new self(\sprintf(
             'A file does not exist at file path "%s".',
-            $filePath->path()->toString(),
+            $path->toString(),
         ));
     }
 }

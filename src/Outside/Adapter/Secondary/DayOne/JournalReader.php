@@ -33,7 +33,7 @@ final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
     public function read(Inside\Domain\DayOne\Journal $journal): array
     {
         if (!\is_file($journal->filePath()->path()->toString())) {
-            throw Inside\Port\Secondary\DayOne\FileDoesNotExist::at($journal->filePath());
+            throw Inside\Port\Secondary\DayOne\FileDoesNotExist::at($journal->filePath()->path());
         }
 
         try {
@@ -44,7 +44,7 @@ final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
                 \JSON_THROW_ON_ERROR,
             );
         } catch (\JsonException) {
-            throw Inside\Port\Secondary\DayOne\FileDoesNotContainJson::at($journal->filePath());
+            throw Inside\Port\Secondary\DayOne\FileDoesNotContainJson::at($journal->filePath()->path());
         }
 
         $validationResult = $this->schemaValidator->validate(
@@ -54,7 +54,7 @@ final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
         );
 
         if (!$validationResult->isValid()) {
-            throw Inside\Port\Secondary\DayOne\FileDoesNotContainJsonValidAccordingToSchema::at($journal->filePath());
+            throw Inside\Port\Secondary\DayOne\FileDoesNotContainJsonValidAccordingToSchema::at($journal->filePath()->path());
         }
 
         $dataNormalizer = $this->dataNormalizer;

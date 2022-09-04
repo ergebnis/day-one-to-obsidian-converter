@@ -35,13 +35,13 @@ final class FileDoesNotExistTest extends Framework\TestCase
 
     public static function testAtReturnsFileDoesNotExist(): void
     {
-        $filePath = Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(__FILE__));
+        $path = Inside\Domain\Shared\Path::fromString(__FILE__);
 
-        $exception = Inside\Port\Secondary\DayOne\FileDoesNotExist::at($filePath);
+        $exception = Inside\Port\Secondary\DayOne\FileDoesNotExist::at($path);
 
         $expected = \sprintf(
             'A file does not exist at file path "%s".',
-            $filePath->path()->toString(),
+            $path->toString(),
         );
 
         self::assertSame($expected, $exception->getMessage());
