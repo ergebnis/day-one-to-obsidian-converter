@@ -11,11 +11,11 @@ declare(strict_types=1);
  * @see https://github.com/ergebnis/day-one-to-obsidian-converter
  */
 
-namespace Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOneToObsidian\FilePath;
+namespace Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOneToObsidian\File;
 
 use Ergebnis\DayOneToObsidianConverter\Inside;
 
-interface ObsidianAttachmentFilePathMapper
+interface ObsidianAttachmentFileMapper
 {
-    public function mapToFilePathInObsidianAttachmentDirectory(Inside\Domain\DayOne\Photo $dayOnePhoto): Inside\Domain\Shared\FilePath;
+    public function mapToFileInObsidianAttachmentDirectory(Inside\Domain\DayOne\Photo $dayOnePhoto): Inside\Domain\Shared\File;
 }

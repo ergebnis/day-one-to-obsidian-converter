@@ -24,12 +24,12 @@ use PHPUnit\Framework;
  *
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Photo
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\PhotoIdentifier
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOneToObsidian\FilePath\DefaultObsidianAttachmentFilePathMapper
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOneToObsidian\File\DefaultObsidianAttachmentFileMapper
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\File
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Text
  */
@@ -63,7 +63,7 @@ MARKDOWN);
             $faker->slug(),
         )));
 
-        $obsidianAttachmentFilePathMapper = new Inside\Domain\DayOneToObsidian\FilePath\DefaultObsidianAttachmentFilePathMapper(Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+        $obsidianAttachmentFileMapper = new Inside\Domain\DayOneToObsidian\File\DefaultObsidianAttachmentFileMapper(Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
             '%s/%s/Attachments',
             $faker->slug(),
             $faker->slug(),
@@ -80,10 +80,10 @@ MARKDOWN);
         );
 
         $textProcessor = new Inside\Domain\DayOneToObsidian\Text\ReplaceMarkdownLinksToDayOnePhotosWithInternalLinksToObsidianAttachments(
-            $obsidianAttachmentFilePathMapper,
+            $obsidianAttachmentFileMapper,
             Inside\Domain\DayOne\Photo::create(
                 Inside\Domain\DayOne\PhotoIdentifier::fromString('88E71E5B4F1F4853A0F8A7F480A0168C'),
-                Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                     '%s/%s',
                     $dayOnePhotoDirectory->path()->toString(),
                     $obsidianAttachmentOneFileName->toString(),
@@ -91,7 +91,7 @@ MARKDOWN);
             ),
             Inside\Domain\DayOne\Photo::create(
                 Inside\Domain\DayOne\PhotoIdentifier::fromString('8A04A939330C4182A83402BA944467D2'),
-                Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                     '%s/%s',
                     $dayOnePhotoDirectory->path()->toString(),
                     $obsidianAttachmentThreeFileName->toString(),

@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @see https://github.com/ergebnis/day-one-to-obsidian-converter
  */
 
-namespace Ergebnis\DayOneToObsidianConverter\Test\Unit\Inside\Domain\DayOneToObsidian\FilePath;
+namespace Ergebnis\DayOneToObsidianConverter\Test\Unit\Inside\Domain\DayOneToObsidian\File;
 
 use Ergebnis\DayOneToObsidianConverter\Inside;
 use Ergebnis\DayOneToObsidianConverter\Test;
@@ -20,7 +20,7 @@ use PHPUnit\Framework;
 /**
  * @internal
  *
- * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOneToObsidian\FilePath\DefaultObsidianNoteFilePathMapper
+ * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOneToObsidian\File\DefaultObsidianNoteFileMapper
  *
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\CreationDate
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Entry
@@ -30,26 +30,26 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\File
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Text
  */
-final class DefaultObsidianNoteFilePathMapperTest extends Framework\TestCase
+final class DefaultObsidianNoteFileMapperTest extends Framework\TestCase
 {
     use Test\Util\Helper;
 
     /**
      * @dataProvider provideOriginalJournalBaseNameAndModifiedJournalBaseName
      */
-    public function testMapToFilePathInObsidianVaultDirectoryReturnsFilePathCombiningObsidianVaultDirectoryDayOneJournalNameAndRepresentationOfEntryCreationDate(
+    public function testMapToFileInObsidianVaultDirectoryReturnsFileCombiningObsidianVaultDirectoryDayOneJournalNameAndRepresentationOfEntryCreationDate(
         Inside\Domain\Shared\BaseName $originalJournalBaseName,
         Inside\Domain\Shared\BaseName $modifiedJournalBaseName,
     ): void {
         $faker = self::faker();
 
         $dayOneEntry = Inside\Domain\DayOne\Entry::create(
-            Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+            Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                 '%s/%s.%s',
                 $faker->slug(),
                 $originalJournalBaseName->toString(),
@@ -66,11 +66,11 @@ final class DefaultObsidianNoteFilePathMapperTest extends Framework\TestCase
 
         $obsidianVaultDirectory = Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString($faker->slug()));
 
-        $obsidianNoteFilePathMapper = new Inside\Domain\DayOneToObsidian\FilePath\DefaultObsidianNoteFilePathMapper($obsidianVaultDirectory);
+        $obsidianNoteFileMapper = new Inside\Domain\DayOneToObsidian\File\DefaultObsidianNoteFileMapper($obsidianVaultDirectory);
 
-        $obsidianNoteFilePath = $obsidianNoteFilePathMapper->mapToFilePathInObsidianVaultDirectory($dayOneEntry);
+        $obsidianNoteFile = $obsidianNoteFileMapper->mapToFileInObsidianVaultDirectory($dayOneEntry);
 
-        $expected = Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+        $expected = Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
             '%s/%s/%s/%s/%s.md',
             $obsidianVaultDirectory->path()->toString(),
             $modifiedJournalBaseName->toString(),
@@ -79,20 +79,20 @@ final class DefaultObsidianNoteFilePathMapperTest extends Framework\TestCase
             $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y-m-d H.i'),
         )));
 
-        self::assertEquals($expected, $obsidianNoteFilePath);
+        self::assertEquals($expected, $obsidianNoteFile);
     }
 
     /**
      * @dataProvider provideOriginalJournalBaseNameAndModifiedJournalBaseName
      */
-    public function testMapToFilePathRelativeToOtherObsidianNoteReturnsFilePathCombiningDayOneJournalNameAndRepresentationOfEntryCreationDate(
+    public function testMapToFileRelativeToOtherObsidianNoteReturnsFileCombiningDayOneJournalNameAndRepresentationOfEntryCreationDate(
         Inside\Domain\Shared\BaseName $originalJournalBaseName,
         Inside\Domain\Shared\BaseName $modifiedJournalBaseName,
     ): void {
         $faker = self::faker();
 
         $dayOneEntry = Inside\Domain\DayOne\Entry::create(
-            Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+            Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                 '%s/%s.%s',
                 $faker->slug(),
                 $originalJournalBaseName->toString(),
@@ -109,11 +109,11 @@ final class DefaultObsidianNoteFilePathMapperTest extends Framework\TestCase
 
         $obsidianVaultDirectory = Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString($faker->slug()));
 
-        $obsidianNoteFilePathMapper = new Inside\Domain\DayOneToObsidian\FilePath\DefaultObsidianNoteFilePathMapper($obsidianVaultDirectory);
+        $obsidianNoteFileMapper = new Inside\Domain\DayOneToObsidian\File\DefaultObsidianNoteFileMapper($obsidianVaultDirectory);
 
-        $obsidianNoteFilePath = $obsidianNoteFilePathMapper->mapToFilePathRelativeToOtherObsidianNote($dayOneEntry);
+        $obsidianNoteFile = $obsidianNoteFileMapper->mapToFileRelativeToOtherObsidianNote($dayOneEntry);
 
-        $expected = Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(
+        $expected = Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(
             \sprintf(
                 '../../../../%s/%s/%s/%s.md',
                 $modifiedJournalBaseName->toString(),
@@ -123,7 +123,7 @@ final class DefaultObsidianNoteFilePathMapperTest extends Framework\TestCase
             ),
         ));
 
-        self::assertEquals($expected, $obsidianNoteFilePath);
+        self::assertEquals($expected, $obsidianNoteFile);
     }
 
     /**

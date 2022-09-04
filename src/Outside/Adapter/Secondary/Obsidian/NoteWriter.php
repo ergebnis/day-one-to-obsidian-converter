@@ -48,7 +48,7 @@ TXT,
         }
 
         $this->filesystem->dumpFile(
-            $note->filePath()->path()->toString(),
+            $note->file()->path()->toString(),
             $content,
         );
     }

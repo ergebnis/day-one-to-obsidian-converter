@@ -28,8 +28,8 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\File
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
  */
 final class JournalFinderTest extends Framework\TestCase
@@ -74,7 +74,7 @@ final class JournalFinderTest extends Framework\TestCase
         self::assertSame([], $journals);
     }
 
-    public function testFindReturnsArrayWithJournalsWhereFilePathReferencesJsonFileThatIsValidAccordingToSchema(): void
+    public function testFindReturnsArrayWithJournalsWhereFileReferencesJsonFileThatIsValidAccordingToSchema(): void
     {
         $directory = Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalFinder'));
 
@@ -86,9 +86,9 @@ final class JournalFinderTest extends Framework\TestCase
         $journals = $journalFinder->find($directory);
 
         $expected = [
-            Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalFinder/ValidAccordingToSchemaOne.json'))),
-            Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalFinder/ValidAccordingToSchemaThree.json'))),
-            Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalFinder/ValidAccordingToSchemaTwo.json'))),
+            Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalFinder/ValidAccordingToSchemaOne.json'))),
+            Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalFinder/ValidAccordingToSchemaThree.json'))),
+            Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalFinder/ValidAccordingToSchemaTwo.json'))),
         ];
 
         self::assertEquals($expected, $journals);

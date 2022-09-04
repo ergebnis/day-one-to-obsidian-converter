@@ -27,8 +27,8 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\File
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
  */
 final class PhotoTest extends Framework\TestCase
@@ -40,7 +40,7 @@ final class PhotoTest extends Framework\TestCase
         $faker = self::faker();
 
         $identifier = Inside\Domain\DayOne\PhotoIdentifier::fromString($faker->sha1());
-        $filePath = Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+        $file = Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
             '%s/%s.%s',
             $faker->slug(),
             $faker->slug(),
@@ -49,10 +49,10 @@ final class PhotoTest extends Framework\TestCase
 
         $photo = Inside\Domain\DayOne\Photo::create(
             $identifier,
-            $filePath,
+            $file,
         );
 
         self::assertSame($identifier, $photo->identifier());
-        self::assertSame($filePath, $photo->filePath());
+        self::assertSame($file, $photo->file());
     }
 }

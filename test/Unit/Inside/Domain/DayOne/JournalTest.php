@@ -25,8 +25,8 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\File
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
  */
 final class JournalTest extends Framework\TestCase
@@ -37,20 +37,20 @@ final class JournalTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $filePath = Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+        $file = Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
             '%s/%s.%s',
             $faker->slug(),
             $faker->slug(),
             $faker->fileExtension(),
         )));
 
-        $journal = Inside\Domain\DayOne\Journal::create($filePath);
+        $journal = Inside\Domain\DayOne\Journal::create($file);
 
-        self::assertSame($filePath, $journal->filePath());
+        self::assertSame($file, $journal->file());
 
         $expected = Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
             '%s/photos',
-            $filePath->directory()->path()->toString(),
+            $file->directory()->path()->toString(),
         )));
 
         self::assertEquals($expected, $journal->photoDirectory());

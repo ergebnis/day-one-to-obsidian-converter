@@ -32,8 +32,8 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\File
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Text
  */
@@ -45,7 +45,7 @@ final class EntryTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
             '%s/%s.%s',
             $faker->slug(),
             $faker->slug(),
@@ -61,7 +61,7 @@ final class EntryTest extends Framework\TestCase
         $photos = \array_map(static function () use ($faker): Inside\Domain\DayOne\Photo {
             return Inside\Domain\DayOne\Photo::create(
                 Inside\Domain\DayOne\PhotoIdentifier::fromString($faker->sha1()),
-                Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                     '%s/%s.%s',
                     $faker->slug(),
                     $faker->slug(),

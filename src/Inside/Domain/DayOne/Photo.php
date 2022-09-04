@@ -22,17 +22,17 @@ final class Photo
 {
     private function __construct(
         private readonly PhotoIdentifier $identifier,
-        private readonly Inside\Domain\Shared\FilePath $filePath,
+        private readonly Inside\Domain\Shared\File $file,
     ) {
     }
 
     public static function create(
         PhotoIdentifier $identifier,
-        Inside\Domain\Shared\FilePath $filePath,
+        Inside\Domain\Shared\File $file,
     ): self {
         return new self(
             $identifier,
-            $filePath,
+            $file,
         );
     }
 
@@ -41,8 +41,8 @@ final class Photo
         return $this->identifier;
     }
 
-    public function filePath(): Inside\Domain\Shared\FilePath
+    public function file(): Inside\Domain\Shared\File
     {
-        return $this->filePath;
+        return $this->file;
     }
 }

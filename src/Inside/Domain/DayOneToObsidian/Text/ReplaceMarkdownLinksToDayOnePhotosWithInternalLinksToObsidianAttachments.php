@@ -23,7 +23,7 @@ final class ReplaceMarkdownLinksToDayOnePhotosWithInternalLinksToObsidianAttachm
     private array $replacements;
 
     public function __construct(
-        Inside\Domain\DayOneToObsidian\FilePath\ObsidianAttachmentFilePathMapper $obsidianAttachmentFilePathMapper,
+        Inside\Domain\DayOneToObsidian\File\ObsidianAttachmentFileMapper $obsidianAttachmentFileMapper,
         Inside\Domain\DayOne\Photo ...$dayOnePhotos,
     ) {
         $this->replacements = \array_combine(
@@ -33,12 +33,12 @@ final class ReplaceMarkdownLinksToDayOnePhotosWithInternalLinksToObsidianAttachm
                     $dayOnePhoto->identifier()->toString(),
                 );
             }, $dayOnePhotos),
-            \array_map(static function (Inside\Domain\DayOne\Photo $dayOnePhoto) use ($obsidianAttachmentFilePathMapper): string {
-                $obsidianAttachmentFilePath = $obsidianAttachmentFilePathMapper->mapToFilePathInObsidianAttachmentDirectory($dayOnePhoto);
+            \array_map(static function (Inside\Domain\DayOne\Photo $dayOnePhoto) use ($obsidianAttachmentFileMapper): string {
+                $obsidianAttachmentFile = $obsidianAttachmentFileMapper->mapToFileInObsidianAttachmentDirectory($dayOnePhoto);
 
                 return \sprintf(
                     '![[%s]]',
-                    $obsidianAttachmentFilePath->fileName()->toString(),
+                    $obsidianAttachmentFile->fileName()->toString(),
                 );
             }, $dayOnePhotos),
         );

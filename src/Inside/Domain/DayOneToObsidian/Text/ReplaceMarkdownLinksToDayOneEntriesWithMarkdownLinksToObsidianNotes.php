@@ -23,7 +23,7 @@ final class ReplaceMarkdownLinksToDayOneEntriesWithMarkdownLinksToObsidianNotes 
     private array $replacements;
 
     public function __construct(
-        Inside\Domain\DayOneToObsidian\FilePath\ObsidianNoteFilePathMapper $obsidianNoteFilePathMapper,
+        Inside\Domain\DayOneToObsidian\File\ObsidianNoteFileMapper $obsidianNoteFileMapper,
         Inside\Domain\DayOne\Entry ...$dayOneEntries,
     ) {
         $this->replacements = \array_combine(
@@ -33,8 +33,8 @@ final class ReplaceMarkdownLinksToDayOneEntriesWithMarkdownLinksToObsidianNotes 
                     $dayOneEntry->identifier()->toString(),
                 );
             }, $dayOneEntries),
-            \array_map(static function (Inside\Domain\DayOne\Entry $dayOneEntry) use ($obsidianNoteFilePathMapper): string {
-                return $obsidianNoteFilePathMapper->mapToFilePathRelativeToOtherObsidianNote($dayOneEntry)->path()->toString();
+            \array_map(static function (Inside\Domain\DayOne\Entry $dayOneEntry) use ($obsidianNoteFileMapper): string {
+                return $obsidianNoteFileMapper->mapToFileRelativeToOtherObsidianNote($dayOneEntry)->path()->toString();
             }, $dayOneEntries),
         );
     }

@@ -32,29 +32,29 @@ final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
 
     public function read(Inside\Domain\DayOne\Journal $journal): array
     {
-        if (!\is_file($journal->filePath()->path()->toString())) {
-            throw Inside\Port\Secondary\DayOne\FileDoesNotExist::at($journal->filePath()->path());
+        if (!\is_file($journal->file()->path()->toString())) {
+            throw Inside\Port\Secondary\DayOne\FileDoesNotExist::at($journal->file()->path());
         }
 
         try {
             $data = \json_decode(
-                \file_get_contents($journal->filePath()->path()->toString()),
+                \file_get_contents($journal->file()->path()->toString()),
                 true,
                 512,
                 \JSON_THROW_ON_ERROR,
             );
         } catch (\JsonException) {
-            throw Inside\Port\Secondary\DayOne\FileDoesNotContainJson::at($journal->filePath()->path());
+            throw Inside\Port\Secondary\DayOne\FileDoesNotContainJson::at($journal->file()->path());
         }
 
         $validationResult = $this->schemaValidator->validate(
-            SchemaValidator\Json::fromFile($journal->filePath()->path()->toString()),
+            SchemaValidator\Json::fromFile($journal->file()->path()->toString()),
             $this->schema,
             SchemaValidator\JsonPointer::empty(),
         );
 
         if (!$validationResult->isValid()) {
-            throw Inside\Port\Secondary\DayOne\FileDoesNotContainJsonValidAccordingToSchema::at($journal->filePath()->path());
+            throw Inside\Port\Secondary\DayOne\FileDoesNotContainJsonValidAccordingToSchema::at($journal->file()->path());
         }
 
         $dataNormalizer = $this->dataNormalizer;
@@ -88,7 +88,7 @@ final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
                 $photos = \array_map(static function (array $photo) use ($journal): Inside\Domain\DayOne\Photo {
                     return Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString($photo['identifier']),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/%s.%s',
                             $journal->photoDirectory()->path()->toString(),
                             $photo['md5'],

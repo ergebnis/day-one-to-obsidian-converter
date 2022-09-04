@@ -20,7 +20,7 @@ use PHPUnit\Framework;
 /**
  * @internal
  *
- * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath
+ * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\File
  *
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
@@ -28,11 +28,11 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
  */
-final class FilePathTest extends Framework\TestCase
+final class FileTest extends Framework\TestCase
 {
     use Test\Util\Helper;
 
-    public function testCreateReturnsFilePath(): void
+    public function testCreateReturnsFile(): void
     {
         $faker = self::faker();
 
@@ -48,10 +48,10 @@ final class FilePathTest extends Framework\TestCase
             $fileName->toString(),
         ));
 
-        $filePath = Inside\Domain\Shared\FilePath::create($path);
+        $file = Inside\Domain\Shared\File::create($path);
 
-        self::assertSame($path, $filePath->path());
-        self::assertEquals($directory, $filePath->directory());
-        self::assertEquals($fileName, $filePath->fileName());
+        self::assertSame($path, $file->path());
+        self::assertEquals($directory, $file->directory());
+        self::assertEquals($fileName, $file->fileName());
     }
 }

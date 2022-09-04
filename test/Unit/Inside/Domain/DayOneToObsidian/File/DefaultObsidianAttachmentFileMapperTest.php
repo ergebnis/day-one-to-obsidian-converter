@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @see https://github.com/ergebnis/day-one-to-obsidian-converter
  */
 
-namespace Ergebnis\DayOneToObsidianConverter\Test\Unit\Inside\Domain\DayOneToObsidian\FilePath;
+namespace Ergebnis\DayOneToObsidianConverter\Test\Unit\Inside\Domain\DayOneToObsidian\File;
 
 use Ergebnis\DayOneToObsidianConverter\Inside;
 use Ergebnis\DayOneToObsidianConverter\Test;
@@ -20,28 +20,28 @@ use PHPUnit\Framework;
 /**
  * @internal
  *
- * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOneToObsidian\FilePath\DefaultObsidianAttachmentFilePathMapper
+ * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOneToObsidian\File\DefaultObsidianAttachmentFileMapper
  *
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Photo
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\PhotoIdentifier
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\File
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
  */
-final class DefaultObsidianAttachmentFilePathMapperTest extends Framework\TestCase
+final class DefaultObsidianAttachmentFileMapperTest extends Framework\TestCase
 {
     use Test\Util\Helper;
 
-    public function testMapToFilePathInObsidianAttachmentDirectoryReturnsFilePathCombinigObsidianAttachmentDirectoryAndDayOnePhotoFileName(): void
+    public function testMapToFileInObsidianAttachmentDirectoryReturnsFileCombiningObsidianAttachmentDirectoryAndDayOnePhotoFileName(): void
     {
         $faker = self::faker();
 
         $dayOnePhoto = Inside\Domain\DayOne\Photo::create(
             Inside\Domain\DayOne\PhotoIdentifier::fromString($faker->sha1()),
-            Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+            Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                 '%s/%s.%s',
                 $faker->slug(),
                 $faker->slug(),
@@ -51,16 +51,16 @@ final class DefaultObsidianAttachmentFilePathMapperTest extends Framework\TestCa
 
         $obsidianAttachmentDirectory = Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString($faker->slug()));
 
-        $obsidianAttachmentFilePathMapper = new Inside\Domain\DayOneToObsidian\FilePath\DefaultObsidianAttachmentFilePathMapper($obsidianAttachmentDirectory);
+        $obsidianAttachmentFileMapper = new Inside\Domain\DayOneToObsidian\File\DefaultObsidianAttachmentFileMapper($obsidianAttachmentDirectory);
 
-        $obsidianAttachmentFilePath = $obsidianAttachmentFilePathMapper->mapToFilePathInObsidianAttachmentDirectory($dayOnePhoto);
+        $obsidianAttachmentFile = $obsidianAttachmentFileMapper->mapToFileInObsidianAttachmentDirectory($dayOnePhoto);
 
-        $expected = Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+        $expected = Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
             '%s/%s',
             $obsidianAttachmentDirectory->path()->toString(),
-            $dayOnePhoto->filePath()->fileName()->toString(),
+            $dayOnePhoto->file()->fileName()->toString(),
         )));
 
-        self::assertEquals($expected, $obsidianAttachmentFilePath);
+        self::assertEquals($expected, $obsidianAttachmentFile);
     }
 }

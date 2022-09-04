@@ -35,8 +35,8 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\File
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Text
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Port\Secondary\DayOne\FileDoesNotContainJson
@@ -48,9 +48,9 @@ final class JournalReaderTest extends Framework\TestCase
 {
     use Test\Util\Helper;
 
-    public function testThrowsFileDoesNotExistWhenFileDoesNotExistAtFilePath(): void
+    public function testThrowsFileDoesNotExistWhenFileDoesNotExistAtPath(): void
     {
-        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalReader/does-not-exist/Journal.json')));
+        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalReader/does-not-exist/Journal.json')));
 
         $journalReader = new Outside\Adapter\Secondary\DayOne\JournalReader(
             new SchemaValidator\SchemaValidator(),
@@ -63,9 +63,9 @@ final class JournalReaderTest extends Framework\TestCase
         $journalReader->read($journal);
     }
 
-    public function testThrowsFileDoesNotContainJsonWhenFileAtFilePathDoesNotContainJson(): void
+    public function testThrowsFileDoesNotContainJsonWhenFileAtPathDoesNotContainJson(): void
     {
-        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalReader/not-json/Journal.json')));
+        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalReader/not-json/Journal.json')));
 
         $journalReader = new Outside\Adapter\Secondary\DayOne\JournalReader(
             new SchemaValidator\SchemaValidator(),
@@ -78,9 +78,9 @@ final class JournalReaderTest extends Framework\TestCase
         $journalReader->read($journal);
     }
 
-    public function testThrowsFileDoesNotContainJsonWhenFileAtFilePathDoesNotContainJsonValidAccordingToSchema(): void
+    public function testThrowsFileDoesNotContainJsonWhenFileAtPathDoesNotContainJsonValidAccordingToSchema(): void
     {
-        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalReader/not-valid-according-to-schema/Journal.json')));
+        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalReader/not-valid-according-to-schema/Journal.json')));
 
         $journalReader = new Outside\Adapter\Secondary\DayOne\JournalReader(
             new SchemaValidator\SchemaValidator(),
@@ -93,9 +93,9 @@ final class JournalReaderTest extends Framework\TestCase
         $journalReader->read($journal);
     }
 
-    public function testReturnsEntriesWhenFileAtFilePathContainsJsonValidAccordingToSchema(): void
+    public function testReturnsEntriesWhenFileAtFileContainsJsonValidAccordingToSchema(): void
     {
-        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalReader/valid-according-to-schema/Journal.json')));
+        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalReader/valid-according-to-schema/Journal.json')));
 
         $journalReader = new Outside\Adapter\Secondary\DayOne\JournalReader(
             new SchemaValidator\SchemaValidator(),
@@ -107,7 +107,7 @@ final class JournalReaderTest extends Framework\TestCase
 
         $photosDirectory = Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
             '%s/photos',
-            $journal->filePath()->directory()->path()->toString(),
+            $journal->file()->directory()->path()->toString(),
         )));
 
         $expected = [
@@ -160,21 +160,21 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('B8F5E29D8A21498CB850DF7CFC35BFEC'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/06d006fba3b0b8ad72576e77a6fc6c0c.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('DAD618DD29A74097936CD1388E229906'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/7be6237457f5fac23ff7dae0afdc0b7e.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('1F04A93388D846C8828F46B9A1074FF1'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/d5579fd58999fdd7fa75456f735b512a.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -234,7 +234,7 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('435C5006CF49455699940E1E3B7F5D75'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/cb4e9724a10adf6a482feb9647aa1dc5.png',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -310,21 +310,21 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('83F0FE5967124BF0BAB15AA2E8B19B94'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/978ffaac9369bf2a709e9623a0cc0feb.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('06518EE7F71C4A26A064D7EFBAD788E4'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/19e54200cb64b50dc40e48fcc749a455.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('2CFB239862B94DBFAB23A30D8756128F'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/d3ccf1829f5ca2261d4fd6b70e6dca16.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -405,21 +405,21 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('88E71E5B4F1F4853A0F8A7F480A0168C'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/ef831aa9d45a55ab43cfe7b365e2274a.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('8A04A939330C4182A83402BA944467D2'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/d86c27bdbbe2eafd1af06bc946e5bdbf.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('6FC2E20B6DF04791B2B59A2B465B2561'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/d6e829e46cf5796efa9caf062e98d14c.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -489,7 +489,7 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('FD5D44963FD1477D9DE40D7FF71379C4'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/ae09989363944876280c5f939053a912.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -566,21 +566,21 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('0D9663AC0331471595BA5DE690C1E828'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/1ff5939de4df95e0a63ace1e071a0647.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('2B89B085B5764B9098292CC8B246F8F0'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/776e595cb66127372e4da1ce8f7e2b52.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('8DD1FA21FA3D4EDAB3FC5F23C6EC7BCB'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/322c1b2281e32cf54a004cb5c380dece.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -673,56 +673,56 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('0915F4770B88420895837C8987662D75'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/657f7e25c44695b7e5bd611079066681.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('C17FC27B5EC74A508801C077FF44E86D'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/9ee07660c74413c91cbcda94ea634ac8.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('22091B8213FE4E868A2165FC2F927225'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/e05fa16cbcab2c0ff5d29c191aa5f3ef.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('20EEA94213F346D1818FAF8AC0FCB861'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/3c7b01aabdf4ca5d855da1f865038fe8.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('970DEE990F7341438D3A2289595D24F4'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/7918f088ef90fd3f8424d80e0b84b309.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('0771BCBF1B4C497181556A4516174619'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/24cdc0b6fc2555ac834196f6dab64078.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('8215371F286A477993C602DEDC1B2FE7'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/f2c51c09b99af293e0ddd375ee33cdaf.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('6061BE33D7B240258503E7A9FE70B417'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/78aa4f43629033421e19826a280cacf4.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -821,14 +821,14 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('F05B7D41B4904DBBBEE25DEB49B8A891'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/0ba6dbe0b9d0add2bcf91c3b29b45bd2.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('BCDD1F061CBF4553B9298E1A9F7E7A48'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/c8e4bd6df97a6c0ef84f93bcae5acc51.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -924,56 +924,56 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('56D4DFB5FDFC43EB872AE1297081854C'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/2942460db4fddadbe56d1887df2379bf.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('E2CEDB77656A48E4A346B1984834198E'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/3760f00b8c3dab0458581ed0140dc042.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('CF887ED834DE481D944C79FC2ACAAF5D'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/8fe745d4ba76f68da3a11510babd5271.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('63A7177961A947C69B8C2F1090F5F649'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/943fff315cc42d22a477e94ac4f7c155.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('89D0EAFB8DA1499980C455E7BDF7F42C'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/72943386a3b21f2d083b33db326c208c.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('D08B3D955506436F81A2FEC1B97AB08B'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/f58da367e92fb6627f02afb18666d5a0.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('80BADF93649D40558B02DF437A3D3993'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/89cd8dee364edf05b32dad98e4d54052.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('F6F5ED213AB84641B447913B84040B70'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/ebfff52bd5731e01b00188d3450c97f9.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -1050,7 +1050,7 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('C624BF94CF494A4F8D2E241F8DA93817'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/424124b511576abe927f42571be1ca4f.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -1230,42 +1230,42 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('CB0D16876D474503964003A3308A0D0B'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/a701107bc882a02693fde85032fd2ea5.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('8B6340C3C9854A91B62009426157E37E'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/d8cbcf706c5a3fdf8837df7d6796c9ce.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('B9C425FF80F84D758A195D1741749215'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/8166748323829a76f9964ee2ad3f275c.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('B3506E2516C848E8AA4794EF77CC0F9F'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/ce364a56cf915a9151ab7b237a4318d3.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('283EE202CD0D4B28BB9E1E5242E52C58'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/e5ed86d65b50a3e08e1d02227c023d93.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('8A8A0F41CFD84D7BBC53CF8A2A5328FA'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/34d3e2fec10c428fa38f5e0abe789187.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -1336,7 +1336,7 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('D5ABC69FEB2B4E4C8DD351D0F400DB7F'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/9f96598866673f9e6754c892d47ea7bc.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -1408,7 +1408,7 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('0702E3C16D9B4B518DD666CFBD97C204'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/57999ca2997ff34dd05492b83a92fe05.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -1502,28 +1502,28 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('B305B04C1DC741BEB560FFF9F00866E4'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/3216ff584169b161b95cfb0ee68503a0.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('42B86A7BB69E4DE0AFD7360016816FD5'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/73a238474e6cfcfd3ebcf2c8ff6c1a0f.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('9AC29BB0F7894D3EA69B86FF05ECAC41'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/5b63ae8ba0e4ed9ac752ce9091e89113.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('5CB808A31A0E401BA5E82550FDE3F988'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/379fb207965064c0366ef0f304488a5d.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -1667,14 +1667,14 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('E74A74780AB54BA18DD1DF0A217FA346'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/ec604e4126659a549990847e4977ad23.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('3A2E9655A5E74BE480F173CEBF912950'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/5bb32a80ccfca1da1cce35f9efa75606.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -1752,14 +1752,14 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('E9AE4A7D57AF4C619C2423387F483697'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/ec604e4126659a549990847e4977ad23.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('0CF856D8769149059D9353DCEFB6297A'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/5bb32a80ccfca1da1cce35f9efa75606.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -1838,49 +1838,49 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('1AE071177B9B40109990565F5E9A1E2D'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/73581b208f17f5ea6eb1c500ffee1d62.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('2A5D87812F5D4254BF96DC07A93595D5'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/bff54e95ecb14c9458560c3bfdc6af1d.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('FA393BCD1DE74FEDAABBE195F2207ACB'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/b19381d6a1939f336a23dc4e45ed5222.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('CB3CF350C0184E23986D572498010F92'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/1e8d6edfeab99694d3b97a84bde79952.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('F065FFFA78D74197AC08F2A3365C8A8B'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/7ae5a41cf5fbc148819722b09ffaf6aa.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('62EA944E2A5D4B8A9FE92B86CF4B6118'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/29bf3926665d04f21bc7516051c2d12f.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('EF8622A68D264A5F996683620918ECB7'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/92c51dd0b5f33a86f30955003b7b2b5f.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -1963,49 +1963,49 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('F7E3BD1BE8AA4E93A5FC10CBADF3523C'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/29bf3926665d04f21bc7516051c2d12f.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('10BCF105B50C4084ABC11FF2E0801645'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/7ae5a41cf5fbc148819722b09ffaf6aa.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('582722853C304953A524BFFBEF871A44'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/1e8d6edfeab99694d3b97a84bde79952.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('D2C48B8E761F4A81BD4C49A6B8B599C5'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/73581b208f17f5ea6eb1c500ffee1d62.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('C80C8212C2854C34BF3AF4A3B464F929'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/92c51dd0b5f33a86f30955003b7b2b5f.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('AAD626FFC072433D8F44D87221FBDFE4'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/bff54e95ecb14c9458560c3bfdc6af1d.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('EECF51326BC34D67A3BACDBDDED949FA'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/b19381d6a1939f336a23dc4e45ed5222.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -2072,14 +2072,14 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('E93925E2A7D94426916327029AC702A2'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/53265c75cbea342f0e6476b7d8e5f9f1.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('1073607773574D8E9DF02BEC33BE8B31'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/91f1910e69593cf666f2d0f791cbd003.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -2154,7 +2154,7 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('BFD462BC2C91421CB9102EB00CC228EB'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/02706fb6d94041896f7db35d1e16996d.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -2249,35 +2249,35 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('247CACD7C29E4E9AB6231618C087CFE3'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/bee4d614d1555318fe89daa5262cc8e1.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('842DEFD0FD554382B3B1BA7C2E8360E2'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/3f8a4f56259f9236d517ea650686b194.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('535A6DF8C3154F92833DE6025EEF63D1'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/8607db0af5cb90010e19ef406a7ae073.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('7D0A3BBDCB844EF4A4DAA086D48EDEAD'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/21c86958be43203cd9130848c7cb7a4c.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('93698EDC2C81485A8D9C4A216D44D4F0'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/31fbdad21b38ab37df45e6bcdaf9b68b.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -2510,56 +2510,56 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('91241A79BB7146118788E5386275593D'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/bef824f0f48d866c56420b8273e71ddc.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('14B4E70FCD0D4161870557E70CF50B1F'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/d0ab658369ffec30effd80d10f803776.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('C7D75D24A18A4C83B29069B39199520E'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/dd83aa3cbfc739cd5ab7b5159ea02c14.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('3FE582C6440946B288783220DD8FA7BA'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/96f7d6662bad415d6689acd32e3130d2.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('4C35FD792F87461FB07C98883BB979C5'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/a2f9ce7b23ee9862c382358326883b78.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('512BE6C305224D56AF19BED9001D2B30'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/92e70502185e834eb34e39b53eb66c00.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('3B0512783BDC48C5867B18123171743B'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/9e6182ef8fec50059d6d7e044a54b134.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('30B4E5D309DA411A9984FA3F429C2501'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/c7bde1ec03199635e26485ddb807527b.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -2633,21 +2633,21 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('E856401001AB47228F17AB6F8400E60E'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/f60c779b38a0d8f5141d06e805d5f459.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('69A62FF870964188BBA929BE7A0D87D4'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/f85eced2dbd6c93de5dbb6ece23ab0c4.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('BCB41AFB04764325A3E36ECFD11BDD1A'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/aab160dc7467c1af5acdff0e626f9652.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -2727,7 +2727,7 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('A97172B1488140FEACAC57E4F6761966'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/d28f8c86fb520afb9f0bf116ea9e1ed8.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -2829,42 +2829,42 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('6483BE2E1FAA4ADAABC6AD419FDCB799'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/31c9eba743c45739c29d32e93393d8ac.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('D9773BBFE4DA484F86C5D09DFD55B7FC'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/263876de812120554d4e51994087ef32.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('F346369B39534BFCBDB366F7F7EFCFAD'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/09074c0bce6fb76feff34d4dedcbf491.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('527443155E1A4F959821EC33CB0FFB92'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/e482b1d2ec1a19504278e8404085b864.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('00F826E84CA54E55A542FBF022B22C34'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/789c40ba646dec4051226fde9aa45f93.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('79AEB93C3F7E404CB6E2F9B3C7BB43F5'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/3459edbf9707fcf8f2bc36ead5cb7bcf.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -2950,7 +2950,7 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('40CDD60774F643CBB71F95837905390F'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/9a4695dcca092c696657afdc252acb2d.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -3030,28 +3030,28 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('9A43D1BCA16E4656AE6C8E499A0CA1D7'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/ad6830cb682e51e245846f9c6048f6f5.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('F0E07E933BE7459AABC7F90F62F7B960'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/bf1de76e59c5776631e41381bb3b48de.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('0A84332F3A7F4FAB9EF4ED87DA23F930'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/f23a7fe8e9f19bc2abe2af2054b147ec.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('3F461499048D4854BEC482664E744773'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/8fdeada2cb328dd63b9cd3dbf0299262.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -3196,28 +3196,28 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('608E6C891B0A4026B3027BBB1DDAE726'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/e0484e41e21ac472216f0eb4cd556b66.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('0C8B2E709C3C430580E5533187D1F031'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/5b583eb0cdb59423152f1b7bbee2ebc1.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('C102462F8A9B4F548ECF412AB271B697'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/5256d0b18ea22aefbd65f35ee9331584.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('1FBC53D51E0846AFB5A917AD1D79C072'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/59ef9aec1008cf0d46014f85955c6d25.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -3517,28 +3517,28 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('148B91056F4D4C118FBA4A1D8C278FF6'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/038d92a035d9bf978854a44cb8df654a.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('F779F11BAA114259A98B27C5992A0589'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/0e51b29112b4aa4b5077f618854d41ac.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('7BC3425EDDEB432D92DAF6622CF5A0AC'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/c22468cfc9b4307acde64c96f4b85d55.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('05AC7FAEFD7A4ECBABA1272AF8785CA3'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/b797b7d2ccffc5aa2e3941b18add64fc.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -3613,14 +3613,14 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('CF33789476E741A0905F711DC343387F'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/283213a200d338fb1463c4fdd8cc15b3.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('B7282766CA8B49AC96C50F6BD503170A'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/9ed9d956b971eab26b114b5775919792.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -3700,28 +3700,28 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('52716D7DB9FB4E76B89A275788BD7150'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/d980df374e99094b1a0350044c805d06.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('E002E3A90FBB49A7A8F2BBFFC2241F52'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/7ce7cc696fd61e155cfd6e02da743c6f.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('18109D951C9C44D68FE8F46F16C904AE'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/6616389e060132f40eac72e43876c105.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('9FAE2B9B4E4F4EF18A2CAAE329AB291A'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/8f91a4196cef9590b0557444bfb286e1.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -3863,7 +3863,7 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('26BC6721F6A94B2F98C92E442DECE1BD'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/f1dc0a0618ed5f74208cab542f5fa569.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -3936,7 +3936,7 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('66B1119F7C2341F588BB5596FD561165'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/59449d7d7ff984cde4641a612bc42716.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -4121,49 +4121,49 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('CE6893C425D4454BB4EEF0CB8B5D79C5'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/bc22379f5fa7140a17f07a3fc399a1d1.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('BF0F4FE50AC94A60BD9444EE559DF1E0'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/d415fd3e1f0a1b1b131c9cd227ef5b54.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('DF502DD5548C477C848F36BD3C2AD872'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/b147b7e9ddba94abfca93f069181ce7b.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('2428E7088CC745EDBB8A8DAC07B03B57'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/bbbf01645cbeb6006b9f0e12b67383e6.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('8128F38C40AB4CEA9BA1CABCE42C928F'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/e8135d8badc1dde198e09305507e76b4.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('1F94FB7DA85D4607B391B1A392B3D26F'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/feb095eabe09fe8a7e7be9b42cedab6f.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('D336D634CBD441BB96D2D3C9FBAD2FDD'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/843afc935abe448556fc5ede2b34e2d3.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -4268,42 +4268,42 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('127FDAD2F0B84464B1C7CEB826446332'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/f662aa171ee0687456837aec8e0c7c43.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('BC2F000F91984BD2AA0B035D12150FDB'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/1349afd8a35b7a80c0e5712b072adc21.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('3453C24603D14314B92B7FFBE2779629'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/e33d36541a37e8cb82029a922fecaef4.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('274C01ED4F6A4C468AF05CB1AEDF40CD'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/3a3f1d8e7d3994d8f68b819e675dd344.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('C6892D8313884A92870EA73892EDADC3'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/d8b7bf07eb279aa0bf592269a9cdbdc2.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('738D9356666A4565AA081870D8DC08D4'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/fcc0f2132bb0eb2d63f08a7f050af615.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -4444,7 +4444,7 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('9A5CB212CFD842A9BCC424F4F6F447D0'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/3670fbad76232f523d697045655c144b.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -4551,7 +4551,7 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('4252E695649845C789B2F904A69C198F'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/972193770ef103dba0cbf7a650f6d9d1.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -4624,7 +4624,7 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('BA340B177272445887B8050201A66C93'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/c140fbf57bb8e90d26906aaaf7887ecc.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -4712,7 +4712,7 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('89F6B99AF96F4681A246394BA8C4B986'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/83a9e1e32cdc745a08f5e4a1fa3d2388.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -4785,7 +4785,7 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('D01FE65C1E604A5ABB72769CAC848C6E'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/fd12cb5bd2ca6c18cdffaf2d6868d841.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -4930,21 +4930,21 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('5044FCF5EE8F43A1A5CC1894404D20C9'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/a2085a6bf36f73aa771e02019a46f079.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('ECAE9E05BEDC4C6C9F2F4BBDB55B7D64'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/bdc8990b38ba3cd6d5422a78d171e2a0.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
                     ),
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('909313AA99CE44F0BEF292CCCBB62499'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/dad43776f3cd27275305b6312d7a452b.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),
@@ -5023,7 +5023,7 @@ MARKDOWN
                 [
                     Inside\Domain\DayOne\Photo::create(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString('3D50151535C04CE887384E3251CDCEC6'),
-                        Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+                        Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/7d45deb1163e01076ff11fdde620ddcc.jpeg',
                             $photosDirectory->path()->toString(),
                         ))),

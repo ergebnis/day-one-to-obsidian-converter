@@ -27,8 +27,8 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\File
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FilePath
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Text
  */
@@ -40,7 +40,7 @@ final class NoteTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $filePath = Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+        $file = Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
             '%s/%s.%s',
             $faker->slug(),
             $faker->slug(),
@@ -53,12 +53,12 @@ final class NoteTest extends Framework\TestCase
         $text = Inside\Domain\Shared\Text::fromString($faker->realText());
 
         $note = Inside\Domain\Obsidian\Note::create(
-            $filePath,
+            $file,
             $frontMatter,
             $text,
         );
 
-        self::assertSame($filePath, $note->filePath());
+        self::assertSame($file, $note->file());
         self::assertSame($frontMatter, $note->frontMatter());
         self::assertSame($text, $note->text());
     }

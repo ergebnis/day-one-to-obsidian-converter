@@ -60,7 +60,7 @@ final class JournalFinder implements Inside\Port\Secondary\DayOne\JournalFinder
                     return $dayOneJournals;
                 }
 
-                $dayOneJournals[] = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString($file)));
+                $dayOneJournals[] = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString($file)));
 
                 return $dayOneJournals;
             },

@@ -21,27 +21,27 @@ use Ergebnis\DayOneToObsidianConverter\Inside;
 final class Note
 {
     private function __construct(
-        private readonly Inside\Domain\Shared\FilePath $filePath,
+        private readonly Inside\Domain\Shared\File $file,
         private readonly FrontMatter $frontMatter,
         private readonly Inside\Domain\Shared\Text $text,
     ) {
     }
 
     public static function create(
-        Inside\Domain\Shared\FilePath $filePath,
+        Inside\Domain\Shared\File $file,
         FrontMatter $frontMatter,
         Inside\Domain\Shared\Text $text,
     ): self {
         return new self(
-            $filePath,
+            $file,
             $frontMatter,
             $text,
         );
     }
 
-    public function filePath(): Inside\Domain\Shared\FilePath
+    public function file(): Inside\Domain\Shared\File
     {
-        return $this->filePath;
+        return $this->file;
     }
 
     public function frontMatter(): FrontMatter

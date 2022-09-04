@@ -11,22 +11,22 @@ declare(strict_types=1);
  * @see https://github.com/ergebnis/day-one-to-obsidian-converter
  */
 
-namespace Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOneToObsidian\FilePath;
+namespace Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOneToObsidian\File;
 
 use Ergebnis\DayOneToObsidianConverter\Inside;
 
-final class DefaultObsidianAttachmentFilePathMapper implements ObsidianAttachmentFilePathMapper
+final class DefaultObsidianAttachmentFileMapper implements ObsidianAttachmentFileMapper
 {
     public function __construct(private readonly Inside\Domain\Shared\Directory $obsidianAttachmentDirectory)
     {
     }
 
-    public function mapToFilePathInObsidianAttachmentDirectory(Inside\Domain\DayOne\Photo $dayOnePhoto): Inside\Domain\Shared\FilePath
+    public function mapToFileInObsidianAttachmentDirectory(Inside\Domain\DayOne\Photo $dayOnePhoto): Inside\Domain\Shared\File
     {
-        return Inside\Domain\Shared\FilePath::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+        return Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
             '%s/%s',
             $this->obsidianAttachmentDirectory->path()->toString(),
-            $dayOnePhoto->filePath()->fileName()->toString(),
+            $dayOnePhoto->file()->fileName()->toString(),
         )));
     }
 }

@@ -82,12 +82,12 @@
       <code>$faker-&gt;fileExtension()</code>
     </MixedArgument>
   </file>
-  <file src="test/Unit/Inside/Domain/DayOneToObsidian/FilePath/DefaultObsidianAttachmentFilePathMapperTest.php">
+  <file src="test/Unit/Inside/Domain/DayOneToObsidian/File/DefaultObsidianAttachmentFileMapperTest.php">
     <MixedArgument occurrences="1">
       <code>$faker-&gt;fileExtension()</code>
     </MixedArgument>
   </file>
-  <file src="test/Unit/Inside/Domain/DayOneToObsidian/FilePath/DefaultObsidianNoteFilePathMapperTest.php">
+  <file src="test/Unit/Inside/Domain/DayOneToObsidian/File/DefaultObsidianNoteFileMapperTest.php">
     <MixedArgument occurrences="2">
       <code>$faker-&gt;fileExtension()</code>
       <code>$faker-&gt;fileExtension()</code>
@@ -162,7 +162,7 @@
       <code>$simpleExtension</code>
     </MixedAssignment>
   </file>
-  <file src="test/Unit/Inside/Domain/Shared/FilePathTest.php">
+  <file src="test/Unit/Inside/Domain/Shared/FileTest.php">
     <MixedArgument occurrences="1">
       <code>$faker-&gt;fileExtension()</code>
     </MixedArgument>
