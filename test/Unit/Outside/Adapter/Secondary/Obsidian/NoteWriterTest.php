@@ -67,7 +67,7 @@ final class NoteWriterTest extends Framework\TestCase
         $noteWriter->write($note);
 
         self::assertFileExists($note->filePath()->path()->toString());
-        self::assertSame($note->text()->toString(), \file_get_contents($note->filePath()->toString()));
+        self::assertSame($note->text()->toString(), \file_get_contents($note->filePath()->path()->toString()));
     }
 
     public function testWriteWriteNoteWhenNoteDoesNotHaveFrontMatterAndDirectoryExists(): void

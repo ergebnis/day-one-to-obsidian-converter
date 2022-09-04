@@ -48,13 +48,4 @@ final class FilePath
     {
         return $this->fileName;
     }
-
-    public function toString(): string
-    {
-        return \sprintf(
-            '%s/%s',
-            $this->directory->path()->toString(),
-            $this->fileName->toString(),
-        );
-    }
 }
