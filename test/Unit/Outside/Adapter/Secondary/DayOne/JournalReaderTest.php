@@ -93,6 +93,21 @@ final class JournalReaderTest extends Framework\TestCase
         $journalReader->read($journal);
     }
 
+    public function testReturnsEmptyArrayWhenFileAtPathContainsJsonValidAccordingToSchemaButJournalDoesNotContainEntries(): void
+    {
+        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalReader/valid-according-to-schema/Empty.json')));
+
+        $journalReader = new Outside\Adapter\Secondary\DayOne\JournalReader(
+            new SchemaValidator\SchemaValidator(),
+            SchemaValidator\Json::fromFile(__DIR__ . '/../../../../../../resource/day-one/schema.json'),
+            new Outside\Infrastructure\DataNormalizer(),
+        );
+
+        $entries = $journalReader->read($journal);
+
+        self::assertSame([], $entries);
+    }
+
     public function testReturnsArrayWithEntriesWhenFileAtPathContainsJsonValidAccordingToSchemaAndJournalContainsEntries(): void
     {
         $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalReader/valid-according-to-schema/Journal.json')));
