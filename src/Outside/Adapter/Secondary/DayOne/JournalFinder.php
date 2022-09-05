@@ -24,9 +24,6 @@ final class JournalFinder implements Inside\Port\Secondary\DayOne\JournalFinder
     ) {
     }
 
-    /**
-     * @return array<int, Inside\Domain\DayOne\Journal>
-     */
     public function find(Inside\Domain\Shared\Directory $directory): array
     {
         $files = \glob(\sprintf(
