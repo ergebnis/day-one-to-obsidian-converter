@@ -31,6 +31,7 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\File
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Port\Secondary\DayOne\DirectoryDoesNotExist
  */
 final class JournalFinderTest extends Framework\TestCase
 {
@@ -46,7 +47,7 @@ final class JournalFinderTest extends Framework\TestCase
         self::fileSystem()->remove(self::temporaryDirectory());
     }
 
-    public function testFindReturnsEmptyArrayWhenDirectoryDoesNotExist(): void
+    public function testFindThrowsDirectoryDoesNotExistWhenDirectoryDoesNotExist(): void
     {
         $directory = Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
             '%s/%s',
@@ -59,9 +60,9 @@ final class JournalFinderTest extends Framework\TestCase
             SchemaValidator\Json::fromFile(__DIR__ . '/../../../../../../resource/day-one/schema.json'),
         );
 
-        $journals = $journalFinder->find($directory);
+        $this->expectException(Inside\Port\Secondary\DayOne\DirectoryDoesNotExist::class);
 
-        self::assertSame([], $journals);
+        $journalFinder->find($directory);
     }
 
     public function testFindReturnsEmptyArrayWhenDirectoryExistsButDoesNotContainAnyFiles(): void

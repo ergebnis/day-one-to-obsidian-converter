@@ -26,6 +26,10 @@ final class JournalFinder implements Inside\Port\Secondary\DayOne\JournalFinder
 
     public function find(Inside\Domain\Shared\Directory $directory): array
     {
+        if (!\is_dir($directory->path()->toString())) {
+            throw Inside\Port\Secondary\DayOne\DirectoryDoesNotExist::at($directory->path());
+        }
+
         $files = \glob(\sprintf(
             '%s/*.json',
             $directory->path()->toString(),

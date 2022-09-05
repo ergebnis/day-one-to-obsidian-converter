@@ -15,12 +15,13 @@ namespace Ergebnis\DayOneToObsidianConverter\Inside\Port\Secondary\DayOne;
 
 use Ergebnis\DayOneToObsidianConverter\Inside;
 
-interface JournalFinder
+final class DirectoryDoesNotExist extends \RuntimeException
 {
-    /**
-     * @throws DirectoryDoesNotExist
-     *
-     * @return array<int, Inside\Domain\DayOne\Journal>
-     */
-    public function find(Inside\Domain\Shared\Directory $directory): array;
+    public static function at(Inside\Domain\Shared\Path $path): self
+    {
+        return new self(\sprintf(
+            'A directory does not exist at path "%s".',
+            $path->toString(),
+        ));
+    }
 }
