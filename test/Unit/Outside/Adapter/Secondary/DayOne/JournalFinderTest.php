@@ -36,6 +36,16 @@ final class JournalFinderTest extends Framework\TestCase
 {
     use Test\Util\Helper;
 
+    protected function setUp(): void
+    {
+        self::fileSystem()->mkdir(self::temporaryDirectory());
+    }
+
+    protected function tearDown(): void
+    {
+        self::fileSystem()->remove(self::temporaryDirectory());
+    }
+
     public function testFindReturnsEmptyArrayWhenDirectoryDoesNotExist(): void
     {
         $directory = Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
