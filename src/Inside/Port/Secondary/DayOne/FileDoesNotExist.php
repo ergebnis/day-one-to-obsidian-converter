@@ -20,7 +20,7 @@ final class FileDoesNotExist extends \RuntimeException
     public static function at(Inside\Domain\Shared\Path $path): self
     {
         return new self(\sprintf(
-            'A file does not exist at file path "%s".',
+            'A file does not exist at path "%s".',
             $path->toString(),
         ));
     }

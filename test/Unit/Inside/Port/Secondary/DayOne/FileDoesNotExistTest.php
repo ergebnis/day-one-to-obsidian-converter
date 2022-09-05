@@ -40,7 +40,7 @@ final class FileDoesNotExistTest extends Framework\TestCase
         $exception = Inside\Port\Secondary\DayOne\FileDoesNotExist::at($path);
 
         $expected = \sprintf(
-            'A file does not exist at file path "%s".',
+            'A file does not exist at path "%s".',
             $path->toString(),
         );
 
