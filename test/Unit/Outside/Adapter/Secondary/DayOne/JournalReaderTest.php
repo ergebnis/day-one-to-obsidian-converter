@@ -93,7 +93,7 @@ final class JournalReaderTest extends Framework\TestCase
         $journalReader->read($journal);
     }
 
-    public function testReturnsEntriesWhenFileAtPathContainsJsonValidAccordingToSchema(): void
+    public function testReturnsArrayWithEntriesWhenFileAtPathContainsJsonValidAccordingToSchemaAndJournalContainsEntries(): void
     {
         $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalReader/valid-according-to-schema/Journal.json')));
 
