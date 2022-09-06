@@ -74,7 +74,7 @@ final class FileNameTest extends Framework\TestCase
     public function provideValueBaseNameAndExtension(): \Generator
     {
         $values = [
-            'dotfile' => [
+            'dotfile-without-extension' => [
                 '.htaccess',
                 Inside\Domain\Shared\BaseName::fromString('.htaccess'),
                 Inside\Domain\Shared\Extension::empty(),
