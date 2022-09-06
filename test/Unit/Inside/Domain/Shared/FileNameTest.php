@@ -86,8 +86,8 @@ final class FileNameTest extends Framework\TestCase
             ],
             'dotfile-with-extended-extension' => [
                 '.php-cs-fixer.php.dist',
-                Inside\Domain\Shared\BaseName::fromString('.php-cs-fixer'),
-                Inside\Domain\Shared\Extension::fromString('php.dist'),
+                Inside\Domain\Shared\BaseName::fromString('.php-cs-fixer.php'),
+                Inside\Domain\Shared\Extension::fromString('dist'),
             ],
             'without-extension' => [
                 'foo',
@@ -101,8 +101,8 @@ final class FileNameTest extends Framework\TestCase
             ],
             'with-extended-extension' => [
                 'foo.bar.baz',
-                Inside\Domain\Shared\BaseName::fromString('foo'),
-                Inside\Domain\Shared\Extension::fromString('bar.baz'),
+                Inside\Domain\Shared\BaseName::fromString('foo.bar'),
+                Inside\Domain\Shared\Extension::fromString('baz'),
             ],
         ];
 

@@ -36,22 +36,25 @@ final class FileName
 
     public static function fromString(string $value): self
     {
-        \preg_match(
-            '/^(?P<baseName>\.?[^.]+)(\.(?P<extension>.+))*$/',
-            $value,
-            $matches,
-        );
+        $info = \pathinfo($value);
 
-        if (!\array_key_exists('extension', $matches)) {
+        if (!\array_key_exists('extension', $info)) {
             return new self(
-                BaseName::fromString($matches['baseName']),
+                BaseName::fromString($info['filename']),
+                Extension::empty(),
+            );
+        }
+
+        if ('' === $info['filename']) {
+            return new self(
+                BaseName::fromString($info['basename']),
                 Extension::empty(),
             );
         }
 
         return new self(
-            BaseName::fromString($matches['baseName']),
-            Extension::fromString($matches['extension']),
+            BaseName::fromString($info['filename']),
+            Extension::fromString($info['extension']),
         );
     }
 
