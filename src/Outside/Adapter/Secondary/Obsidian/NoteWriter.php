@@ -33,9 +33,9 @@ final class NoteWriter implements Inside\Port\Secondary\Obsidian\NoteWriter
         if ([] !== $note->frontMatter()->toArray()) {
             $content = \sprintf(
                 <<<'TXT'
-```
+---
 %s
-```
+---
 %s
 TXT,
                 \trim(Yaml\Yaml::dump(

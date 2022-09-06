@@ -159,7 +159,7 @@ final class NoteWriterTest extends Framework\TestCase
 
         $expected = \sprintf(
             <<<'TXT'
-```
+---
 dayOne:
   creationDevice: 'Adam’s Apple (7+)'
   duration: 0
@@ -190,7 +190,7 @@ dayOne:
     windBearing: 346
     windChillCelsius: 0
     windSpeedKPH: 9.5600004196167
-```
+---
 %s
 TXT,
             $note->text()->toString(),
@@ -260,7 +260,7 @@ TXT,
 
         $expected = \sprintf(
             <<<'TXT'
-```
+---
 dayOne:
   creationDevice: 'Adam’s Apple (7+)'
   duration: 0
@@ -291,7 +291,7 @@ dayOne:
     windBearing: 346
     windChillCelsius: 0
     windSpeedKPH: 9.5600004196167
-```
+---
 %s
 TXT,
             $note->text()->toString(),
