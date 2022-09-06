@@ -50,7 +50,7 @@ final class DefaultObsidianNoteFileMapperTest extends Framework\TestCase
 
         $dayOneEntry = Inside\Domain\DayOne\Entry::create(
             Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
-                '%s/%s.%s',
+                '%s/Journal/%s.%s',
                 $faker->slug(),
                 $originalJournalFileNameWithoutExtension->toString(),
                 $faker->fileExtension(),
@@ -71,7 +71,7 @@ final class DefaultObsidianNoteFileMapperTest extends Framework\TestCase
         $obsidianNoteFile = $obsidianNoteFileMapper->mapToFileInObsidianVaultDirectory($dayOneEntry);
 
         $expected = Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
-            '%s/%s/%s/%s/%s.md',
+            '%s/%s/Journal/%s/%s/%s.md',
             $obsidianVaultDirectory->path()->toString(),
             $modifiedJournalFileNameWithoutExtension->toString(),
             $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y'),
@@ -93,7 +93,7 @@ final class DefaultObsidianNoteFileMapperTest extends Framework\TestCase
 
         $dayOneEntry = Inside\Domain\DayOne\Entry::create(
             Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
-                '%s/%s.%s',
+                '%s/Journal/%s.%s',
                 $faker->slug(),
                 $originalJournalFileNameWithoutExtension->toString(),
                 $faker->fileExtension(),
@@ -115,7 +115,7 @@ final class DefaultObsidianNoteFileMapperTest extends Framework\TestCase
 
         $expected = Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(
             \sprintf(
-                '../../../../%s/%s/%s/%s.md',
+                '../../../../../%s/Journal/%s/%s/%s.md',
                 $modifiedJournalFileNameWithoutExtension->toString(),
                 $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y'),
                 $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y-m'),

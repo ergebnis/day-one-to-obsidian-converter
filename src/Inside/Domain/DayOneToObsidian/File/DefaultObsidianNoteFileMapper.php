@@ -38,7 +38,7 @@ final class DefaultObsidianNoteFileMapper implements ObsidianNoteFileMapper
         $fileRelativeToObsidianVaultDirectory = $this->mapToFileRelativeToObsidianVaultDirectory($dayOneEntry);
 
         return Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
-            '../../../../%s/%s',
+            '../../../../../%s/%s',
             $fileRelativeToObsidianVaultDirectory->directory()->path()->toString(),
             $fileRelativeToObsidianVaultDirectory->fileName()->toString(),
         )));
@@ -47,7 +47,7 @@ final class DefaultObsidianNoteFileMapper implements ObsidianNoteFileMapper
     private function mapToFileRelativeToObsidianVaultDirectory(Inside\Domain\DayOne\Entry $dayOneEntry): Inside\Domain\Shared\File
     {
         return Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
-            '%s/%s/%s/%s.md',
+            '%s/Journal/%s/%s/%s.md',
             \str_replace(
                 ': ',
                 '/',
