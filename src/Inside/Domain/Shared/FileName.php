@@ -37,7 +37,7 @@ final class FileName
     public static function fromString(string $value): self
     {
         \preg_match(
-            '/^(?P<baseName>[^.]+)(\.(?P<extension>.+))*$/',
+            '/^(?P<baseName>\.?[^.]+)(\.(?P<extension>.+))*$/',
             $value,
             $matches,
         );
