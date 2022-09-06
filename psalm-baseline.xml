@@ -12,7 +12,7 @@
   </file>
   <file src="src/Outside/Adapter/Secondary/DayOne/JournalFinder.php">
     <MixedReturnTypeCoercion occurrences="2">
-      <code>array&lt;int, Inside\Domain\DayOne\Journal&gt;</code>
+      <code>array</code>
     </MixedReturnTypeCoercion>
   </file>
   <file src="src/Outside/Adapter/Secondary/DayOne/JournalReader.php">
@@ -145,22 +145,9 @@
     </MixedAssignment>
   </file>
   <file src="test/Unit/Inside/Domain/Shared/FileNameTest.php">
-    <InvalidArgument occurrences="1">
-      <code>testFromStringReturnsFileName</code>
-    </InvalidArgument>
-    <InvalidReturnType occurrences="1">
-      <code>\Generator&lt;string, array{0: string, 1: Inside\Domain\Shared\BaseName, 2: Inside\Domain\Shared\BaseName}&gt;</code>
-    </InvalidReturnType>
-    <MixedArgument occurrences="5">
+    <MixedArgument occurrences="1">
       <code>$faker-&gt;fileExtension()</code>
-      <code>$faker-&gt;fileExtension()</code>
-      <code>$faker-&gt;fileExtension()</code>
-      <code>$simpleExtension</code>
-      <code>$simpleExtension</code>
     </MixedArgument>
-    <MixedAssignment occurrences="1">
-      <code>$simpleExtension</code>
-    </MixedAssignment>
   </file>
   <file src="test/Unit/Inside/Domain/Shared/FileTest.php">
     <MixedArgument occurrences="1">
