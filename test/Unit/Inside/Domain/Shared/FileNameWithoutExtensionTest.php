@@ -20,18 +20,18 @@ use PHPUnit\Framework;
 /**
  * @internal
  *
- * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
+ * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileNameWithoutExtension
  */
-final class BaseNameTest extends Framework\TestCase
+final class FileNameWithoutExtensionTest extends Framework\TestCase
 {
     use Test\Util\Helper;
 
-    public function testFromStringReturnsBaseName(): void
+    public function testFromStringReturnsFileNameWithoutExtension(): void
     {
         $value = self::faker()->slug();
 
-        $baseName = Inside\Domain\Shared\BaseName::fromString($value);
+        $fileNameWithoutExtension = Inside\Domain\Shared\FileNameWithoutExtension::fromString($value);
 
-        self::assertSame($value, $baseName->toString());
+        self::assertSame($value, $fileNameWithoutExtension->toString());
     }
 }

@@ -25,11 +25,11 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Photo
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\PhotoIdentifier
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOneToObsidian\File\DefaultObsidianAttachmentFileMapper
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\File
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileNameWithoutExtension
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Text
  */
@@ -70,12 +70,12 @@ MARKDOWN);
         ))));
 
         $obsidianAttachmentOneFileName = Inside\Domain\Shared\FileName::create(
-            Inside\Domain\Shared\BaseName::fromString($faker->slug()),
+            Inside\Domain\Shared\FileNameWithoutExtension::fromString($faker->slug()),
             Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
         );
 
         $obsidianAttachmentThreeFileName = Inside\Domain\Shared\FileName::create(
-            Inside\Domain\Shared\BaseName::fromString($faker->slug()),
+            Inside\Domain\Shared\FileNameWithoutExtension::fromString($faker->slug()),
             Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
         );
 

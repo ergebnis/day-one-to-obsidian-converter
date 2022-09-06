@@ -27,11 +27,11 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\EntryIdentifier
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Journal
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\ModifiedDate
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\File
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileNameWithoutExtension
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Text
  */
@@ -40,11 +40,11 @@ final class DefaultObsidianNoteFileMapperTest extends Framework\TestCase
     use Test\Util\Helper;
 
     /**
-     * @dataProvider provideOriginalJournalBaseNameAndModifiedJournalBaseName
+     * @dataProvider provideOriginalJournalFileNameWithoutExtensionAndModifiedJournalFileNameWithoutExtension
      */
     public function testMapToFileInObsidianVaultDirectoryReturnsFileCombiningObsidianVaultDirectoryDayOneJournalNameAndRepresentationOfEntryCreationDate(
-        Inside\Domain\Shared\BaseName $originalJournalBaseName,
-        Inside\Domain\Shared\BaseName $modifiedJournalBaseName,
+        Inside\Domain\Shared\FileNameWithoutExtension $originalJournalFileNameWithoutExtension,
+        Inside\Domain\Shared\FileNameWithoutExtension $modifiedJournalFileNameWithoutExtension,
     ): void {
         $faker = self::faker();
 
@@ -52,7 +52,7 @@ final class DefaultObsidianNoteFileMapperTest extends Framework\TestCase
             Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                 '%s/%s.%s',
                 $faker->slug(),
-                $originalJournalBaseName->toString(),
+                $originalJournalFileNameWithoutExtension->toString(),
                 $faker->fileExtension(),
             )))),
             Inside\Domain\DayOne\EntryIdentifier::fromString($faker->sha1()),
@@ -73,7 +73,7 @@ final class DefaultObsidianNoteFileMapperTest extends Framework\TestCase
         $expected = Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
             '%s/%s/%s/%s/%s.md',
             $obsidianVaultDirectory->path()->toString(),
-            $modifiedJournalBaseName->toString(),
+            $modifiedJournalFileNameWithoutExtension->toString(),
             $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y'),
             $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y-m'),
             $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y-m-d H.i'),
@@ -83,11 +83,11 @@ final class DefaultObsidianNoteFileMapperTest extends Framework\TestCase
     }
 
     /**
-     * @dataProvider provideOriginalJournalBaseNameAndModifiedJournalBaseName
+     * @dataProvider provideOriginalJournalFileNameWithoutExtensionAndModifiedJournalFileNameWithoutExtension
      */
     public function testMapToFileRelativeToOtherObsidianNoteReturnsFileCombiningDayOneJournalNameAndRepresentationOfEntryCreationDate(
-        Inside\Domain\Shared\BaseName $originalJournalBaseName,
-        Inside\Domain\Shared\BaseName $modifiedJournalBaseName,
+        Inside\Domain\Shared\FileNameWithoutExtension $originalJournalFileNameWithoutExtension,
+        Inside\Domain\Shared\FileNameWithoutExtension $modifiedJournalFileNameWithoutExtension,
     ): void {
         $faker = self::faker();
 
@@ -95,7 +95,7 @@ final class DefaultObsidianNoteFileMapperTest extends Framework\TestCase
             Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                 '%s/%s.%s',
                 $faker->slug(),
-                $originalJournalBaseName->toString(),
+                $originalJournalFileNameWithoutExtension->toString(),
                 $faker->fileExtension(),
             )))),
             Inside\Domain\DayOne\EntryIdentifier::fromString($faker->sha1()),
@@ -116,7 +116,7 @@ final class DefaultObsidianNoteFileMapperTest extends Framework\TestCase
         $expected = Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(
             \sprintf(
                 '../../../../%s/%s/%s/%s.md',
-                $modifiedJournalBaseName->toString(),
+                $modifiedJournalFileNameWithoutExtension->toString(),
                 $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y'),
                 $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y-m'),
                 $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y-m-d H.i'),
@@ -127,25 +127,25 @@ final class DefaultObsidianNoteFileMapperTest extends Framework\TestCase
     }
 
     /**
-     * @return \Generator<string, array{0: Inside\Domain\Shared\BaseName, 1: Inside\Domain\Shared\BaseName}>
+     * @return \Generator<string, array{0: Inside\Domain\Shared\FileNameWithoutExtension, 1: Inside\Domain\Shared\FileNameWithoutExtension}>
      */
-    public function provideOriginalJournalBaseNameAndModifiedJournalBaseName(): \Generator
+    public function provideOriginalJournalFileNameWithoutExtensionAndModifiedJournalFileNameWithoutExtension(): \Generator
     {
         $values = [
             'with-colon' => [
-                Inside\Domain\Shared\BaseName::fromString(\urlencode('Foo: Bar')),
-                Inside\Domain\Shared\BaseName::fromString('Foo/Bar'),
+                Inside\Domain\Shared\FileNameWithoutExtension::fromString(\urlencode('Foo: Bar')),
+                Inside\Domain\Shared\FileNameWithoutExtension::fromString('Foo/Bar'),
             ],
             'with-slash-forward' => [
-                Inside\Domain\Shared\BaseName::fromString(\urlencode('Foo/Bar')),
-                Inside\Domain\Shared\BaseName::fromString('Foo/Bar'),
+                Inside\Domain\Shared\FileNameWithoutExtension::fromString(\urlencode('Foo/Bar')),
+                Inside\Domain\Shared\FileNameWithoutExtension::fromString('Foo/Bar'),
             ],
         ];
 
-        foreach ($values as $key => [$originalJournalBaseName, $modifiedJournalBaseName]) {
+        foreach ($values as $key => [$originalJournalFileNameWithoutExtension, $modifiedJournalFileNameWithoutExtension]) {
             yield $key => [
-                $originalJournalBaseName,
-                $modifiedJournalBaseName,
+                $originalJournalFileNameWithoutExtension,
+                $modifiedJournalFileNameWithoutExtension,
             ];
         }
     }

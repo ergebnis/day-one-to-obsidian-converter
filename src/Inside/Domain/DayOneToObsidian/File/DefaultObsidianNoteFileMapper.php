@@ -51,7 +51,7 @@ final class DefaultObsidianNoteFileMapper implements ObsidianNoteFileMapper
             \str_replace(
                 ': ',
                 '/',
-                \urldecode($dayOneEntry->journal()->file()->fileName()->baseName()->toString()),
+                \urldecode($dayOneEntry->journal()->file()->fileName()->fileNameWithoutExtension()->toString()),
             ),
             $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y'),
             $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y-m'),

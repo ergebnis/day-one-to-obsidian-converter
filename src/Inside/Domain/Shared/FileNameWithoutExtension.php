@@ -16,7 +16,7 @@ namespace Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared;
 /**
  * @psalm-immutable
  */
-final class BaseName
+final class FileNameWithoutExtension
 {
     private function __construct(private readonly string $value)
     {

@@ -22,10 +22,10 @@ use PHPUnit\Framework;
  *
  * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\File
  *
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileNameWithoutExtension
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
  */
 final class FileTest extends Framework\TestCase
@@ -38,7 +38,7 @@ final class FileTest extends Framework\TestCase
 
         $directory = Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString($faker->slug()));
         $fileName = Inside\Domain\Shared\FileName::create(
-            Inside\Domain\Shared\BaseName::fromString($faker->slug()),
+            Inside\Domain\Shared\FileNameWithoutExtension::fromString($faker->slug()),
             Inside\Domain\Shared\Extension::fromString($faker->fileExtension()),
         );
 

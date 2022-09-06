@@ -22,8 +22,8 @@ use PHPUnit\Framework;
  *
  * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
  *
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\BaseName
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileNameWithoutExtension
  */
 final class FileNameTest extends Framework\TestCase
 {
@@ -33,20 +33,20 @@ final class FileNameTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $baseName = Inside\Domain\Shared\BaseName::fromString($faker->slug());
+        $fileNameWithoutExtension = Inside\Domain\Shared\FileNameWithoutExtension::fromString($faker->slug());
         $extension = Inside\Domain\Shared\Extension::fromString($faker->fileExtension());
 
         $fileName = Inside\Domain\Shared\FileName::create(
-            $baseName,
+            $fileNameWithoutExtension,
             $extension,
         );
 
-        self::assertEquals($baseName, $fileName->baseName());
+        self::assertEquals($fileNameWithoutExtension, $fileName->fileNameWithoutExtension());
         self::assertEquals($extension, $fileName->extension());
 
         $expected = \sprintf(
             '%s.%s',
-            $baseName->toString(),
+            $fileNameWithoutExtension->toString(),
             $extension->toString(),
         );
 
@@ -54,62 +54,62 @@ final class FileNameTest extends Framework\TestCase
     }
 
     /**
-     * @dataProvider provideValueBaseNameAndExtension
+     * @dataProvider provideValueFileNameWithoutExtensionsAndExtension
      */
     public function testFromStringReturnsFileName(
         string $value,
-        Inside\Domain\Shared\BaseName $baseName,
+        Inside\Domain\Shared\FileNameWithoutExtension $fileNameWithoutExtension,
         Inside\Domain\Shared\Extension $extension,
     ): void {
         $fileName = Inside\Domain\Shared\FileName::fromString($value);
 
-        self::assertEquals($baseName, $fileName->baseName());
+        self::assertEquals($fileNameWithoutExtension, $fileName->fileNameWithoutExtension());
         self::assertEquals($extension, $fileName->extension());
         self::assertSame($value, $fileName->toString());
     }
 
     /**
-     * @return \Generator<string, array{0: string, 1: Inside\Domain\Shared\BaseName, 2: Inside\Domain\Shared\BaseName}>
+     * @return \Generator<string, array{0: string, 1: Inside\Domain\Shared\FileNameWithoutExtension, 2: Inside\Domain\Shared\Extension}>
      */
-    public function provideValueBaseNameAndExtension(): \Generator
+    public function provideValueFileNameWithoutExtensionsAndExtension(): \Generator
     {
         $values = [
             'dotfile-without-extension' => [
                 '.htaccess',
-                Inside\Domain\Shared\BaseName::fromString('.htaccess'),
+                Inside\Domain\Shared\FileNameWithoutExtension::fromString('.htaccess'),
                 Inside\Domain\Shared\Extension::empty(),
             ],
             'dotfile-with-simple-extension' => [
                 '.php-cs-fixer.php',
-                Inside\Domain\Shared\BaseName::fromString('.php-cs-fixer'),
+                Inside\Domain\Shared\FileNameWithoutExtension::fromString('.php-cs-fixer'),
                 Inside\Domain\Shared\Extension::fromString('php'),
             ],
             'dotfile-with-extended-extension' => [
                 '.php-cs-fixer.php.dist',
-                Inside\Domain\Shared\BaseName::fromString('.php-cs-fixer.php'),
+                Inside\Domain\Shared\FileNameWithoutExtension::fromString('.php-cs-fixer.php'),
                 Inside\Domain\Shared\Extension::fromString('dist'),
             ],
             'without-extension' => [
                 'foo',
-                Inside\Domain\Shared\BaseName::fromString('foo'),
+                Inside\Domain\Shared\FileNameWithoutExtension::fromString('foo'),
                 Inside\Domain\Shared\Extension::empty(),
             ],
             'with-simple-extension' => [
                 'foo.bar',
-                Inside\Domain\Shared\BaseName::fromString('foo'),
+                Inside\Domain\Shared\FileNameWithoutExtension::fromString('foo'),
                 Inside\Domain\Shared\Extension::fromString('bar'),
             ],
             'with-extended-extension' => [
                 'foo.bar.baz',
-                Inside\Domain\Shared\BaseName::fromString('foo.bar'),
+                Inside\Domain\Shared\FileNameWithoutExtension::fromString('foo.bar'),
                 Inside\Domain\Shared\Extension::fromString('baz'),
             ],
         ];
 
-        foreach ($values as $key => [$value, $baseName, $extension]) {
+        foreach ($values as $key => [$value, $fileNameWithoutExtension, $extension]) {
             yield $key => [
                 $value,
-                $baseName,
+                $fileNameWithoutExtension,
                 $extension,
             ];
         }
