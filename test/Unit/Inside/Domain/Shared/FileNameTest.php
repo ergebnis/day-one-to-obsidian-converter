@@ -73,39 +73,21 @@ final class FileNameTest extends Framework\TestCase
      */
     public function provideValueBaseNameAndExtension(): \Generator
     {
-        $faker = self::faker();
-
-        $baseName = $faker->slug();
-        $simpleExtension = $faker->fileExtension();
-        $extendedExtension = \sprintf(
-            '%s.%s',
-            $faker->fileExtension(),
-            $faker->fileExtension(),
-        );
-
         $values = [
             'without-extension' => [
-                $baseName,
-                Inside\Domain\Shared\BaseName::fromString($baseName),
+                'foo',
+                Inside\Domain\Shared\BaseName::fromString('foo'),
                 Inside\Domain\Shared\Extension::empty(),
             ],
             'with-simple-extension' => [
-                \sprintf(
-                    '%s.%s',
-                    $baseName,
-                    $simpleExtension,
-                ),
-                Inside\Domain\Shared\BaseName::fromString($baseName),
-                Inside\Domain\Shared\Extension::fromString($simpleExtension),
+                'foo.bar',
+                Inside\Domain\Shared\BaseName::fromString('foo'),
+                Inside\Domain\Shared\Extension::fromString('bar'),
             ],
             'with-extended-extension' => [
-                \sprintf(
-                    '%s.%s',
-                    $baseName,
-                    $extendedExtension,
-                ),
-                Inside\Domain\Shared\BaseName::fromString($baseName),
-                Inside\Domain\Shared\Extension::fromString($extendedExtension),
+                'foo.bar.baz',
+                Inside\Domain\Shared\BaseName::fromString('foo'),
+                Inside\Domain\Shared\Extension::fromString('bar.baz'),
             ],
         ];
 
