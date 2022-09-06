@@ -84,6 +84,11 @@ final class FileNameTest extends Framework\TestCase
                 Inside\Domain\Shared\BaseName::fromString('.php-cs-fixer'),
                 Inside\Domain\Shared\Extension::fromString('php'),
             ],
+            'dotfile-with-extended-extension' => [
+                '.php-cs-fixer.php.dist',
+                Inside\Domain\Shared\BaseName::fromString('.php-cs-fixer'),
+                Inside\Domain\Shared\Extension::fromString('php.dist'),
+            ],
             'without-extension' => [
                 'foo',
                 Inside\Domain\Shared\BaseName::fromString('foo'),
