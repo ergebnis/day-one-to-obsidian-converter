@@ -30,36 +30,36 @@ final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
     ) {
     }
 
-    public function read(Inside\Domain\DayOne\Journal $journal): array
+    public function read(Inside\Domain\Shared\File $file): Inside\Domain\DayOne\Journal
     {
-        if (!\is_file($journal->file()->path()->toString())) {
-            throw Inside\Port\Secondary\DayOne\FileDoesNotExist::at($journal->file()->path());
+        if (!\is_file($file->path()->toString())) {
+            throw Inside\Port\Secondary\DayOne\FileDoesNotExist::at($file->path());
         }
 
         try {
             $data = \json_decode(
-                \file_get_contents($journal->file()->path()->toString()),
+                \file_get_contents($file->path()->toString()),
                 true,
                 512,
                 \JSON_THROW_ON_ERROR,
             );
         } catch (\JsonException) {
-            throw Inside\Port\Secondary\DayOne\FileDoesNotContainJson::at($journal->file()->path());
+            throw Inside\Port\Secondary\DayOne\FileDoesNotContainJson::at($file->path());
         }
 
         $validationResult = $this->schemaValidator->validate(
-            SchemaValidator\Json::fromFile($journal->file()->path()->toString()),
+            SchemaValidator\Json::fromFile($file->path()->toString()),
             $this->schema,
             SchemaValidator\JsonPointer::empty(),
         );
 
         if (!$validationResult->isValid()) {
-            throw Inside\Port\Secondary\DayOne\FileDoesNotContainJsonValidAccordingToSchema::at($journal->file()->path());
+            throw Inside\Port\Secondary\DayOne\FileDoesNotContainJsonValidAccordingToSchema::at($file->path());
         }
 
-        $dataNormalizer = $this->dataNormalizer;
+        $journal = Inside\Domain\DayOne\Journal::create($file);
 
-        return \array_map(static function (array $entry) use ($journal, $dataNormalizer): Inside\Domain\DayOne\Entry {
+        foreach ($data['entries'] as $entry) {
             $creationDate = Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable($entry['creationDate']));
 
             $modifiedDate = Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable($creationDate->toDateTimeImmutable());
@@ -109,16 +109,17 @@ final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
                 $data['text'],
             );
 
-            return Inside\Domain\DayOne\Entry::create(
-                $journal,
+            $journal->addEntry(
                 Inside\Domain\DayOne\EntryIdentifier::fromString($entry['uuid']),
                 $creationDate,
                 $modifiedDate,
                 Inside\Domain\Shared\Text::fromString($text),
                 $tags,
                 $photos,
-                $dataNormalizer->normalize($data),
+                $this->dataNormalizer->normalize($data),
             );
-        }, $data['entries']);
+        }
+
+        return $journal;
     }
 }

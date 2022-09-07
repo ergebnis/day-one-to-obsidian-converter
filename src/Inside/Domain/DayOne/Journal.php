@@ -15,11 +15,13 @@ namespace Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne;
 
 use Ergebnis\DayOneToObsidianConverter\Inside;
 
-/**
- * @psalm-immutable
- */
 final class Journal
 {
+    /**
+     * @var array<string, Entry>
+     */
+    private array $entries = [];
+
     private function __construct(
         private readonly Inside\Domain\Shared\File $file,
         private readonly Inside\Domain\Shared\Directory $photoDirectory,
@@ -45,5 +47,38 @@ final class Journal
     public function photoDirectory(): Inside\Domain\Shared\Directory
     {
         return $this->photoDirectory;
+    }
+
+    /**
+     * @throws JournalAlreadyHasEntry
+     */
+    public function addEntry(
+        EntryIdentifier $entryIdentifier,
+        CreationDate $creationDate,
+        ModifiedDate $modifiedDate,
+        Inside\Domain\Shared\Text $text,
+        array $tags,
+        array $photos,
+        array $data,
+    ): void {
+        if (\array_key_exists($entryIdentifier->toString(), $this->entries)) {
+            throw JournalAlreadyHasEntry::identifiedBy($entryIdentifier);
+        }
+
+        $this->entries[$entryIdentifier->toString()] = Entry::create(
+            $this,
+            $entryIdentifier,
+            $creationDate,
+            $modifiedDate,
+            $text,
+            $tags,
+            $photos,
+            $data,
+        );
+    }
+
+    public function entries(): array
+    {
+        return \array_values($this->entries);
     }
 }

@@ -50,7 +50,7 @@ final class JournalReaderTest extends Framework\TestCase
 
     public function testThrowsFileDoesNotExistWhenFileDoesNotExistAtPath(): void
     {
-        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalReader/does-not-exist/Journal.json')));
+        $file = Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalReader/does-not-exist/Journal.json'));
 
         $journalReader = new Outside\Adapter\Secondary\DayOne\JournalReader(
             new SchemaValidator\SchemaValidator(),
@@ -60,12 +60,12 @@ final class JournalReaderTest extends Framework\TestCase
 
         $this->expectException(Inside\Port\Secondary\DayOne\FileDoesNotExist::class);
 
-        $journalReader->read($journal);
+        $journalReader->read($file);
     }
 
     public function testThrowsFileDoesNotContainJsonWhenFileAtPathDoesNotContainJson(): void
     {
-        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalReader/not-json/Journal.json')));
+        $file = Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalReader/not-json/Journal.json'));
 
         $journalReader = new Outside\Adapter\Secondary\DayOne\JournalReader(
             new SchemaValidator\SchemaValidator(),
@@ -75,12 +75,12 @@ final class JournalReaderTest extends Framework\TestCase
 
         $this->expectException(Inside\Port\Secondary\DayOne\FileDoesNotContainJson::class);
 
-        $journalReader->read($journal);
+        $journalReader->read($file);
     }
 
     public function testThrowsFileDoesNotContainJsonWhenFileAtPathDoesNotContainJsonValidAccordingToSchema(): void
     {
-        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalReader/not-valid-according-to-schema/Journal.json')));
+        $file = Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalReader/not-valid-according-to-schema/Journal.json'));
 
         $journalReader = new Outside\Adapter\Secondary\DayOne\JournalReader(
             new SchemaValidator\SchemaValidator(),
@@ -90,12 +90,12 @@ final class JournalReaderTest extends Framework\TestCase
 
         $this->expectException(Inside\Port\Secondary\DayOne\FileDoesNotContainJsonValidAccordingToSchema::class);
 
-        $journalReader->read($journal);
+        $journalReader->read($file);
     }
 
-    public function testReturnsEmptyArrayWhenFileAtPathContainsJsonValidAccordingToSchemaButJournalDoesNotContainEntries(): void
+    public function testReturnsJournalWithoutEntriesWhenFileAtPathContainsJsonValidAccordingToSchemaButJournalDoesNotContainEntries(): void
     {
-        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalReader/valid-according-to-schema/Empty.json')));
+        $file = Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalReader/valid-according-to-schema/Empty.json'));
 
         $journalReader = new Outside\Adapter\Secondary\DayOne\JournalReader(
             new SchemaValidator\SchemaValidator(),
@@ -103,27 +103,39 @@ final class JournalReaderTest extends Framework\TestCase
             new Outside\Infrastructure\DataNormalizer(),
         );
 
-        $entries = $journalReader->read($journal);
+        $journal = $journalReader->read($file);
 
-        self::assertSame([], $entries);
-    }
-
-    public function testReturnsArrayWithEntriesWhenFileAtPathContainsJsonValidAccordingToSchemaAndJournalContainsEntries(): void
-    {
-        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalReader/valid-according-to-schema/Journal.json')));
-
-        $journalReader = new Outside\Adapter\Secondary\DayOne\JournalReader(
-            new SchemaValidator\SchemaValidator(),
-            SchemaValidator\Json::fromFile(__DIR__ . '/../../../../../../resource/day-one/schema.json'),
-            new Outside\Infrastructure\DataNormalizer(),
-        );
-
-        $entries = $journalReader->read($journal);
+        self::assertSame($file, $journal->file());
 
         $photoDirectory = Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
             '%s/photos',
-            $journal->file()->directory()->path()->toString(),
+            $file->directory()->path()->toString(),
         )));
+
+        self::assertEquals($photoDirectory, $journal->photoDirectory());
+        self::assertSame([], $journal->entries());
+    }
+
+    public function testReturnsJournalWithEntriesWhenFileAtPathContainsJsonValidAccordingToSchemaAndJournalContainsEntries(): void
+    {
+        $file = Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalReader/valid-according-to-schema/Journal.json'));
+
+        $journalReader = new Outside\Adapter\Secondary\DayOne\JournalReader(
+            new SchemaValidator\SchemaValidator(),
+            SchemaValidator\Json::fromFile(__DIR__ . '/../../../../../../resource/day-one/schema.json'),
+            new Outside\Infrastructure\DataNormalizer(),
+        );
+
+        $journal = $journalReader->read($file);
+
+        self::assertSame($file, $journal->file());
+
+        $photoDirectory = Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+            '%s/photos',
+            $file->directory()->path()->toString(),
+        )));
+
+        self::assertEquals($photoDirectory, $journal->photoDirectory());
 
         $expected = [
             Inside\Domain\DayOne\Entry::create(
@@ -5094,6 +5106,6 @@ MARKDOWN
             ),
         ];
 
-        self::assertEquals($expected, $entries);
+        self::assertEquals($expected, $journal->entries());
     }
 }

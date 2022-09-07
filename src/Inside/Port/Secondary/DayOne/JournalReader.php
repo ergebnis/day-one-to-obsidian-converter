@@ -21,8 +21,6 @@ interface JournalReader
      * @throws FileDoesNotExist
      * @throws FileDoesNotContainJson
      * @throws FileDoesNotContainJsonValidAccordingToSchema
-     *
-     * @return array<int, Inside\Domain\DayOne\Entry>
      */
-    public function read(Inside\Domain\DayOne\Journal $journal): array;
+    public function read(Inside\Domain\Shared\File $file): Inside\Domain\DayOne\Journal;
 }

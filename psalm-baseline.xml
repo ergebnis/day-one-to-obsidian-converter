@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="4.27.0@faf106e717c37b8c81721845dba9de3d8deed8ff">
+  <file src="src/Inside/Domain/DayOne/Journal.php">
+    <MixedArgumentTypeCoercion occurrences="2">
+      <code>$photos</code>
+      <code>$tags</code>
+    </MixedArgumentTypeCoercion>
+  </file>
   <file src="src/Inside/Domain/DayOneToObsidian/Text/TextProcessorPipeline.php">
     <MixedPropertyTypeCoercion occurrences="1">
       <code>$textProcessors</code>
@@ -17,8 +23,7 @@
   </file>
   <file src="src/Outside/Adapter/Secondary/DayOne/JournalReader.php">
     <MixedArgument occurrences="11">
-      <code>$dataNormalizer-&gt;normalize($data)</code>
-      <code>$data['entries']</code>
+      <code>$entry</code>
       <code>$entry['creationDate']</code>
       <code>$entry['modifiedDate']</code>
       <code>$entry['photos']</code>
@@ -28,21 +33,17 @@
       <code>$photo['md5']</code>
       <code>$photo['type']</code>
       <code>$text</code>
+      <code>$this-&gt;dataNormalizer-&gt;normalize($data)</code>
     </MixedArgument>
-    <MixedArgumentTypeCoercion occurrences="2">
-      <code>$photos</code>
-      <code>$tags</code>
-    </MixedArgumentTypeCoercion>
-    <MixedArrayAccess occurrences="1">
+    <MixedArrayAccess occurrences="2">
       <code>$data['entries']</code>
+      <code>$entry['creationDate']</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="2">
+    <MixedAssignment occurrences="3">
       <code>$data</code>
+      <code>$entry</code>
       <code>$text</code>
     </MixedAssignment>
-    <MixedReturnTypeCoercion occurrences="2">
-      <code>array</code>
-    </MixedReturnTypeCoercion>
   </file>
   <file src="src/Outside/Infrastructure/DataNormalizer.php">
     <MissingParamType occurrences="1">
@@ -73,9 +74,23 @@
     <TooManyArguments occurrences="2"/>
   </file>
   <file src="test/Unit/Inside/Domain/DayOne/JournalTest.php">
-    <MixedArgument occurrences="1">
+    <MixedArgument occurrences="6">
+      <code>$faker-&gt;fileExtension()</code>
+      <code>$faker-&gt;fileExtension()</code>
+      <code>$faker-&gt;fileExtension()</code>
+      <code>$faker-&gt;fileExtension()</code>
+      <code>$faker-&gt;fileExtension()</code>
       <code>$faker-&gt;fileExtension()</code>
     </MixedArgument>
+    <MixedArgumentTypeCoercion occurrences="2">
+      <code>$faker-&gt;words()</code>
+      <code>$faker-&gt;words()</code>
+    </MixedArgumentTypeCoercion>
+    <PossiblyInvalidArgument occurrences="2">
+      <code>$faker-&gt;sentences()</code>
+      <code>$faker-&gt;sentences()</code>
+    </PossiblyInvalidArgument>
+    <TooManyArguments occurrences="4"/>
   </file>
   <file src="test/Unit/Inside/Domain/DayOne/PhotoTest.php">
     <MixedArgument occurrences="1">
