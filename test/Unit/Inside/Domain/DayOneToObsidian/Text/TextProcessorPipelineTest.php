@@ -37,7 +37,7 @@ final class TextProcessorPipelineTest extends Framework\TestCase
         $suffixes = $faker->words();
 
         $textProcessors = \array_map(static function (string $suffix): Inside\Domain\DayOneToObsidian\Text\TextProcessor {
-            return new Test\Double\Domain\DayOneToObsidian\Text\AppendSuffix($suffix);
+            return new Test\Double\Inside\Domain\DayOneToObsidian\Text\AppendSuffix($suffix);
         }, $suffixes);
 
         $textProcessor = new Inside\Domain\DayOneToObsidian\Text\TextProcessorPipeline(...$textProcessors);

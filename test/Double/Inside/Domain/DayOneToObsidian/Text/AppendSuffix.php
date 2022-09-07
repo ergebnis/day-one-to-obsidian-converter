@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @see https://github.com/ergebnis/day-one-to-obsidian-converter
  */
 
-namespace Ergebnis\DayOneToObsidianConverter\Test\Double\Domain\DayOneToObsidian\Text;
+namespace Ergebnis\DayOneToObsidianConverter\Test\Double\Inside\Domain\DayOneToObsidian\Text;
 
 use Ergebnis\DayOneToObsidianConverter\Inside;
 
