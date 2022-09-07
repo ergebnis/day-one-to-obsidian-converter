@@ -16,7 +16,6 @@ namespace Ergebnis\DayOneToObsidianConverter\Test\Unit\Outside\Adapter\Secondary
 use Ergebnis\DayOneToObsidianConverter\Inside;
 use Ergebnis\DayOneToObsidianConverter\Outside;
 use Ergebnis\DayOneToObsidianConverter\Test;
-use Ergebnis\Json\SchemaValidator;
 use PHPUnit\Framework;
 
 /**
@@ -32,6 +31,8 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileNameWithoutExtension
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Port\Secondary\DayOne\DirectoryDoesNotExist
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Port\Secondary\DayOne\FileDoesNotContainJson
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Port\Secondary\DayOne\FileDoesNotContainJsonValidAccordingToSchema
  */
 final class JournalFinderTest extends Framework\TestCase
 {
@@ -55,10 +56,7 @@ final class JournalFinderTest extends Framework\TestCase
             self::faker()->slug(),
         )));
 
-        $journalFinder = new Outside\Adapter\Secondary\DayOne\JournalFinder(
-            new SchemaValidator\SchemaValidator(),
-            SchemaValidator\Json::fromFile(__DIR__ . '/../../../../../../resource/day-one/schema.json'),
-        );
+        $journalFinder = new Outside\Adapter\Secondary\DayOne\JournalFinder($this->createStub(Inside\Port\Secondary\DayOne\JournalReader::class));
 
         $this->expectException(Inside\Port\Secondary\DayOne\DirectoryDoesNotExist::class);
 
@@ -75,10 +73,7 @@ final class JournalFinderTest extends Framework\TestCase
 
         self::fileSystem()->mkdir($directory->path()->toString());
 
-        $journalFinder = new Outside\Adapter\Secondary\DayOne\JournalFinder(
-            new SchemaValidator\SchemaValidator(),
-            SchemaValidator\Json::fromFile(__DIR__ . '/../../../../../../resource/day-one/schema.json'),
-        );
+        $journalFinder = new Outside\Adapter\Secondary\DayOne\JournalFinder($this->createStub(Inside\Port\Secondary\DayOne\JournalReader::class));
 
         $journals = $journalFinder->find($directory);
 
@@ -89,10 +84,28 @@ final class JournalFinderTest extends Framework\TestCase
     {
         $directory = Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(__DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalFinder'));
 
-        $journalFinder = new Outside\Adapter\Secondary\DayOne\JournalFinder(
-            new SchemaValidator\SchemaValidator(),
-            SchemaValidator\Json::fromFile(__DIR__ . '/../../../../../../resource/day-one/schema.json'),
-        );
+        $factoryReturningJournal = static function (Inside\Domain\Shared\File $file): Inside\Domain\DayOne\Journal {
+            return Inside\Domain\DayOne\Journal::create($file);
+        };
+
+        $factoryReturningFileDoesNotContainJson = static function (Inside\Domain\Shared\File $file): Inside\Port\Secondary\DayOne\FileDoesNotContainJson {
+            return Inside\Port\Secondary\DayOne\FileDoesNotContainJson::at($file->path());
+        };
+
+        $factoryReturningFileDoesNotContainJsonValidAccordingToSchema = static function (Inside\Domain\Shared\File $file): Inside\Port\Secondary\DayOne\FileDoesNotContainJsonValidAccordingToSchema {
+            return Inside\Port\Secondary\DayOne\FileDoesNotContainJsonValidAccordingToSchema::at($file->path());
+        };
+
+        $journalReader = new Test\Double\Outside\Port\Secondary\DayOne\PredictableJournalReader([
+            __DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalFinder/Empty.json' => $factoryReturningFileDoesNotContainJson,
+            __DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalFinder/NotJson.json' => $factoryReturningFileDoesNotContainJson,
+            __DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalFinder/NotValidAccordingToSchema.json' => $factoryReturningFileDoesNotContainJsonValidAccordingToSchema,
+            __DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalFinder/ValidAccordingToSchemaOne.json' => $factoryReturningJournal,
+            __DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalFinder/ValidAccordingToSchemaThree.json' => $factoryReturningJournal,
+            __DIR__ . '/../../../../../Fixture/Outside/Adapter/Secondary/DayOne/JournalFinder/ValidAccordingToSchemaTwo.json' => $factoryReturningJournal,
+        ]);
+
+        $journalFinder = new Outside\Adapter\Secondary\DayOne\JournalFinder($journalReader);
 
         $journals = $journalFinder->find($directory);
 

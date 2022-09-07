@@ -14,14 +14,11 @@ declare(strict_types=1);
 namespace Ergebnis\DayOneToObsidianConverter\Outside\Adapter\Secondary\DayOne;
 
 use Ergebnis\DayOneToObsidianConverter\Inside;
-use Ergebnis\Json\SchemaValidator;
 
 final class JournalFinder implements Inside\Port\Secondary\DayOne\JournalFinder
 {
-    public function __construct(
-        private readonly SchemaValidator\SchemaValidator $schemaValidator,
-        private readonly SchemaValidator\Json $schema,
-    ) {
+    public function __construct(private readonly Inside\Port\Secondary\DayOne\JournalReader $dayOneJournalReader)
+    {
     }
 
     public function find(Inside\Domain\Shared\Directory $directory): array
@@ -35,33 +32,22 @@ final class JournalFinder implements Inside\Port\Secondary\DayOne\JournalFinder
             $directory->path()->toString(),
         ));
 
-        $schemaValidator = $this->schemaValidator;
-        $schema = $this->schema;
+        $dayOneJournalReader = $this->dayOneJournalReader;
 
         return \array_reduce(
             $files,
-            static function (array $dayOneJournals, string $file) use ($schemaValidator, $schema): array {
+            static function (array $dayOneJournals, string $file) use ($dayOneJournalReader): array {
                 if (!\is_file($file)) {
                     return $dayOneJournals;
                 }
 
                 try {
-                    $json = SchemaValidator\Json::fromFile($file);
-                } catch (SchemaValidator\Exception\DoesNotExist|SchemaValidator\Exception\CanNotBeRead|SchemaValidator\Exception\InvalidJson) {
-                    return [];
-                }
-
-                $validationResult = $schemaValidator->validate(
-                    $json,
-                    $schema,
-                    SchemaValidator\JsonPointer::empty(),
-                );
-
-                if (!$validationResult->isValid()) {
+                    $dayOneJournal = $dayOneJournalReader->read(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString($file)));
+                } catch (Inside\Port\Secondary\DayOne\FileDoesNotContainJson|Inside\Port\Secondary\DayOne\FileDoesNotContainJsonValidAccordingToSchema) {
                     return $dayOneJournals;
                 }
 
-                $dayOneJournals[] = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString($file)));
+                $dayOneJournals[] = $dayOneJournal;
 
                 return $dayOneJournals;
             },
