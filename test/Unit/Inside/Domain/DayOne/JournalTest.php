@@ -83,13 +83,6 @@ final class JournalTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
-            '%s/%s.%s',
-            $faker->slug(),
-            $faker->slug(),
-            $faker->fileExtension(),
-        ))));
-
         $entryIdentifier = Inside\Domain\DayOne\EntryIdentifier::fromString($faker->sha1());
         $creationDate = Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime()));
         $modifiedDate = Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime()));
@@ -112,6 +105,13 @@ final class JournalTest extends Framework\TestCase
             $faker->words(),
             $faker->sentences(),
         );
+
+        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+            '%s/%s.%s',
+            $faker->slug(),
+            $faker->slug(),
+            $faker->fileExtension(),
+        ))));
 
         $journal->addEntry(
             $entryIdentifier,
@@ -143,13 +143,6 @@ final class JournalTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
-            '%s/%s.%s',
-            $faker->slug(),
-            $faker->slug(),
-            $faker->fileExtension(),
-        ))));
-
         $entryIdentifier = Inside\Domain\DayOne\EntryIdentifier::fromString($faker->sha1());
         $creationDate = Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime()));
         $modifiedDate = Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime()));
@@ -172,6 +165,13 @@ final class JournalTest extends Framework\TestCase
             $faker->words(),
             $faker->sentences(),
         );
+
+        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+            '%s/%s.%s',
+            $faker->slug(),
+            $faker->slug(),
+            $faker->fileExtension(),
+        ))));
 
         $journal->addEntry(
             $entryIdentifier,
