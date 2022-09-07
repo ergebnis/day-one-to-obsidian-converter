@@ -23,31 +23,24 @@ final class DefaultObsidianNoteFileMapper implements ObsidianNoteFileMapper
 
     public function mapToFileInObsidianVaultDirectory(Inside\Domain\DayOne\Entry $dayOneEntry): Inside\Domain\Shared\File
     {
-        $fileRelativeToObsidianVaultDirectory = $this->mapToFileRelativeToObsidianVaultDirectory($dayOneEntry);
-
         return Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
-            '%s/%s/%s',
+            '%s/%s/Journal/%s/%s/%s.md',
             $this->obsidianVaultDirectory->path()->toString(),
-            $fileRelativeToObsidianVaultDirectory->directory()->path()->toString(),
-            $fileRelativeToObsidianVaultDirectory->fileName()->toString(),
+            \str_replace(
+                ': ',
+                '/',
+                \urldecode($dayOneEntry->journal()->file()->fileName()->fileNameWithoutExtension()->toString()),
+            ),
+            $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y'),
+            $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y-m'),
+            $dayOneEntry->creationDate()->toDateTimeImmutable()->format('Y-m-d H.i'),
         )));
     }
 
     public function mapToFileRelativeToOtherObsidianNote(Inside\Domain\DayOne\Entry $dayOneEntry): Inside\Domain\Shared\File
     {
-        $fileRelativeToObsidianVaultDirectory = $this->mapToFileRelativeToObsidianVaultDirectory($dayOneEntry);
-
         return Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
-            '../../../../../%s/%s',
-            $fileRelativeToObsidianVaultDirectory->directory()->path()->toString(),
-            $fileRelativeToObsidianVaultDirectory->fileName()->toString(),
-        )));
-    }
-
-    private function mapToFileRelativeToObsidianVaultDirectory(Inside\Domain\DayOne\Entry $dayOneEntry): Inside\Domain\Shared\File
-    {
-        return Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
-            '%s/Journal/%s/%s/%s.md',
+            '../../../../../%s/Journal/%s/%s/%s.md',
             \str_replace(
                 ': ',
                 '/',
