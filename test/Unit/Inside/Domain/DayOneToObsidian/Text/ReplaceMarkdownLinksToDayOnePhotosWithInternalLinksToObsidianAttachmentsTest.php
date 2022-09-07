@@ -22,6 +22,7 @@ use PHPUnit\Framework;
  *
  * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOneToObsidian\Text\ReplaceMarkdownLinksToDayOnePhotosWithInternalLinksToObsidianAttachments
  *
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Journal
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Photo
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\PhotoIdentifier
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOneToObsidian\File\DefaultObsidianAttachmentFileMapper
@@ -57,17 +58,20 @@ So, setting about it as methodically as men might smoke out a wasps' nest, the M
 By midnight the blazing trees along the slopes of Richmond Park and the glare of Kingston Hill threw their light upon a network of black smoke, blotting out the whole valley of the Thames and extending as far as the eye could reach. And through this two Martians slowly waded, and turned their hissing steam jets this way and that.
 MARKDOWN);
 
-        $dayOnePhotoDirectory = Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
-            '%s/%s/photos',
+        $dayOneJournal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+            '%s/%s.%s',
+            $faker->slug(),
+            $faker->slug(),
+            $faker->fileExtension(),
+        ))));
+
+        $obsidianVaultDirectory = Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+            '%s/%s',
             $faker->slug(),
             $faker->slug(),
         )));
 
-        $obsidianAttachmentFileMapper = new Inside\Domain\DayOneToObsidian\File\DefaultObsidianAttachmentFileMapper(Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString(\sprintf(
-            '%s/%s/Attachments',
-            $faker->slug(),
-            $faker->slug(),
-        ))));
+        $obsidianAttachmentFileMapper = new Inside\Domain\DayOneToObsidian\File\DefaultObsidianAttachmentFileMapper($obsidianVaultDirectory);
 
         $obsidianAttachmentOneFileName = Inside\Domain\Shared\FileName::create(
             Inside\Domain\Shared\FileNameWithoutExtension::fromString($faker->slug()),
@@ -82,18 +86,20 @@ MARKDOWN);
         $textProcessor = new Inside\Domain\DayOneToObsidian\Text\ReplaceMarkdownLinksToDayOnePhotosWithInternalLinksToObsidianAttachments(
             $obsidianAttachmentFileMapper,
             Inside\Domain\DayOne\Photo::create(
+                $dayOneJournal,
                 Inside\Domain\DayOne\PhotoIdentifier::fromString('88E71E5B4F1F4853A0F8A7F480A0168C'),
                 Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                     '%s/%s',
-                    $dayOnePhotoDirectory->path()->toString(),
+                    $dayOneJournal->photoDirectory()->path()->toString(),
                     $obsidianAttachmentOneFileName->toString(),
                 ))),
             ),
             Inside\Domain\DayOne\Photo::create(
+                $dayOneJournal,
                 Inside\Domain\DayOne\PhotoIdentifier::fromString('8A04A939330C4182A83402BA944467D2'),
                 Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                     '%s/%s',
-                    $dayOnePhotoDirectory->path()->toString(),
+                    $dayOneJournal->photoDirectory()->path()->toString(),
                     $obsidianAttachmentThreeFileName->toString(),
                 ))),
             ),

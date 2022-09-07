@@ -66,34 +66,29 @@ MARKDOWN);
             $faker->slug(),
         ))));
 
+        $dayOneJournal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+            '%s/%s.%s',
+            $faker->slug(),
+            $faker->slug(),
+            $faker->fileExtension(),
+        ))));
+
         $dayOneEntryOne = Inside\Domain\DayOne\Entry::create(
-            Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
-                '%s/%s.%s',
-                $faker->slug(),
-                $faker->slug(),
-                $faker->fileExtension(),
-            )))),
+            $dayOneJournal,
             Inside\Domain\DayOne\EntryIdentifier::fromString('EE9D6208B99A47FAAF2F98E16D384CD0'),
             Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime())),
             Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime())),
             Inside\Domain\Shared\Text::fromString($faker->realText()),
             [],
             [],
-            [],
         );
 
         $dayOneEntryThree = Inside\Domain\DayOne\Entry::create(
-            Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
-                '%s/%s.%s',
-                $faker->slug(),
-                $faker->slug(),
-                $faker->fileExtension(),
-            )))),
+            $dayOneJournal,
             Inside\Domain\DayOne\EntryIdentifier::fromString('EE9D6208090A47FAAF2F98E16D384CD0'),
             Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime())),
             Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime())),
             Inside\Domain\Shared\Text::fromString($faker->realText()),
-            [],
             [],
             [],
         );

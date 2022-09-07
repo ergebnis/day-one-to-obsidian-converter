@@ -82,11 +82,9 @@ final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
                 }, $entry['tags']);
             }
 
-            $photos = [];
-
             if (\array_key_exists('photos', $entry)) {
-                $photos = \array_map(static function (array $photo) use ($journal): Inside\Domain\DayOne\Photo {
-                    return Inside\Domain\DayOne\Photo::create(
+                foreach ($entry['photos'] as $photo) {
+                    $journal->addPhoto(
                         Inside\Domain\DayOne\PhotoIdentifier::fromString($photo['identifier']),
                         Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                             '%s/%s.%s',
@@ -95,7 +93,7 @@ final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
                             $photo['type'],
                         ))),
                     );
-                }, $entry['photos']);
+                }
             }
 
             $data = $entry;
@@ -115,7 +113,6 @@ final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
                 $modifiedDate,
                 Inside\Domain\Shared\Text::fromString($text),
                 $tags,
-                $photos,
                 $this->dataNormalizer->normalize($data),
             );
         }

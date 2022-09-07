@@ -22,6 +22,7 @@ use PHPUnit\Framework;
  *
  * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOneToObsidian\File\DefaultObsidianAttachmentFileMapper
  *
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Journal
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Photo
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\PhotoIdentifier
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
@@ -39,7 +40,15 @@ final class DefaultObsidianAttachmentFileMapperTest extends Framework\TestCase
     {
         $faker = self::faker();
 
+        $dayOneJournal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+            '%s/%s.%s',
+            $faker->slug(),
+            $faker->slug(),
+            $faker->fileExtension(),
+        ))));
+
         $dayOnePhoto = Inside\Domain\DayOne\Photo::create(
+            $dayOneJournal,
             Inside\Domain\DayOne\PhotoIdentifier::fromString($faker->sha1()),
             Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
                 '%s/%s.%s',
@@ -56,8 +65,13 @@ final class DefaultObsidianAttachmentFileMapperTest extends Framework\TestCase
         $obsidianAttachmentFile = $obsidianAttachmentFileMapper->mapToFileInObsidianAttachmentDirectory($dayOnePhoto);
 
         $expected = Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
-            '%s/%s',
+            '%s/%s/Attachment/%s',
             $obsidianAttachmentDirectory->path()->toString(),
+            \str_replace(
+                ': ',
+                '/',
+                \urldecode($dayOnePhoto->journal()->file()->fileName()->fileNameWithoutExtension()->toString()),
+            ),
             $dayOnePhoto->file()->fileName()->toString(),
         )));
 

@@ -26,8 +26,6 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\EntryIdentifier
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Journal
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\ModifiedDate
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Photo
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\PhotoIdentifier
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Tag
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
@@ -58,17 +56,6 @@ final class EntryTest extends Framework\TestCase
         $tags = \array_map(static function () use ($faker): Inside\Domain\DayOne\Tag {
             return Inside\Domain\DayOne\Tag::fromString($faker->word());
         }, \range(0, 2));
-        $photos = \array_map(static function () use ($faker): Inside\Domain\DayOne\Photo {
-            return Inside\Domain\DayOne\Photo::create(
-                Inside\Domain\DayOne\PhotoIdentifier::fromString($faker->sha1()),
-                Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
-                    '%s/%s.%s',
-                    $faker->slug(),
-                    $faker->slug(),
-                    $faker->fileExtension(),
-                ))),
-            );
-        }, \range(0, 2));
         $data = \array_combine(
             $faker->words(),
             $faker->sentences(),
@@ -81,7 +68,6 @@ final class EntryTest extends Framework\TestCase
             $modifiedDate,
             $text,
             $tags,
-            $photos,
             $data,
         );
 
@@ -91,7 +77,6 @@ final class EntryTest extends Framework\TestCase
         self::assertSame($modifiedDate, $entry->modifiedDate());
         self::assertSame($text, $entry->text());
         self::assertSame($tags, $entry->tags());
-        self::assertSame($photos, $entry->photos());
         self::assertSame($data, $entry->data());
     }
 }

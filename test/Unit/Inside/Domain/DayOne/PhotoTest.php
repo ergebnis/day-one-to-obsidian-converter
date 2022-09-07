@@ -22,6 +22,7 @@ use PHPUnit\Framework;
  *
  * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Photo
  *
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Journal
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Photo
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\PhotoIdentifier
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
@@ -39,6 +40,12 @@ final class PhotoTest extends Framework\TestCase
     {
         $faker = self::faker();
 
+        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+            '%s/%s.%s',
+            $faker->slug(),
+            $faker->slug(),
+            $faker->fileExtension(),
+        ))));
         $identifier = Inside\Domain\DayOne\PhotoIdentifier::fromString($faker->sha1());
         $file = Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
             '%s/%s.%s',
@@ -48,10 +55,12 @@ final class PhotoTest extends Framework\TestCase
         )));
 
         $photo = Inside\Domain\DayOne\Photo::create(
+            $journal,
             $identifier,
             $file,
         );
 
+        self::assertSame($journal, $photo->journal());
         self::assertSame($identifier, $photo->identifier());
         self::assertSame($file, $photo->file());
     }

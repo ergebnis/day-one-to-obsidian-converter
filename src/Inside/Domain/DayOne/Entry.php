@@ -21,8 +21,7 @@ use Ergebnis\DayOneToObsidianConverter\Inside;
 final class Entry
 {
     /**
-     * @param array<int, Tag>   $tags
-     * @param array<int, Photo> $photos
+     * @param array<int, Tag> $tags
      */
     private function __construct(
         private readonly Journal $journal,
@@ -31,14 +30,12 @@ final class Entry
         private readonly ModifiedDate $modifiedDate,
         private readonly Inside\Domain\Shared\Text $text,
         private readonly array $tags,
-        private readonly array $photos,
         private readonly array $data,
     ) {
     }
 
     /**
-     * @param array<int, Tag>   $tags
-     * @param array<int, Photo> $photos
+     * @param array<int, Tag> $tags
      */
     public static function create(
         Journal $journal,
@@ -47,7 +44,6 @@ final class Entry
         ModifiedDate $modifiedDate,
         Inside\Domain\Shared\Text $text,
         array $tags,
-        array $photos,
         array $data,
     ): self {
         return new self(
@@ -57,7 +53,6 @@ final class Entry
             $modifiedDate,
             $text,
             $tags,
-            $photos,
             $data,
         );
     }
@@ -93,14 +88,6 @@ final class Entry
     public function tags(): array
     {
         return $this->tags;
-    }
-
-    /**
-     * @return array<int, Photo>
-     */
-    public function photos(): array
-    {
-        return $this->photos;
     }
 
     public function data(): array

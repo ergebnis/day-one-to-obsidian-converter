@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="4.27.0@faf106e717c37b8c81721845dba9de3d8deed8ff">
   <file src="src/Inside/Domain/DayOne/Journal.php">
-    <MixedArgumentTypeCoercion occurrences="2">
-      <code>$photos</code>
+    <MixedArgumentTypeCoercion occurrences="1">
       <code>$tags</code>
     </MixedArgumentTypeCoercion>
   </file>
@@ -22,11 +21,10 @@
     </MixedReturnTypeCoercion>
   </file>
   <file src="src/Outside/Adapter/Secondary/DayOne/JournalReader.php">
-    <MixedArgument occurrences="11">
+    <MixedArgument occurrences="10">
       <code>$entry</code>
       <code>$entry['creationDate']</code>
       <code>$entry['modifiedDate']</code>
-      <code>$entry['photos']</code>
       <code>$entry['tags']</code>
       <code>$entry['uuid']</code>
       <code>$photo['identifier']</code>
@@ -35,13 +33,17 @@
       <code>$text</code>
       <code>$this-&gt;dataNormalizer-&gt;normalize($data)</code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="2">
+    <MixedArrayAccess occurrences="5">
       <code>$data['entries']</code>
       <code>$entry['creationDate']</code>
+      <code>$photo['identifier']</code>
+      <code>$photo['md5']</code>
+      <code>$photo['type']</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="3">
+    <MixedAssignment occurrences="4">
       <code>$data</code>
       <code>$entry</code>
+      <code>$photo</code>
       <code>$text</code>
     </MixedAssignment>
   </file>
@@ -61,8 +63,7 @@
     </TypeDoesNotContainType>
   </file>
   <file src="test/Unit/Inside/Domain/DayOne/EntryTest.php">
-    <MixedArgument occurrences="2">
-      <code>$faker-&gt;fileExtension()</code>
+    <MixedArgument occurrences="1">
       <code>$faker-&gt;fileExtension()</code>
     </MixedArgument>
     <MixedArgumentTypeCoercion occurrences="1">
@@ -71,10 +72,12 @@
     <PossiblyInvalidArgument occurrences="1">
       <code>$faker-&gt;sentences()</code>
     </PossiblyInvalidArgument>
-    <TooManyArguments occurrences="2"/>
+    <TooManyArguments occurrences="1"/>
   </file>
   <file src="test/Unit/Inside/Domain/DayOne/JournalTest.php">
-    <MixedArgument occurrences="6">
+    <MixedArgument occurrences="8">
+      <code>$faker-&gt;fileExtension()</code>
+      <code>$faker-&gt;fileExtension()</code>
       <code>$faker-&gt;fileExtension()</code>
       <code>$faker-&gt;fileExtension()</code>
       <code>$faker-&gt;fileExtension()</code>
@@ -90,15 +93,17 @@
       <code>$faker-&gt;sentences()</code>
       <code>$faker-&gt;sentences()</code>
     </PossiblyInvalidArgument>
-    <TooManyArguments occurrences="4"/>
+    <TooManyArguments occurrences="2"/>
   </file>
   <file src="test/Unit/Inside/Domain/DayOne/PhotoTest.php">
-    <MixedArgument occurrences="1">
+    <MixedArgument occurrences="2">
+      <code>$faker-&gt;fileExtension()</code>
       <code>$faker-&gt;fileExtension()</code>
     </MixedArgument>
   </file>
   <file src="test/Unit/Inside/Domain/DayOneToObsidian/File/DefaultObsidianAttachmentFileMapperTest.php">
-    <MixedArgument occurrences="1">
+    <MixedArgument occurrences="2">
+      <code>$faker-&gt;fileExtension()</code>
       <code>$faker-&gt;fileExtension()</code>
     </MixedArgument>
   </file>
@@ -109,13 +114,13 @@
     </MixedArgument>
   </file>
   <file src="test/Unit/Inside/Domain/DayOneToObsidian/Text/ReplaceMarkdownLinksToDayOneEntriesWithMarkdownLinksToObsidianNotesTest.php">
-    <MixedArgument occurrences="2">
-      <code>$faker-&gt;fileExtension()</code>
+    <MixedArgument occurrences="1">
       <code>$faker-&gt;fileExtension()</code>
     </MixedArgument>
   </file>
   <file src="test/Unit/Inside/Domain/DayOneToObsidian/Text/ReplaceMarkdownLinksToDayOnePhotosWithInternalLinksToObsidianAttachmentsTest.php">
-    <MixedArgument occurrences="2">
+    <MixedArgument occurrences="3">
+      <code>$faker-&gt;fileExtension()</code>
       <code>$faker-&gt;fileExtension()</code>
       <code>$faker-&gt;fileExtension()</code>
     </MixedArgument>

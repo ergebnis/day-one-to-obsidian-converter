@@ -21,19 +21,27 @@ use Ergebnis\DayOneToObsidianConverter\Inside;
 final class Photo
 {
     private function __construct(
+        private readonly Journal $journal,
         private readonly PhotoIdentifier $identifier,
         private readonly Inside\Domain\Shared\File $file,
     ) {
     }
 
     public static function create(
+        Journal $journal,
         PhotoIdentifier $identifier,
         Inside\Domain\Shared\File $file,
     ): self {
         return new self(
+            $journal,
             $identifier,
             $file,
         );
+    }
+
+    public function journal(): Journal
+    {
+        return $this->journal;
     }
 
     public function identifier(): PhotoIdentifier

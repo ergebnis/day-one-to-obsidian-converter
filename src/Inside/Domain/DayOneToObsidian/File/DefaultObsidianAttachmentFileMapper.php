@@ -17,15 +17,20 @@ use Ergebnis\DayOneToObsidianConverter\Inside;
 
 final class DefaultObsidianAttachmentFileMapper implements ObsidianAttachmentFileMapper
 {
-    public function __construct(private readonly Inside\Domain\Shared\Directory $obsidianAttachmentDirectory)
+    public function __construct(private readonly Inside\Domain\Shared\Directory $obsidianVaultDirectory)
     {
     }
 
     public function mapToFileInObsidianAttachmentDirectory(Inside\Domain\DayOne\Photo $dayOnePhoto): Inside\Domain\Shared\File
     {
         return Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
-            '%s/%s',
-            $this->obsidianAttachmentDirectory->path()->toString(),
+            '%s/%s/Attachment/%s',
+            $this->obsidianVaultDirectory->path()->toString(),
+            \str_replace(
+                ': ',
+                '/',
+                \urldecode($dayOnePhoto->journal()->file()->fileName()->fileNameWithoutExtension()->toString()),
+            ),
             $dayOnePhoto->file()->fileName()->toString(),
         )));
     }

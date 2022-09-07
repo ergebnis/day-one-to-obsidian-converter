@@ -61,7 +61,6 @@ final class DefaultObsidianNoteFileMapperTest extends Framework\TestCase
             Inside\Domain\Shared\Text::fromString($faker->realText()),
             [],
             [],
-            [],
         );
 
         $obsidianVaultDirectory = Inside\Domain\Shared\Directory::create(Inside\Domain\Shared\Path::fromString($faker->slug()));
@@ -102,7 +101,6 @@ final class DefaultObsidianNoteFileMapperTest extends Framework\TestCase
             Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime())),
             Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(\DateTimeImmutable::createFromMutable($faker->dateTime())),
             Inside\Domain\Shared\Text::fromString($faker->realText()),
-            [],
             [],
             [],
         );

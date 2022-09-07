@@ -22,6 +22,11 @@ final class Journal
      */
     private array $entries = [];
 
+    /**
+     * @var array<string, Photo>
+     */
+    private array $photos = [];
+
     private function __construct(
         private readonly Inside\Domain\Shared\File $file,
         private readonly Inside\Domain\Shared\Directory $photoDirectory,
@@ -58,7 +63,6 @@ final class Journal
         ModifiedDate $modifiedDate,
         Inside\Domain\Shared\Text $text,
         array $tags,
-        array $photos,
         array $data,
     ): void {
         if (\array_key_exists($entryIdentifier->toString(), $this->entries)) {
@@ -72,7 +76,6 @@ final class Journal
             $modifiedDate,
             $text,
             $tags,
-            $photos,
             $data,
         );
     }
@@ -83,5 +86,31 @@ final class Journal
     public function entries(): array
     {
         return \array_values($this->entries);
+    }
+
+    /**
+     * @throws JournalAlreadyHasPhoto
+     */
+    public function addPhoto(
+        PhotoIdentifier $photoIdentifier,
+        Inside\Domain\Shared\File $file,
+    ): void {
+        if (\array_key_exists($photoIdentifier->toString(), $this->photos)) {
+            throw JournalAlreadyHasPhoto::identifiedBy($photoIdentifier);
+        }
+
+        $this->photos[$photoIdentifier->toString()] = Photo::create(
+            $this,
+            $photoIdentifier,
+            $file,
+        );
+    }
+
+    /**
+     * @return array<int, Photo>
+     */
+    public function photos(): array
+    {
+        return \array_values($this->photos);
     }
 }

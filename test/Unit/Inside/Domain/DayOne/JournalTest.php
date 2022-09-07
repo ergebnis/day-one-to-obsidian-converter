@@ -26,6 +26,7 @@ use PHPUnit\Framework;
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Entry
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\EntryIdentifier
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\JournalAlreadyHasEntry
+ * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\JournalAlreadyHasPhoto
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\ModifiedDate
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Photo
  * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\PhotoIdentifier
@@ -77,6 +78,7 @@ final class JournalTest extends Framework\TestCase
         ))));
 
         self::assertSame([], $journal->entries());
+        self::assertSame([], $journal->photos());
     }
 
     public function testCanAddEntry(): void
@@ -89,17 +91,6 @@ final class JournalTest extends Framework\TestCase
         $text = Inside\Domain\Shared\Text::fromString($faker->realText());
         $tags = \array_map(static function () use ($faker): Inside\Domain\DayOne\Tag {
             return Inside\Domain\DayOne\Tag::fromString($faker->word());
-        }, \range(0, 2));
-        $photos = \array_map(static function () use ($faker): Inside\Domain\DayOne\Photo {
-            return Inside\Domain\DayOne\Photo::create(
-                Inside\Domain\DayOne\PhotoIdentifier::fromString($faker->sha1()),
-                Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
-                    '%s/%s.%s',
-                    $faker->slug(),
-                    $faker->slug(),
-                    $faker->fileExtension(),
-                ))),
-            );
         }, \range(0, 2));
         $data = \array_combine(
             $faker->words(),
@@ -119,7 +110,6 @@ final class JournalTest extends Framework\TestCase
             $modifiedDate,
             $text,
             $tags,
-            $photos,
             $data,
         );
 
@@ -131,7 +121,6 @@ final class JournalTest extends Framework\TestCase
                 $modifiedDate,
                 $text,
                 $tags,
-                $photos,
                 $data,
             ),
         ];
@@ -150,17 +139,6 @@ final class JournalTest extends Framework\TestCase
         $tags = \array_map(static function () use ($faker): Inside\Domain\DayOne\Tag {
             return Inside\Domain\DayOne\Tag::fromString($faker->word());
         }, \range(0, 2));
-        $photos = \array_map(static function () use ($faker): Inside\Domain\DayOne\Photo {
-            return Inside\Domain\DayOne\Photo::create(
-                Inside\Domain\DayOne\PhotoIdentifier::fromString($faker->sha1()),
-                Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
-                    '%s/%s.%s',
-                    $faker->slug(),
-                    $faker->slug(),
-                    $faker->fileExtension(),
-                ))),
-            );
-        }, \range(0, 2));
         $data = \array_combine(
             $faker->words(),
             $faker->sentences(),
@@ -179,7 +157,6 @@ final class JournalTest extends Framework\TestCase
             $modifiedDate,
             $text,
             $tags,
-            $photos,
             $data,
         );
 
@@ -191,8 +168,74 @@ final class JournalTest extends Framework\TestCase
             $modifiedDate,
             $text,
             $tags,
-            $photos,
             $data,
+        );
+    }
+
+    public function testCanAddPhoto(): void
+    {
+        $faker = self::faker();
+
+        $photoIdentifier = Inside\Domain\DayOne\PhotoIdentifier::fromString($faker->sha1());
+        $file = Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+            '%s/%s.%s',
+            $faker->slug(),
+            $faker->slug(),
+            $faker->fileExtension(),
+        )));
+
+        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+            '%s/%s.%s',
+            $faker->slug(),
+            $faker->slug(),
+            $faker->fileExtension(),
+        ))));
+
+        $journal->addPhoto(
+            $photoIdentifier,
+            $file,
+        );
+
+        $expected = [
+            Inside\Domain\DayOne\Photo::create(
+                $journal,
+                $photoIdentifier,
+                $file,
+            ),
+        ];
+
+        self::assertEquals($expected, $journal->photos());
+    }
+
+    public function testCanNotAddPhotoWithSamePhotoIdentifier(): void
+    {
+        $faker = self::faker();
+
+        $photoIdentifier = Inside\Domain\DayOne\PhotoIdentifier::fromString($faker->sha1());
+        $file = Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+            '%s/%s.%s',
+            $faker->slug(),
+            $faker->slug(),
+            $faker->fileExtension(),
+        )));
+
+        $journal = Inside\Domain\DayOne\Journal::create(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
+            '%s/%s.%s',
+            $faker->slug(),
+            $faker->slug(),
+            $faker->fileExtension(),
+        ))));
+
+        $journal->addPhoto(
+            $photoIdentifier,
+            $file,
+        );
+
+        $this->expectException(Inside\Domain\DayOne\JournalAlreadyHasPhoto::class);
+
+        $journal->addPhoto(
+            $photoIdentifier,
+            $file,
         );
     }
 }
