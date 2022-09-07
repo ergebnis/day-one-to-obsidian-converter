@@ -77,6 +77,9 @@ final class Journal
         );
     }
 
+    /**
+     * @return array<int, Entry>
+     */
     public function entries(): array
     {
         return \array_values($this->entries);
