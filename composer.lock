@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b392e573bd406471cba53ac740c0e2be",
+    "content-hash": "6105cdd3b53f344f99f2089d5907bc92",
     "packages": [
         {
             "name": "ergebnis/json-schema-validator",
@@ -365,16 +365,16 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v6.1.4",
+            "version": "v6.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "3f39c04d2630c34019907b02f85672dac99f8659"
+                "reference": "4d216a2beef096edf040a070117c39ca2abce307"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/3f39c04d2630c34019907b02f85672dac99f8659",
-                "reference": "3f39c04d2630c34019907b02f85672dac99f8659",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/4d216a2beef096edf040a070117c39ca2abce307",
+                "reference": "4d216a2beef096edf040a070117c39ca2abce307",
                 "shasum": ""
             },
             "require": {
@@ -408,7 +408,7 @@
             "description": "Provides basic utilities for the filesystem",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/filesystem/tree/v6.1.4"
+                "source": "https://github.com/symfony/filesystem/tree/v6.1.5"
             },
             "funding": [
                 {
@@ -424,7 +424,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-08-02T16:17:38+00:00"
+            "time": "2022-09-21T20:29:40+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
