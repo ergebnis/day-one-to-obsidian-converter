@@ -65,7 +65,7 @@ final class DefaultObsidianAttachmentFileMapperTest extends Framework\TestCase
         $obsidianAttachmentFile = $obsidianAttachmentFileMapper->mapToFileInObsidianAttachmentDirectory($dayOnePhoto);
 
         $expected = Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
-            '%s/%s/Attachment/%s',
+            '%s/%s/+ Attachment/%s',
             $obsidianAttachmentDirectory->path()->toString(),
             \str_replace(
                 ': ',
