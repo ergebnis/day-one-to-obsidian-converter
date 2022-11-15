@@ -57,7 +57,7 @@ to install dependencies with `composer`.
 Run
 
 ```sh
-php bin/day-one-to-obsidian-converter demo/day-one/ demo/obsidian/
+php bin/day-one-to-obsidian-converter demo/day-one demo/obsidian
 ```
 
 to see the converter in action.
