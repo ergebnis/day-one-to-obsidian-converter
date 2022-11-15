@@ -1,0 +1,43 @@
+#!/usr/bin/php
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Copyright (c) 2022 Andreas Möller
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/ergebnis/day-one-to-obsidian-converter
+ */
+
+use Ergebnis\DayOneToObsidianConverter\Outside;
+use Ergebnis\Json\SchemaValidator;
+use Symfony\Component\Console;
+use Symfony\Component\Filesystem;
+
+require __DIR__ . '/../vendor/autoload.php';
+
+$schemaValidator = new SchemaValidator\SchemaValidator();
+$schema = SchemaValidator\Json::fromFile(__DIR__ . '/../resource/day-one/schema.json');
+
+$convertCommand = new Outside\Adapter\Primary\Console\ConvertCommand(
+    new Outside\Adapter\Secondary\DayOne\JournalFinder(new Outside\Adapter\Secondary\DayOne\JournalReader(
+        $schemaValidator,
+        $schema,
+        new Outside\Infrastructure\DataNormalizer(),
+    )),
+    new Outside\Adapter\Secondary\Obsidian\NoteWriter(),
+    new Filesystem\Filesystem(),
+);
+
+$application = new Console\Application();
+
+$application->add($convertCommand);
+$application->setDefaultCommand(
+    $convertCommand->getName(),
+    true,
+);
+
+$application->run();

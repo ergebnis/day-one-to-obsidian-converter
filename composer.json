@@ -42,6 +42,9 @@
       "Ergebnis\\DayOneToObsidianConverter\\Test\\": "test/"
     }
   },
+  "bin": [
+    "bin/day-one-to-obsidian-converter"
+  ],
   "config": {
     "allow-plugins": {
       "composer/package-versions-deprecated": true,

@@ -60,12 +60,14 @@ final class JournalReader implements Inside\Port\Secondary\DayOne\JournalReader
         $journal = Inside\Domain\DayOne\Journal::create($file);
 
         foreach ($data['entries'] as $entry) {
-            $creationDate = Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable(new \DateTimeImmutable($entry['creationDate']));
+            $timeZone = new \DateTimeZone($entry['timeZone']);
+
+            $creationDate = Inside\Domain\DayOne\CreationDate::fromDateTimeImmutable((new \DateTimeImmutable($entry['creationDate']))->setTimezone($timeZone));
 
             $modifiedDate = Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable($creationDate->toDateTimeImmutable());
 
             if (\array_key_exists('modifiedDate', $entry)) {
-                $modifiedDate = Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable(new \DateTimeImmutable($entry['modifiedDate']));
+                $modifiedDate = Inside\Domain\DayOne\ModifiedDate::fromDateTimeImmutable((new \DateTimeImmutable($entry['modifiedDate']))->setTimezone($timeZone));
             }
 
             $text = '';

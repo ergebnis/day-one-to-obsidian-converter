@@ -23,7 +23,18 @@ composer require ergebnis/day-one-to-obsidian-converter
 
 ## Usage
 
-:bulb: This is a great place for showing a few usage examples!
+Run
+
+```sh
+bin/day-one-to-obsidian-converter <day-one-directory> <obsidian-vault-directory>
+```
+
+The command will
+
+- look for JSON files in `<day-one-directory>`
+- convert JSON files that  match the JSON Schema in [`resource/day-one/schema.json`](resource/day-one/schema.json) to Markdown files in `<obsidian-vault-directory>`
+
+Ideally, the `<obsidian-vault-directory>` should not exist yet.
 
 ## Changelog
 

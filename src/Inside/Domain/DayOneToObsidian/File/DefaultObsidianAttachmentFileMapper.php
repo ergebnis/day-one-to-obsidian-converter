@@ -24,7 +24,7 @@ final class DefaultObsidianAttachmentFileMapper implements ObsidianAttachmentFil
     public function mapToFileInObsidianAttachmentDirectory(Inside\Domain\DayOne\Photo $dayOnePhoto): Inside\Domain\Shared\File
     {
         return Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString(\sprintf(
-            '%s/%s/Attachment/%s',
+            '%s/%s/+ Attachment/%s',
             $this->obsidianVaultDirectory->path()->toString(),
             \str_replace(
                 ': ',

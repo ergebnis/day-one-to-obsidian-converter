@@ -15,17 +15,23 @@
       <code>empty</code>
     </ImpureMethodCall>
   </file>
+  <file src="src/Outside/Adapter/Primary/Console/ConvertCommand.php">
+    <MixedArgument occurrences="1">
+      <code>$dayOnePhotos</code>
+    </MixedArgument>
+  </file>
   <file src="src/Outside/Adapter/Secondary/DayOne/JournalFinder.php">
     <MixedReturnTypeCoercion occurrences="2">
       <code>array</code>
     </MixedReturnTypeCoercion>
   </file>
   <file src="src/Outside/Adapter/Secondary/DayOne/JournalReader.php">
-    <MixedArgument occurrences="10">
+    <MixedArgument occurrences="11">
       <code>$entry</code>
       <code>$entry['creationDate']</code>
       <code>$entry['modifiedDate']</code>
       <code>$entry['tags']</code>
+      <code>$entry['timeZone']</code>
       <code>$entry['uuid']</code>
       <code>$photo['identifier']</code>
       <code>$photo['md5']</code>
@@ -33,9 +39,10 @@
       <code>$text</code>
       <code>$this-&gt;dataNormalizer-&gt;normalize($data)</code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="5">
+    <MixedArrayAccess occurrences="6">
       <code>$data['entries']</code>
       <code>$entry['creationDate']</code>
+      <code>$entry['timeZone']</code>
       <code>$photo['identifier']</code>
       <code>$photo['md5']</code>
       <code>$photo['type']</code>
@@ -61,6 +68,11 @@
     <TypeDoesNotContainType occurrences="1">
       <code>$keys === $stringKeys</code>
     </TypeDoesNotContainType>
+  </file>
+  <file src="test/Integration/Outside/Adapter/Primary/Console/ConvertCommandTest.php">
+    <PossiblyNullArgument occurrences="1">
+      <code>$convertCommand-&gt;getName()</code>
+    </PossiblyNullArgument>
   </file>
   <file src="test/Unit/Inside/Domain/DayOne/EntryTest.php">
     <MixedArgument occurrences="1">

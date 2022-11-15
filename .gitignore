@@ -1,3 +1,5 @@
 /.build/
 /.notes/
+/demo/obsidian/
+!/demo/obsidian/.gitkeep
 /vendor/
