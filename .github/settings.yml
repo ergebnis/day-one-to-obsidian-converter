@@ -20,6 +20,7 @@ branches:
           - context: "Mutation Tests (8.1, locked)"
           - context: "Static Code Analysis (8.1, locked)"
           - context: "Tests (8.1, locked)"
+          - context: "Tests (8.2, locked)"
         strict: false
       restrictions:
 
