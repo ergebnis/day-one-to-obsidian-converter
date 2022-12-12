@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6ed84a60ef61e26112d4fbddcafdece6",
+    "content-hash": "c0cb5f3dd6da5cdbda444de6d340d740",
     "packages": [
         {
             "name": "ergebnis/json-schema-validator",
@@ -6017,7 +6017,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.1"
+        "php": "~8.1.0 || ~8.2.0"
     },
     "platform-dev": [],
     "platform-overrides": {
