@@ -1,5 +1,7 @@
 /.build/
 /.notes/
+/.phive/
 /demo/obsidian/
-!/demo/obsidian/.gitkeep
 /vendor/
+!/.phive/phars.xml
+!/demo/obsidian/.gitkeep
