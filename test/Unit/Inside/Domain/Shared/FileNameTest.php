@@ -71,7 +71,7 @@ final class FileNameTest extends Framework\TestCase
     /**
      * @return \Generator<string, array{0: string, 1: Inside\Domain\Shared\FileNameWithoutExtension, 2: Inside\Domain\Shared\Extension}>
      */
-    public function provideValueFileNameWithoutExtensionsAndExtension(): \Generator
+    public static function provideValueFileNameWithoutExtensionsAndExtension(): \Generator
     {
         $values = [
             'dotfile-without-extension' => [
