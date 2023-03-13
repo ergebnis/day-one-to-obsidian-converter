@@ -1,7 +1,7 @@
 # day-one-to-obsidian-converter
 
 [![Integrate](https://github.com/ergebnis/day-one-to-obsidian-converter/workflows/Integrate/badge.svg)](https://github.com/ergebnis/day-one-to-obsidian-converter/actions)
-[![Prune](https://github.com/ergebnis/day-one-to-obsidian-converter/workflows/Prune/badge.svg)](https://github.com/ergebnis/day-one-to-obsidian-converter/actions)
+[![Merge](https://github.com/ergebnis/day-one-to-obsidian-converter/workflows/Merge/badge.svg)](https://github.com/ergebnis/day-one-to-obsidian-converter/actions)
 [![Release](https://github.com/ergebnis/day-one-to-obsidian-converter/workflows/Release/badge.svg)](https://github.com/ergebnis/day-one-to-obsidian-converter/actions)
 [![Renew](https://github.com/ergebnis/day-one-to-obsidian-converter/workflows/Renew/badge.svg)](https://github.com/ergebnis/day-one-to-obsidian-converter/actions)
 
@@ -10,6 +10,7 @@
 
 [![Latest Stable Version](https://poser.pugx.org/ergebnis/day-one-to-obsidian-converter/v/stable)](https://packagist.org/packages/ergebnis/day-one-to-obsidian-converter)
 [![Total Downloads](https://poser.pugx.org/ergebnis/day-one-to-obsidian-converter/downloads)](https://packagist.org/packages/ergebnis/day-one-to-obsidian-converter)
+[![Monthly Downloads](http://poser.pugx.org/ergebnis/day-one-to-obsidian-converter/d/monthly)](https://packagist.org/packages/ergebnis/day-one-to-obsidian-converter)
 
 Provides a console command for converting [DayOne](https://dayoneapp.com) journals to [Obsidian](https://obsidian.md) notes.
 
@@ -90,4 +91,4 @@ The files in [`demo/day-one/`](demo/day-one/) are taken from [Importing data to 
 
 ## Curious what I am up to?
 
-Follow me on [Twitter](https://twitter.com/localheinz)!
+Follow me on [Twitter](https://twitter.com/intent/follow?screen_name=localheinz)!
