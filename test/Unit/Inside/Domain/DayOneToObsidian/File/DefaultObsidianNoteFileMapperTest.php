@@ -127,7 +127,7 @@ final class DefaultObsidianNoteFileMapperTest extends Framework\TestCase
     /**
      * @return \Generator<string, array{0: Inside\Domain\Shared\FileNameWithoutExtension, 1: Inside\Domain\Shared\FileNameWithoutExtension}>
      */
-    public function provideOriginalJournalFileNameWithoutExtensionAndModifiedJournalFileNameWithoutExtension(): \Generator
+    public static function provideOriginalJournalFileNameWithoutExtensionAndModifiedJournalFileNameWithoutExtension(): \Generator
     {
         $values = [
             'with-colon' => [
