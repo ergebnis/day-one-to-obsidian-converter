@@ -1,53 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.27.0@faf106e717c37b8c81721845dba9de3d8deed8ff">
+<files psalm-version="5.8.0@9cf4f60a333f779ad3bc704a555920e81d4fdcda">
   <file src="src/Inside/Domain/DayOne/Journal.php">
-    <MixedArgumentTypeCoercion occurrences="1">
+    <MixedArgumentTypeCoercion>
       <code>$tags</code>
     </MixedArgumentTypeCoercion>
   </file>
   <file src="src/Inside/Domain/DayOneToObsidian/Text/TextProcessorPipeline.php">
-    <MixedPropertyTypeCoercion occurrences="1">
+    <MixedPropertyTypeCoercion>
       <code>$textProcessors</code>
     </MixedPropertyTypeCoercion>
   </file>
   <file src="src/Inside/Domain/Shared/FileName.php">
-    <ImpureMethodCall occurrences="1">
+    <ImpureMethodCall>
       <code>empty</code>
     </ImpureMethodCall>
   </file>
   <file src="src/Outside/Adapter/Primary/Console/ConvertCommand.php">
-    <MixedArgument occurrences="1">
+    <MixedArgument>
       <code>$dayOnePhotos</code>
     </MixedArgument>
   </file>
   <file src="src/Outside/Adapter/Secondary/DayOne/JournalFinder.php">
-    <MixedReturnTypeCoercion occurrences="2">
+    <MixedReturnTypeCoercion>
+      <code><![CDATA[\array_reduce(
+            $files,
+            static function (array $dayOneJournals, string $file) use ($dayOneJournalReader): array {
+                if (!\is_file($file)) {
+                    return $dayOneJournals;
+                }
+
+                try {
+                    $dayOneJournal = $dayOneJournalReader->read(Inside\Domain\Shared\File::create(Inside\Domain\Shared\Path::fromString($file)));
+                } catch (Inside\Port\Secondary\DayOne\FileDoesNotContainJson|Inside\Port\Secondary\DayOne\FileDoesNotContainJsonValidAccordingToSchema) {
+                    return $dayOneJournals;
+                }
+
+                $dayOneJournals[] = $dayOneJournal;
+
+                return $dayOneJournals;
+            },
+            [],
+        )]]></code>
       <code>array</code>
     </MixedReturnTypeCoercion>
   </file>
   <file src="src/Outside/Adapter/Secondary/DayOne/JournalReader.php">
-    <MixedArgument occurrences="11">
+    <MixedArgument>
       <code>$entry</code>
-      <code>$entry['creationDate']</code>
-      <code>$entry['modifiedDate']</code>
-      <code>$entry['tags']</code>
-      <code>$entry['timeZone']</code>
-      <code>$entry['uuid']</code>
-      <code>$photo['identifier']</code>
-      <code>$photo['md5']</code>
-      <code>$photo['type']</code>
+      <code><![CDATA[$entry['creationDate']]]></code>
+      <code><![CDATA[$entry['modifiedDate']]]></code>
+      <code><![CDATA[$entry['tags']]]></code>
+      <code><![CDATA[$entry['timeZone']]]></code>
+      <code><![CDATA[$entry['uuid']]]></code>
+      <code><![CDATA[$photo['identifier']]]></code>
+      <code><![CDATA[$photo['md5']]]></code>
+      <code><![CDATA[$photo['type']]]></code>
       <code>$text</code>
-      <code>$this-&gt;dataNormalizer-&gt;normalize($data)</code>
+      <code><![CDATA[$this->dataNormalizer->normalize($data)]]></code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="6">
-      <code>$data['entries']</code>
-      <code>$entry['creationDate']</code>
-      <code>$entry['timeZone']</code>
-      <code>$photo['identifier']</code>
-      <code>$photo['md5']</code>
-      <code>$photo['type']</code>
+    <MixedArrayAccess>
+      <code><![CDATA[$data['entries']]]></code>
+      <code><![CDATA[$entry['creationDate']]]></code>
+      <code><![CDATA[$entry['timeZone']]]></code>
+      <code><![CDATA[$photo['identifier']]]></code>
+      <code><![CDATA[$photo['md5']]]></code>
+      <code><![CDATA[$photo['type']]]></code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="4">
+    <MixedAssignment>
       <code>$data</code>
       <code>$entry</code>
       <code>$photo</code>
@@ -55,148 +74,159 @@
     </MixedAssignment>
   </file>
   <file src="src/Outside/Infrastructure/DataNormalizer.php">
-    <MissingParamType occurrences="1">
+    <MissingParamType>
       <code>$data</code>
     </MissingParamType>
-    <MissingReturnType occurrences="1">
+    <MissingReturnType>
       <code>normalize</code>
     </MissingReturnType>
-    <MixedAssignment occurrences="2">
+    <MixedAssignment>
       <code>$data[$key]</code>
       <code>$value</code>
     </MixedAssignment>
-    <TypeDoesNotContainType occurrences="1">
+    <TypeDoesNotContainType>
       <code>$keys === $stringKeys</code>
     </TypeDoesNotContainType>
   </file>
   <file src="test/Integration/Outside/Adapter/Primary/Console/ConvertCommandTest.php">
-    <PossiblyNullArgument occurrences="1">
-      <code>$convertCommand-&gt;getName()</code>
+    <PossiblyNullArgument>
+      <code><![CDATA[$convertCommand->getName()]]></code>
     </PossiblyNullArgument>
   </file>
   <file src="test/Unit/Inside/Domain/DayOne/EntryTest.php">
-    <MixedArgument occurrences="1">
-      <code>$faker-&gt;fileExtension()</code>
+    <MixedArgument>
+      <code><![CDATA[$faker->fileExtension()]]></code>
     </MixedArgument>
-    <MixedArgumentTypeCoercion occurrences="1">
-      <code>$faker-&gt;words()</code>
+    <MixedArgumentTypeCoercion>
+      <code><![CDATA[$faker->words()]]></code>
     </MixedArgumentTypeCoercion>
-    <PossiblyInvalidArgument occurrences="1">
-      <code>$faker-&gt;sentences()</code>
+    <PossiblyInvalidArgument>
+      <code><![CDATA[$faker->sentences()]]></code>
     </PossiblyInvalidArgument>
-    <TooManyArguments occurrences="1"/>
+    <TooManyArguments>
+      <code><![CDATA[static function () use ($faker): Inside\Domain\DayOne\Tag {
+            return Inside\Domain\DayOne\Tag::fromString($faker->word());
+        }]]></code>
+    </TooManyArguments>
   </file>
   <file src="test/Unit/Inside/Domain/DayOne/JournalTest.php">
-    <MixedArgument occurrences="8">
-      <code>$faker-&gt;fileExtension()</code>
-      <code>$faker-&gt;fileExtension()</code>
-      <code>$faker-&gt;fileExtension()</code>
-      <code>$faker-&gt;fileExtension()</code>
-      <code>$faker-&gt;fileExtension()</code>
-      <code>$faker-&gt;fileExtension()</code>
-      <code>$faker-&gt;fileExtension()</code>
-      <code>$faker-&gt;fileExtension()</code>
+    <MixedArgument>
+      <code><![CDATA[$faker->fileExtension()]]></code>
+      <code><![CDATA[$faker->fileExtension()]]></code>
+      <code><![CDATA[$faker->fileExtension()]]></code>
+      <code><![CDATA[$faker->fileExtension()]]></code>
+      <code><![CDATA[$faker->fileExtension()]]></code>
+      <code><![CDATA[$faker->fileExtension()]]></code>
+      <code><![CDATA[$faker->fileExtension()]]></code>
+      <code><![CDATA[$faker->fileExtension()]]></code>
     </MixedArgument>
-    <MixedArgumentTypeCoercion occurrences="2">
-      <code>$faker-&gt;words()</code>
-      <code>$faker-&gt;words()</code>
+    <MixedArgumentTypeCoercion>
+      <code><![CDATA[$faker->words()]]></code>
+      <code><![CDATA[$faker->words()]]></code>
     </MixedArgumentTypeCoercion>
-    <PossiblyInvalidArgument occurrences="2">
-      <code>$faker-&gt;sentences()</code>
-      <code>$faker-&gt;sentences()</code>
+    <PossiblyInvalidArgument>
+      <code><![CDATA[$faker->sentences()]]></code>
+      <code><![CDATA[$faker->sentences()]]></code>
     </PossiblyInvalidArgument>
-    <TooManyArguments occurrences="2"/>
+    <TooManyArguments>
+      <code><![CDATA[static function () use ($faker): Inside\Domain\DayOne\Tag {
+            return Inside\Domain\DayOne\Tag::fromString($faker->word());
+        }]]></code>
+      <code><![CDATA[static function () use ($faker): Inside\Domain\DayOne\Tag {
+            return Inside\Domain\DayOne\Tag::fromString($faker->word());
+        }]]></code>
+    </TooManyArguments>
   </file>
   <file src="test/Unit/Inside/Domain/DayOne/PhotoTest.php">
-    <MixedArgument occurrences="2">
-      <code>$faker-&gt;fileExtension()</code>
-      <code>$faker-&gt;fileExtension()</code>
+    <MixedArgument>
+      <code><![CDATA[$faker->fileExtension()]]></code>
+      <code><![CDATA[$faker->fileExtension()]]></code>
     </MixedArgument>
   </file>
   <file src="test/Unit/Inside/Domain/DayOneToObsidian/File/DefaultObsidianAttachmentFileMapperTest.php">
-    <MixedArgument occurrences="2">
-      <code>$faker-&gt;fileExtension()</code>
-      <code>$faker-&gt;fileExtension()</code>
+    <MixedArgument>
+      <code><![CDATA[$faker->fileExtension()]]></code>
+      <code><![CDATA[$faker->fileExtension()]]></code>
     </MixedArgument>
   </file>
   <file src="test/Unit/Inside/Domain/DayOneToObsidian/File/DefaultObsidianNoteFileMapperTest.php">
-    <MixedArgument occurrences="2">
-      <code>$faker-&gt;fileExtension()</code>
-      <code>$faker-&gt;fileExtension()</code>
+    <MixedArgument>
+      <code><![CDATA[$faker->fileExtension()]]></code>
+      <code><![CDATA[$faker->fileExtension()]]></code>
     </MixedArgument>
   </file>
   <file src="test/Unit/Inside/Domain/DayOneToObsidian/Text/ReplaceMarkdownLinksToDayOneEntriesWithMarkdownLinksToObsidianNotesTest.php">
-    <MixedArgument occurrences="1">
-      <code>$faker-&gt;fileExtension()</code>
+    <MixedArgument>
+      <code><![CDATA[$faker->fileExtension()]]></code>
     </MixedArgument>
   </file>
   <file src="test/Unit/Inside/Domain/DayOneToObsidian/Text/ReplaceMarkdownLinksToDayOnePhotosWithInternalLinksToObsidianAttachmentsTest.php">
-    <MixedArgument occurrences="3">
-      <code>$faker-&gt;fileExtension()</code>
-      <code>$faker-&gt;fileExtension()</code>
-      <code>$faker-&gt;fileExtension()</code>
+    <MixedArgument>
+      <code><![CDATA[$faker->fileExtension()]]></code>
+      <code><![CDATA[$faker->fileExtension()]]></code>
+      <code><![CDATA[$faker->fileExtension()]]></code>
     </MixedArgument>
   </file>
   <file src="test/Unit/Inside/Domain/DayOneToObsidian/Text/TextProcessorPipelineTest.php">
-    <MixedArgumentTypeCoercion occurrences="1">
+    <MixedArgumentTypeCoercion>
       <code>$suffixes</code>
     </MixedArgumentTypeCoercion>
-    <PossiblyInvalidArgument occurrences="1">
+    <PossiblyInvalidArgument>
       <code>$suffixes</code>
     </PossiblyInvalidArgument>
   </file>
   <file src="test/Unit/Inside/Domain/Obsidian/FrontMatterTest.php">
-    <MixedArgumentTypeCoercion occurrences="1">
-      <code>$faker-&gt;words()</code>
+    <MixedArgumentTypeCoercion>
+      <code><![CDATA[$faker->words()]]></code>
     </MixedArgumentTypeCoercion>
-    <PossiblyInvalidArgument occurrences="1">
-      <code>$faker-&gt;sentences()</code>
+    <PossiblyInvalidArgument>
+      <code><![CDATA[$faker->sentences()]]></code>
     </PossiblyInvalidArgument>
   </file>
   <file src="test/Unit/Inside/Domain/Obsidian/NoteTest.php">
-    <MixedArgument occurrences="1">
-      <code>$faker-&gt;fileExtension()</code>
+    <MixedArgument>
+      <code><![CDATA[$faker->fileExtension()]]></code>
     </MixedArgument>
-    <MixedArgumentTypeCoercion occurrences="1">
-      <code>$faker-&gt;words()</code>
+    <MixedArgumentTypeCoercion>
+      <code><![CDATA[$faker->words()]]></code>
     </MixedArgumentTypeCoercion>
-    <PossiblyInvalidArgument occurrences="1">
-      <code>$faker-&gt;sentences()</code>
+    <PossiblyInvalidArgument>
+      <code><![CDATA[$faker->sentences()]]></code>
     </PossiblyInvalidArgument>
   </file>
   <file src="test/Unit/Inside/Domain/Shared/ExtensionTest.php">
-    <MixedArgument occurrences="4">
-      <code>$faker-&gt;fileExtension()</code>
-      <code>$faker-&gt;fileExtension()</code>
+    <MixedArgument>
+      <code><![CDATA[$faker->fileExtension()]]></code>
+      <code><![CDATA[$faker->fileExtension()]]></code>
       <code>$value</code>
       <code>$value</code>
     </MixedArgument>
-    <MixedAssignment occurrences="2">
+    <MixedAssignment>
       <code>$value</code>
       <code>$value</code>
     </MixedAssignment>
   </file>
   <file src="test/Unit/Inside/Domain/Shared/FileNameTest.php">
-    <MixedArgument occurrences="1">
-      <code>$faker-&gt;fileExtension()</code>
+    <MixedArgument>
+      <code><![CDATA[$faker->fileExtension()]]></code>
     </MixedArgument>
   </file>
   <file src="test/Unit/Inside/Domain/Shared/FileTest.php">
-    <MixedArgument occurrences="1">
-      <code>$faker-&gt;fileExtension()</code>
+    <MixedArgument>
+      <code><![CDATA[$faker->fileExtension()]]></code>
     </MixedArgument>
   </file>
   <file src="test/Unit/Inside/Domain/Shared/PathTest.php">
-    <MixedArgument occurrences="1">
-      <code>$faker-&gt;fileExtension()</code>
+    <MixedArgument>
+      <code><![CDATA[$faker->fileExtension()]]></code>
     </MixedArgument>
   </file>
   <file src="test/Unit/Outside/Adapter/Secondary/Obsidian/NoteWriterTest.php">
-    <MixedArgument occurrences="4">
-      <code>$faker-&gt;fileExtension()</code>
-      <code>$faker-&gt;fileExtension()</code>
-      <code>$faker-&gt;fileExtension()</code>
-      <code>$faker-&gt;fileExtension()</code>
+    <MixedArgument>
+      <code><![CDATA[$faker->fileExtension()]]></code>
+      <code><![CDATA[$faker->fileExtension()]]></code>
+      <code><![CDATA[$faker->fileExtension()]]></code>
+      <code><![CDATA[$faker->fileExtension()]]></code>
     </MixedArgument>
   </file>
 </files>
