@@ -39,7 +39,7 @@ final class PathTest extends Framework\TestCase
     /**
      * @return \Generator<string, array{0: string}>
      */
-    public static function providePath(): \Generator
+    public static function providePath(): iterable
     {
         $faker = self::faker();
 
