@@ -20,7 +20,7 @@
     "ergebnis/json-schema-validator": "^2.0.0",
     "symfony/console": "^6.3.8",
     "symfony/filesystem": "^6.3.0",
-    "symfony/yaml": "^6.3.8"
+    "symfony/yaml": "^6.4.0"
   },
   "require-dev": {
     "ergebnis/composer-normalize": "^2.29.0",
