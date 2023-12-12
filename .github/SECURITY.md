@@ -4,13 +4,13 @@
 
 The following versions of `ergebnis/day-one-to-obsidian-converter` have active support:
 
-- `^1.0.0`
+- `^1.1.0`
 
 ## Unsupported Versions
 
 The following versions of `ergebnis/day-one-to-obsidian-converter` have reached their end of life:
 
-- `<1.0.0`
+- `<1.1.0`
 
 ## Reporting a Vulnerability
 
