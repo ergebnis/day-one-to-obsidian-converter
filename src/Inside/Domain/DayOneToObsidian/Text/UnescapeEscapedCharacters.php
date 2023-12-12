@@ -38,7 +38,7 @@ final class UnescapeEscapedCharacters implements TextProcessor
     /**
      * @var array<string, string>
      */
-    private array $replacements;
+    private readonly array $replacements;
 
     public function __construct()
     {

@@ -17,11 +17,7 @@ use Ergebnis\DayOneToObsidianConverter\Inside;
 use Ergebnis\DayOneToObsidianConverter\Test;
 use PHPUnit\Framework;
 
-/**
- * @internal
- *
- * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Obsidian\FrontMatter
- */
+#[Framework\Attributes\CoversClass(Inside\Domain\Obsidian\FrontMatter::class)]
 final class FrontMatterTest extends Framework\TestCase
 {
     use Test\Util\Helper;

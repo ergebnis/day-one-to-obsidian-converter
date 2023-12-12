@@ -17,31 +17,24 @@ use Ergebnis\DayOneToObsidianConverter\Inside;
 use Ergebnis\DayOneToObsidianConverter\Test;
 use PHPUnit\Framework;
 
-/**
- * @internal
- *
- * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOneToObsidian\File\DefaultObsidianNoteFileMapper
- *
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\CreationDate
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Entry
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\EntryIdentifier
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Journal
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\ModifiedDate
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\File
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileNameWithoutExtension
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Text
- */
+#[Framework\Attributes\CoversClass(Inside\Domain\DayOneToObsidian\File\DefaultObsidianNoteFileMapper::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\DayOne\CreationDate::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\DayOne\Entry::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\DayOne\EntryIdentifier::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\DayOne\Journal::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\DayOne\ModifiedDate::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\Shared\Directory::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\Shared\Extension::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\Shared\File::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\Shared\FileName::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\Shared\FileNameWithoutExtension::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\Shared\Path::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\Shared\Text::class)]
 final class DefaultObsidianNoteFileMapperTest extends Framework\TestCase
 {
     use Test\Util\Helper;
 
-    /**
-     * @dataProvider provideOriginalJournalFileNameWithoutExtensionAndModifiedJournalFileNameWithoutExtension
-     */
+    #[Framework\Attributes\DataProvider('provideOriginalJournalFileNameWithoutExtensionAndModifiedJournalFileNameWithoutExtension')]
     public function testMapToFileInObsidianVaultDirectoryReturnsFileCombiningObsidianVaultDirectoryDayOneJournalNameAndRepresentationOfEntryCreationDate(
         Inside\Domain\Shared\FileNameWithoutExtension $originalJournalFileNameWithoutExtension,
         Inside\Domain\Shared\FileNameWithoutExtension $modifiedJournalFileNameWithoutExtension,
@@ -81,9 +74,7 @@ final class DefaultObsidianNoteFileMapperTest extends Framework\TestCase
         self::assertEquals($expected, $obsidianNoteFile);
     }
 
-    /**
-     * @dataProvider provideOriginalJournalFileNameWithoutExtensionAndModifiedJournalFileNameWithoutExtension
-     */
+    #[Framework\Attributes\DataProvider('provideOriginalJournalFileNameWithoutExtensionAndModifiedJournalFileNameWithoutExtension')]
     public function testMapToFileRelativeToOtherObsidianNoteReturnsFileCombiningDayOneJournalNameAndRepresentationOfEntryCreationDate(
         Inside\Domain\Shared\FileNameWithoutExtension $originalJournalFileNameWithoutExtension,
         Inside\Domain\Shared\FileNameWithoutExtension $modifiedJournalFileNameWithoutExtension,

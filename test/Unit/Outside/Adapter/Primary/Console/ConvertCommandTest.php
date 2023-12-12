@@ -13,27 +13,23 @@ declare(strict_types=1);
 
 namespace Ergebnis\DayOneToObsidianConverter\Test\Unit\Outside\Adapter\Primary\Console;
 
+use Ergebnis\DayOneToObsidianConverter\Inside;
 use Ergebnis\DayOneToObsidianConverter\Outside;
 use Ergebnis\DayOneToObsidianConverter\Test;
 use Ergebnis\Json\SchemaValidator;
 use PHPUnit\Framework;
 use Symfony\Component\Filesystem;
 
-/**
- * @internal
- *
- * @covers \Ergebnis\DayOneToObsidianConverter\Outside\Adapter\Primary\Console\ConvertCommand
- *
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Journal
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\File
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
- * @uses \Ergebnis\DayOneToObsidianConverter\Outside\Adapter\Secondary\DayOne\JournalFinder
- * @uses \Ergebnis\DayOneToObsidianConverter\Outside\Adapter\Secondary\DayOne\JournalReader
- * @uses \Ergebnis\DayOneToObsidianConverter\Outside\Adapter\Secondary\Obsidian\NoteWriter
- */
+#[Framework\Attributes\CoversClass(Outside\Adapter\Primary\Console\ConvertCommand::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\DayOne\Journal::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\Shared\Directory::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\Shared\Extension::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\Shared\File::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\Shared\FileName::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\Shared\Path::class)]
+#[Framework\Attributes\UsesClass(Outside\Adapter\Secondary\DayOne\JournalFinder::class)]
+#[Framework\Attributes\UsesClass(Outside\Adapter\Secondary\DayOne\JournalReader::class)]
+#[Framework\Attributes\UsesClass(Outside\Adapter\Secondary\Obsidian\NoteWriter::class)]
 final class ConvertCommandTest extends Framework\TestCase
 {
     use Test\Util\Helper;

@@ -17,13 +17,8 @@ use Ergebnis\DayOneToObsidianConverter\Inside;
 use Ergebnis\DayOneToObsidianConverter\Test;
 use PHPUnit\Framework;
 
-/**
- * @internal
- *
- * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\JournalAlreadyHasEntry
- *
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\EntryIdentifier
- */
+#[Framework\Attributes\CoversClass(Inside\Domain\DayOne\JournalAlreadyHasEntry::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\DayOne\EntryIdentifier::class)]
 final class JournalAlreadyHasEntryTest extends Framework\TestCase
 {
     use Test\Util\Helper;

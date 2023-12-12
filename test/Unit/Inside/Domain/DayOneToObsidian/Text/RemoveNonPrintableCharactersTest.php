@@ -16,13 +16,8 @@ namespace Ergebnis\DayOneToObsidianConverter\Test\Unit\Inside\Domain\DayOneToObs
 use Ergebnis\DayOneToObsidianConverter\Inside;
 use PHPUnit\Framework;
 
-/**
- * @internal
- *
- * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOneToObsidian\Text\RemoveNonPrintableCharacters
- *
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Text
- */
+#[Framework\Attributes\CoversClass(Inside\Domain\DayOneToObsidian\Text\RemoveNonPrintableCharacters::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\Shared\Text::class)]
 final class RemoveNonPrintableCharactersTest extends Framework\TestCase
 {
     public function testProcessRemovesNonPrintableCharacters(): void

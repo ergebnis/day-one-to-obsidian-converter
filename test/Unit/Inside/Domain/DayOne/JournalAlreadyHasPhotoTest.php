@@ -17,13 +17,8 @@ use Ergebnis\DayOneToObsidianConverter\Inside;
 use Ergebnis\DayOneToObsidianConverter\Test;
 use PHPUnit\Framework;
 
-/**
- * @internal
- *
- * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\JournalAlreadyHasPhoto
- *
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\PhotoIdentifier
- */
+#[Framework\Attributes\CoversClass(Inside\Domain\DayOne\JournalAlreadyHasPhoto::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\DayOne\PhotoIdentifier::class)]
 final class JournalAlreadyHasPhotoTest extends Framework\TestCase
 {
     use Test\Util\Helper;

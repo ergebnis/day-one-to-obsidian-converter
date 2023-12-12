@@ -17,14 +17,9 @@ use Ergebnis\DayOneToObsidianConverter\Inside;
 use Ergebnis\DayOneToObsidianConverter\Test;
 use PHPUnit\Framework;
 
-/**
- * @internal
- *
- * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
- *
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileNameWithoutExtension
- */
+#[Framework\Attributes\CoversClass(Inside\Domain\Shared\FileName::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\Shared\Extension::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\Shared\FileNameWithoutExtension::class)]
 final class FileNameTest extends Framework\TestCase
 {
     use Test\Util\Helper;
@@ -53,9 +48,7 @@ final class FileNameTest extends Framework\TestCase
         self::assertSame($expected, $fileName->toString());
     }
 
-    /**
-     * @dataProvider provideValueFileNameWithoutExtensionsAndExtension
-     */
+    #[Framework\Attributes\DataProvider('provideValueFileNameWithoutExtensionsAndExtension')]
     public function testFromStringReturnsFileName(
         string $value,
         Inside\Domain\Shared\FileNameWithoutExtension $fileNameWithoutExtension,

@@ -17,11 +17,7 @@ use Ergebnis\DayOneToObsidianConverter\Outside;
 use Ergebnis\DayOneToObsidianConverter\Test;
 use PHPUnit\Framework;
 
-/**
- * @internal
- *
- * @covers \Ergebnis\DayOneToObsidianConverter\Outside\Infrastructure\DataNormalizer
- */
+#[Framework\Attributes\CoversClass(Outside\Infrastructure\DataNormalizer::class)]
 final class DataNormalizerTest extends Framework\TestCase
 {
     use Test\Util\Helper;

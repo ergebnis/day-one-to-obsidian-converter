@@ -19,31 +19,26 @@ use Ergebnis\DayOneToObsidianConverter\Test;
 use Ergebnis\Json\SchemaValidator;
 use PHPUnit\Framework;
 
-/**
- * @internal
- *
- * @covers \Ergebnis\DayOneToObsidianConverter\Outside\Adapter\Secondary\DayOne\JournalReader
- *
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\CreationDate
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Entry
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\EntryIdentifier
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Journal
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\ModifiedDate
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Photo
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\PhotoIdentifier
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Tag
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\File
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileName
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\FileNameWithoutExtension
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Text
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Port\Secondary\DayOne\FileDoesNotContainJson
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Port\Secondary\DayOne\FileDoesNotContainJsonValidAccordingToSchema
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Port\Secondary\DayOne\FileDoesNotExist
- * @uses \Ergebnis\DayOneToObsidianConverter\Outside\Infrastructure\DataNormalizer
- */
+#[Framework\Attributes\CoversClass(Outside\Adapter\Secondary\DayOne\JournalReader::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\DayOne\CreationDate::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\DayOne\Entry::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\DayOne\EntryIdentifier::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\DayOne\Journal::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\DayOne\ModifiedDate::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\DayOne\Photo::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\DayOne\PhotoIdentifier::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\DayOne\Tag::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\Shared\Directory::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\Shared\Extension::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\Shared\File::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\Shared\FileName::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\Shared\FileNameWithoutExtension::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\Shared\Path::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\Shared\Text::class)]
+#[Framework\Attributes\UsesClass(Inside\Port\Secondary\DayOne\FileDoesNotContainJson::class)]
+#[Framework\Attributes\UsesClass(Inside\Port\Secondary\DayOne\FileDoesNotContainJsonValidAccordingToSchema::class)]
+#[Framework\Attributes\UsesClass(Inside\Port\Secondary\DayOne\FileDoesNotExist::class)]
+#[Framework\Attributes\UsesClass(Outside\Infrastructure\DataNormalizer::class)]
 final class JournalReaderTest extends Framework\TestCase
 {
     use Test\Util\Helper;

@@ -17,11 +17,7 @@ use Ergebnis\DayOneToObsidianConverter\Inside;
 use Ergebnis\DayOneToObsidianConverter\Test;
 use PHPUnit\Framework;
 
-/**
- * @internal
- *
- * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\Tag
- */
+#[Framework\Attributes\CoversClass(Inside\Domain\DayOne\Tag::class)]
 final class TagTest extends Framework\TestCase
 {
     use Test\Util\Helper;

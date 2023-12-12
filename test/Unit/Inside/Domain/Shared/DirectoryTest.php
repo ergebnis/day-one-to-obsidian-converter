@@ -17,13 +17,8 @@ use Ergebnis\DayOneToObsidianConverter\Inside;
 use Ergebnis\DayOneToObsidianConverter\Test;
 use PHPUnit\Framework;
 
-/**
- * @internal
- *
- * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Directory
- *
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
- */
+#[Framework\Attributes\CoversClass(Inside\Domain\Shared\Directory::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\Shared\Path::class)]
 final class DirectoryTest extends Framework\TestCase
 {
     use Test\Util\Helper;

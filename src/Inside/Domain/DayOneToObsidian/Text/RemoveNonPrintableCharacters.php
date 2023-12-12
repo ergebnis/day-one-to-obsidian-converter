@@ -23,7 +23,7 @@ final class RemoveNonPrintableCharacters implements TextProcessor
     /**
      * @var array<string, string>
      */
-    private array $nonPrintableCharacters;
+    private readonly array $nonPrintableCharacters;
 
     public function __construct()
     {
