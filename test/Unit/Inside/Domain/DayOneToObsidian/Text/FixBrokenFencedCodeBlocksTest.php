@@ -16,13 +16,8 @@ namespace Ergebnis\DayOneToObsidianConverter\Test\Unit\Inside\Domain\DayOneToObs
 use Ergebnis\DayOneToObsidianConverter\Inside;
 use PHPUnit\Framework;
 
-/**
- * @internal
- *
- * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOneToObsidian\Text\FixBrokenFencedCodeBlocks
- *
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Text
- */
+#[Framework\Attributes\CoversClass(Inside\Domain\DayOneToObsidian\Text\FixBrokenFencedCodeBlocks::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\Shared\Text::class)]
 final class FixBrokenFencedCodeBlocksTest extends Framework\TestCase
 {
     public function testProcessFixesBrokenDayOneCodeBlocks(): void

@@ -17,11 +17,7 @@ use Ergebnis\DayOneToObsidianConverter\Inside;
 use Ergebnis\DayOneToObsidianConverter\Test;
 use PHPUnit\Framework;
 
-/**
- * @internal
- *
- * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOne\CreationDate
- */
+#[Framework\Attributes\CoversClass(Inside\Domain\DayOne\CreationDate::class)]
 final class CreationDateTest extends Framework\TestCase
 {
     use Test\Util\Helper;

@@ -34,12 +34,11 @@ $config->getFinder()
     ->exclude([
         '.build/',
         '.github/',
-        '.notes/',
+        '.note/',
     ])
     ->ignoreDotFiles(false)
     ->in(__DIR__)
-    ->name('day-one-to-obsidian-converter')
-    ->name('.php-cs-fixer.php');
+    ->name('day-one-to-obsidian-converter');
 
 $config->setCacheFile(__DIR__ . '/.build/php-cs-fixer/.php-cs-fixer.cache');
 

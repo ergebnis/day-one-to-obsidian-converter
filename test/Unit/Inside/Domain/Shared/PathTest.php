@@ -17,18 +17,12 @@ use Ergebnis\DayOneToObsidianConverter\Inside;
 use Ergebnis\DayOneToObsidianConverter\Test;
 use PHPUnit\Framework;
 
-/**
- * @internal
- *
- * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
- */
+#[Framework\Attributes\CoversClass(Inside\Domain\Shared\Path::class)]
 final class PathTest extends Framework\TestCase
 {
     use Test\Util\Helper;
 
-    /**
-     * @dataProvider providePath
-     */
+    #[Framework\Attributes\DataProvider('providePath')]
     public function testFromStringReturnsPath(string $value): void
     {
         $path = Inside\Domain\Shared\Path::fromString($value);

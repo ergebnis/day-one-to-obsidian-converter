@@ -20,7 +20,7 @@ final class PredictableJournalReader implements Inside\Port\Secondary\DayOne\Jou
     /**
      * @var array<string, \Closure>
      */
-    private array $factories;
+    private readonly array $factories;
 
     /**
      * @param array<string, \Closure> $factories

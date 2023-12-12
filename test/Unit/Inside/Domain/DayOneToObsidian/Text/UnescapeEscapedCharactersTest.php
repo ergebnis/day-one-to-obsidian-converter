@@ -17,13 +17,8 @@ use Ergebnis\DayOneToObsidianConverter\Inside;
 use Ergebnis\DayOneToObsidianConverter\Test;
 use PHPUnit\Framework;
 
-/**
- * @internal
- *
- * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\DayOneToObsidian\Text\UnescapeEscapedCharacters
- *
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Text
- */
+#[Framework\Attributes\CoversClass(Inside\Domain\DayOneToObsidian\Text\UnescapeEscapedCharacters::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\Shared\Text::class)]
 final class UnescapeEscapedCharactersTest extends Framework\TestCase
 {
     use Test\Util\Helper;

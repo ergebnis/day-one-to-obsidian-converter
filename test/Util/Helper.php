@@ -22,7 +22,7 @@ trait Helper
     final protected static function faker(string $locale = 'en_US'): Generator
     {
         /**
-         * @var array<string, Generator>
+         * @var array<string, Generator> $fakers
          */
         static $fakers = [];
 

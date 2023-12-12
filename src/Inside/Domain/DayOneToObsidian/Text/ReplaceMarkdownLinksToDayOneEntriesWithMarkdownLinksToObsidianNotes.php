@@ -20,7 +20,7 @@ final class ReplaceMarkdownLinksToDayOneEntriesWithMarkdownLinksToObsidianNotes 
     /**
      * @var array<string, string>
      */
-    private array $replacements;
+    private readonly array $replacements;
 
     public function __construct(
         Inside\Domain\DayOneToObsidian\File\ObsidianNoteFileMapper $obsidianNoteFileMapper,

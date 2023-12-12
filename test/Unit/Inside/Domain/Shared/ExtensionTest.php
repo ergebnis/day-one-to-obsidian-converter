@@ -17,11 +17,7 @@ use Ergebnis\DayOneToObsidianConverter\Inside;
 use Ergebnis\DayOneToObsidianConverter\Test;
 use PHPUnit\Framework;
 
-/**
- * @internal
- *
- * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Extension
- */
+#[Framework\Attributes\CoversClass(Inside\Domain\Shared\Extension::class)]
 final class ExtensionTest extends Framework\TestCase
 {
     use Test\Util\Helper;

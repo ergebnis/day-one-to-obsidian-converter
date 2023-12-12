@@ -17,13 +17,8 @@ use Ergebnis\DayOneToObsidianConverter\Inside;
 use Ergebnis\DayOneToObsidianConverter\Test;
 use PHPUnit\Framework;
 
-/**
- * @internal
- *
- * @covers \Ergebnis\DayOneToObsidianConverter\Inside\Port\Secondary\DayOne\DirectoryDoesNotExist
- *
- * @uses \Ergebnis\DayOneToObsidianConverter\Inside\Domain\Shared\Path
- */
+#[Framework\Attributes\CoversClass(Inside\Port\Secondary\DayOne\DirectoryDoesNotExist::class)]
+#[Framework\Attributes\UsesClass(Inside\Domain\Shared\Path::class)]
 final class DirectoryDoesNotExistTest extends Framework\TestCase
 {
     use Test\Util\Helper;
