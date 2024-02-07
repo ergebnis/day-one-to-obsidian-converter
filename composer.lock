@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "13fbd9849d1a9e81334bb773c94bafda",
+    "content-hash": "0e3ac4cf1141ffd4737564229dd19e36",
     "packages": [
         {
             "name": "ergebnis/json-schema-validator",
