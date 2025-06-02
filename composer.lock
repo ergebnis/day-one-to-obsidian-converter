@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9d56fb96f00ad5c77c791345ab318875",
+    "content-hash": "f7f3dcb0a0a18cb16837ab76fb358c56",
     "packages": [
         {
             "name": "ergebnis/json-schema-validator",
@@ -4256,16 +4256,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.14",
+            "version": "2.1.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "8f2e03099cac24ff3b379864d171c5acbfc6b9a2"
+                "reference": "89b5ef665716fa2a52ecd2633f21007a6a349053"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/8f2e03099cac24ff3b379864d171c5acbfc6b9a2",
-                "reference": "8f2e03099cac24ff3b379864d171c5acbfc6b9a2",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/89b5ef665716fa2a52ecd2633f21007a6a349053",
+                "reference": "89b5ef665716fa2a52ecd2633f21007a6a349053",
                 "shasum": ""
             },
             "require": {
@@ -4310,7 +4310,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-05-02T15:32:28+00:00"
+            "time": "2025-05-21T20:55:28+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -5426,21 +5426,21 @@
         },
         {
             "name": "rector/rector",
-            "version": "2.0.16",
+            "version": "2.0.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "f1366d1f8c7490541c8f7af6e5c7cef7cca1b5a2"
+                "reference": "caa4ffda1d48bde44434e6ba95d132ec32e7fd40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/f1366d1f8c7490541c8f7af6e5c7cef7cca1b5a2",
-                "reference": "f1366d1f8c7490541c8f7af6e5c7cef7cca1b5a2",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/caa4ffda1d48bde44434e6ba95d132ec32e7fd40",
+                "reference": "caa4ffda1d48bde44434e6ba95d132ec32e7fd40",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.4|^8.0",
-                "phpstan/phpstan": "^2.1.14"
+                "phpstan/phpstan": "^2.1.17"
             },
             "conflict": {
                 "rector/rector-doctrine": "*",
@@ -5473,7 +5473,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/2.0.16"
+                "source": "https://github.com/rectorphp/rector/tree/2.0.17"
             },
             "funding": [
                 {
@@ -5481,7 +5481,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-05-12T16:37:16+00:00"
+            "time": "2025-05-30T10:59:08+00:00"
         },
         {
             "name": "revolt/event-loop",
