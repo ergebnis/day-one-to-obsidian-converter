@@ -4116,7 +4116,6 @@ MARKDOWN
                     $photoDirectory->path()->toString(),
                 ))),
             ),
-
             Inside\Domain\DayOne\Photo::create(
                 $journal,
                 Inside\Domain\DayOne\PhotoIdentifier::fromString('83F0FE5967124BF0BAB15AA2E8B19B94'),
@@ -4141,7 +4140,6 @@ MARKDOWN
                     $photoDirectory->path()->toString(),
                 ))),
             ),
-
             Inside\Domain\DayOne\Photo::create(
                 $journal,
                 Inside\Domain\DayOne\PhotoIdentifier::fromString('88E71E5B4F1F4853A0F8A7F480A0168C'),
@@ -4278,7 +4276,6 @@ MARKDOWN
                     $photoDirectory->path()->toString(),
                 ))),
             ),
-
             Inside\Domain\DayOne\Photo::create(
                 $journal,
                 Inside\Domain\DayOne\PhotoIdentifier::fromString('56D4DFB5FDFC43EB872AE1297081854C'),
@@ -4343,7 +4340,6 @@ MARKDOWN
                     $photoDirectory->path()->toString(),
                 ))),
             ),
-
             Inside\Domain\DayOne\Photo::create(
                 $journal,
                 Inside\Domain\DayOne\PhotoIdentifier::fromString('C624BF94CF494A4F8D2E241F8DA93817'),
@@ -4408,7 +4404,6 @@ MARKDOWN
                     $photoDirectory->path()->toString(),
                 ))),
             ),
-
             Inside\Domain\DayOne\Photo::create(
                 $journal,
                 Inside\Domain\DayOne\PhotoIdentifier::fromString('0702E3C16D9B4B518DD666CFBD97C204'),
@@ -4465,7 +4460,6 @@ MARKDOWN
                     $photoDirectory->path()->toString(),
                 ))),
             ),
-
             Inside\Domain\DayOne\Photo::create(
                 $journal,
                 Inside\Domain\DayOne\PhotoIdentifier::fromString('E9AE4A7D57AF4C619C2423387F483697'),
@@ -4538,7 +4532,6 @@ MARKDOWN
                     $photoDirectory->path()->toString(),
                 ))),
             ),
-
             Inside\Domain\DayOne\Photo::create(
                 $journal,
                 Inside\Domain\DayOne\PhotoIdentifier::fromString('F7E3BD1BE8AA4E93A5FC10CBADF3523C'),
@@ -4803,7 +4796,6 @@ MARKDOWN
                     $photoDirectory->path()->toString(),
                 ))),
             ),
-
             Inside\Domain\DayOne\Photo::create(
                 $journal,
                 Inside\Domain\DayOne\PhotoIdentifier::fromString('40CDD60774F643CBB71F95837905390F'),
@@ -5076,7 +5068,6 @@ MARKDOWN
                     $photoDirectory->path()->toString(),
                 ))),
             ),
-
             Inside\Domain\DayOne\Photo::create(
                 $journal,
                 Inside\Domain\DayOne\PhotoIdentifier::fromString('9A5CB212CFD842A9BCC424F4F6F447D0'),

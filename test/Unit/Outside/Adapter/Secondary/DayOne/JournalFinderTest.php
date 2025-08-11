@@ -51,7 +51,7 @@ final class JournalFinderTest extends Framework\TestCase
             self::faker()->slug(),
         )));
 
-        $journalFinder = new Outside\Adapter\Secondary\DayOne\JournalFinder($this->createStub(Inside\Port\Secondary\DayOne\JournalReader::class));
+        $journalFinder = new Outside\Adapter\Secondary\DayOne\JournalFinder(self::createStub(Inside\Port\Secondary\DayOne\JournalReader::class));
 
         $this->expectException(Inside\Port\Secondary\DayOne\DirectoryDoesNotExist::class);
 
@@ -68,7 +68,7 @@ final class JournalFinderTest extends Framework\TestCase
 
         self::fileSystem()->mkdir($directory->path()->toString());
 
-        $journalFinder = new Outside\Adapter\Secondary\DayOne\JournalFinder($this->createStub(Inside\Port\Secondary\DayOne\JournalReader::class));
+        $journalFinder = new Outside\Adapter\Secondary\DayOne\JournalFinder(self::createStub(Inside\Port\Secondary\DayOne\JournalReader::class));
 
         $journals = $journalFinder->find($directory);
 
