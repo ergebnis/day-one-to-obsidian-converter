@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1a899b2e4c5142f45d663002f58d3605",
+    "content-hash": "f3283e6b0ab7af12ff8670d8b217a36d",
     "packages": [
         {
             "name": "ergebnis/json-schema-validator",
@@ -5459,16 +5459,16 @@
         },
         {
             "name": "rector/rector",
-            "version": "2.2.3",
+            "version": "2.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "d27f976a332a87b5d03553c2e6f04adbe5da034f"
+                "reference": "904f12f23858ef54ec5782b05cb2979b703cb185"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/d27f976a332a87b5d03553c2e6f04adbe5da034f",
-                "reference": "d27f976a332a87b5d03553c2e6f04adbe5da034f",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/904f12f23858ef54ec5782b05cb2979b703cb185",
+                "reference": "904f12f23858ef54ec5782b05cb2979b703cb185",
                 "shasum": ""
             },
             "require": {
@@ -5507,7 +5507,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/2.2.3"
+                "source": "https://github.com/rectorphp/rector/tree/2.2.4"
             },
             "funding": [
                 {
@@ -5515,7 +5515,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-10-11T21:50:23+00:00"
+            "time": "2025-10-22T07:50:23+00:00"
         },
         {
             "name": "revolt/event-loop",
